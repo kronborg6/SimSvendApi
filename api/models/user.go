@@ -5,3 +5,6 @@ type UserInfo struct {
 
 type UserStats struct {
 }
+
+type Roles struct {
+}
