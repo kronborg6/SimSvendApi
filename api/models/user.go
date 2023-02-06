@@ -10,7 +10,7 @@ type UserInfo struct {
 	Password  string `json:"password" gorm:"not null"`
 	CreateAt  time.Time
 	RoleId    int   `json:"role_id"`
-	Company   Roles `gorm:"foreignKey:RoleId"`
+	Role      Roles `gorm:"foreignKey:RoleId"`
 }
 
 type UserStats struct {
