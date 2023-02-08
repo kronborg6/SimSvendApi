@@ -29,8 +29,8 @@ type Results struct {
 	BOne    int32  `gorm:"not null;default:0"`
 	ATwo    int32  `gorm:"not null;default:0"`
 	BTwo    int32  `gorm:"not null;default:0"`
-	AThree  int32  `gorm:"not null;default:null"`
-	BThree  int32  `gorm:"not null;default:null"`
+	AThree  int32  `gorm:"default:null"`
+	BThree  int32  `gorm:"default:null"`
 }
 
 /*
