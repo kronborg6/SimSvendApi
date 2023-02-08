@@ -1,6 +1,10 @@
 package models
 
-import "gorm.io/gorm"
+import (
+	"time"
+
+	"gorm.io/gorm"
+)
 
 func Setup(db *gorm.DB) {
 	db.Migrator().DropTable(
@@ -27,4 +31,33 @@ func Setup(db *gorm.DB) {
 		&UserInfo{},
 		&UserStats{},
 	)
+
+	role := []Roles{
+		{
+			Name: "Bruger",
+		},
+		{
+			Name: "Admin",
+		},
+	}
+	userinfo := []UserInfo{
+		{
+			FirstName: "Mikkel",
+			LastName:  "Kronborg",
+			Email:     "mkronborg7@gmail.com",
+			Password:  "Test",
+			RoleId:    2,
+			CreateAt:  time.Now(),
+		},
+		{
+			FirstName: "August",
+			LastName:  "Schnell",
+			Email:     "augustschnellpedersen@gmail.com",
+			Password:  "Test",
+			RoleId:    1,
+			CreateAt:  time.Now(),
+		},
+	}
+	db.Create(role)
+	db.Create(userinfo)
 }
