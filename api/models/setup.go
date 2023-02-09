@@ -113,6 +113,11 @@ func Setup(db *gorm.DB) {
 			Name: "December",
 		},
 	}
+	leaderboards := []Leaderboards{
+		{
+
+		}
+	}
 	zip := []ZipCode{
 		{
 			Id:   5690,
