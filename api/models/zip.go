@@ -1,6 +1,6 @@
 package models
 
 type ZipCode struct {
-	Id   int64  `json:"id" gorm:"primaryKey"`
+	Id   int64  `gorm:"primaryKey;autoIncrement:false"`
 	Name string `json:"name"`
 }
