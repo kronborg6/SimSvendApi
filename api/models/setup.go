@@ -57,6 +57,22 @@ func Setup(db *gorm.DB) {
 			RoleId:    1,
 			CreateAt:  time.Now(),
 		},
+		{
+			FirstName: "Tina",
+			LastName:  "Kronborg",
+			Email:     "t.kronborg6@gmail.com",
+			Password:  "Test",
+			RoleId:    1,
+			CreateAt:  time.Now(),
+		},
+		{
+			FirstName: "Oliver",
+			LastName:  "Mathiesen",
+			Email:     "mathiesenoliver@gmail.com",
+			Password:  "Test",
+			RoleId:    1,
+			CreateAt:  time.Now(),
+		},
 	}
 
 	userStats := []UserStats{
@@ -73,6 +89,20 @@ func Setup(db *gorm.DB) {
 			Points:     12,
 			Wins:       2,
 			Losses:     2212,
+		},
+		{
+			UserInfoId: 3,
+			Elo:        1206,
+			Points:     13021,
+			Wins:       764,
+			Losses:     453,
+		},
+		{
+			UserInfoId: 4,
+			Elo:        5933,
+			Points:     9542,
+			Wins:       765,
+			Losses:     467,
 		},
 	}
 	months := []Months{
@@ -115,8 +145,49 @@ func Setup(db *gorm.DB) {
 	}
 	leaderboards := []Leaderboards{
 		{
-
-		}
+			MonthID:  1,
+			Year:     2023,
+			PlayerID: 1,
+			Points:   6996,
+		},
+		{
+			MonthID:  1,
+			Year:     2023,
+			PlayerID: 2,
+			Points:   4223,
+		},
+		{
+			MonthID:  1,
+			Year:     2023,
+			PlayerID: 3,
+			Points:   221,
+		},
+		{
+			MonthID:  1,
+			Year:     2023,
+			PlayerID: 4,
+			Points:   420,
+		},
+		{
+			MonthID:  1,
+			Year:     2023,
+			PlayerID: 1,
+		},
+		{
+			MonthID:  1,
+			Year:     2023,
+			PlayerID: 2,
+		},
+		{
+			MonthID:  1,
+			Year:     2023,
+			PlayerID: 3,
+		},
+		{
+			MonthID:  1,
+			Year:     2023,
+			PlayerID: 4,
+		},
 	}
 	zip := []ZipCode{
 		{
@@ -188,4 +259,5 @@ func Setup(db *gorm.DB) {
 	db.Create(zip)
 	db.Create(place)
 	db.Create(courts)
+	db.Create(leaderboards)
 }

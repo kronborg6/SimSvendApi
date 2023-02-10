@@ -7,7 +7,7 @@ type Leaderboards struct {
 	Year     int32
 	PlayerID int
 	Player   UserInfo `gorm:"foreignKey:PlayerID"`
-	Points   int64
+	Points   int64    `gorm:"default:null"`
 }
 
 type Months struct {
