@@ -3,6 +3,7 @@ package models
 import (
 	"time"
 
+	"github.com/kronborg6/SimSvendApi/api/middleware"
 	"gorm.io/gorm"
 )
 
@@ -45,7 +46,7 @@ func Setup(db *gorm.DB) {
 			FirstName: "Mikkel",
 			LastName:  "Kronborg",
 			Email:     "mkronborg7@gmail.com",
-			Password:  "Test",
+			Password:  middleware.HashPassword("Test"),
 			RoleId:    2,
 			CreateAt:  time.Now(),
 		},
@@ -53,7 +54,7 @@ func Setup(db *gorm.DB) {
 			FirstName: "August",
 			LastName:  "Schnell",
 			Email:     "augustschnellpedersen@gmail.com",
-			Password:  "Test",
+			Password:  middleware.HashPassword("Test"),
 			RoleId:    1,
 			CreateAt:  time.Now(),
 		},
@@ -61,7 +62,7 @@ func Setup(db *gorm.DB) {
 			FirstName: "Tina",
 			LastName:  "Kronborg",
 			Email:     "t.kronborg6@gmail.com",
-			Password:  "Test",
+			Password:  middleware.HashPassword("Test"),
 			RoleId:    1,
 			CreateAt:  time.Now(),
 		},
@@ -69,7 +70,7 @@ func Setup(db *gorm.DB) {
 			FirstName: "Oliver",
 			LastName:  "Mathiesen",
 			Email:     "mathiesenoliver@gmail.com",
-			Password:  "Test",
+			Password:  middleware.HashPassword("Test"),
 			RoleId:    1,
 			CreateAt:  time.Now(),
 		},
