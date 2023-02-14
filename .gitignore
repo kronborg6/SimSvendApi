@@ -3,3 +3,5 @@ SimSvend/bin
 
 bin/
 bin/SimSvend
+
+api/db/db.go
