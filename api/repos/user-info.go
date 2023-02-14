@@ -17,7 +17,7 @@ func (repo *UserRepo) FindUser(data models.UserInfo) (*[]models.UserInfo, error)
 	fmt.Println("lol")
 
 	if err := repo.db.Where("email = ?", data.Email).Find(&user).Error; err != nil {
-		return &user, err
+		return nil, err
 	}
 	// fmt.Println(user[0].Password)
 	if !middleware.CheckPasswordHash(data.Password, user[0].Password) {
