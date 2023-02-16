@@ -36,7 +36,21 @@ func (controller *UserController) GetAllUser(c *fiber.Ctx) error {
 	return nil
 }
 func (controller *UserController) CreateUser(c *fiber.Ctx) error {
-	return nil
+	var user models.UserInfo
+	var err error
+
+	if err = c.BodyParser(&user); err != nil {
+		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+
+	}
+
+	data, err := controller.repo.NewUser(user)
+
+	if err != nil {
+		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+	}
+
+	return c.JSON(data)
 }
 
 func NewUserController(repo *repos.UserRepo) *UserController {
