@@ -45,8 +45,13 @@ func (repo *UserRepo) FindUser(data models.UserInfo) (*[]models.UserInfo, error)
 func (repo *UserRepo) FindAllUser() ([]models.UserInfo, error) {
 	return nil, nil
 }
-func (repo *UserRepo) NewUser(user models.UserInfo) (*[]models.UserInfo, error) {
-	return nil, nil
+func (repo *UserRepo) NewUser(user models.UserInfo) (models.UserInfo, error) {
+
+	if err := repo.db.Create(&user).Error; err != nil {
+		return user, err
+	}
+
+	return user, nil
 }
 
 func NewUserRepo(db *gorm.DB) *UserRepo {
