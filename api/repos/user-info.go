@@ -49,7 +49,11 @@ func (repo *UserRepo) FindAllUser() ([]models.UserInfo, error) {
 func (repo *UserRepo) NewUser(user models.UserInfo) (models.UserInfo, error) {
 
 	user.CreateAt = time.Now()
-
+	var userStats models.UserStats
+	if err := repo.db.Create(&userStats).Error; err != nil {
+		return user, err
+	}
+	user.UserStatsID = userStats.Id
 	if err := repo.db.Create(&user).Error; err != nil {
 		return user, err
 	}
