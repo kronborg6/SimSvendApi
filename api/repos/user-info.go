@@ -3,6 +3,7 @@ package repos
 import (
 	"errors"
 	"fmt"
+	"time"
 
 	"github.com/kronborg6/SimSvendApi/api/middleware"
 	"github.com/kronborg6/SimSvendApi/api/models"
@@ -46,6 +47,8 @@ func (repo *UserRepo) FindAllUser() ([]models.UserInfo, error) {
 	return nil, nil
 }
 func (repo *UserRepo) NewUser(user models.UserInfo) (models.UserInfo, error) {
+
+	user.CreateAt = time.Now()
 
 	if err := repo.db.Create(&user).Error; err != nil {
 		return user, err

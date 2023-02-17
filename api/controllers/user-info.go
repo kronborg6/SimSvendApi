@@ -64,4 +64,5 @@ func RegisterUserController(db *gorm.DB, router fiber.Router) {
 	UserRouter := router.Group("/user")
 
 	UserRouter.Post("/login", controller.GetUser)
+	UserRouter.Post("/register", controller.CreateUser)
 }
