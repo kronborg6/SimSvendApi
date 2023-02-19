@@ -24,7 +24,7 @@ func (repo *UserStatsRepo) FindPlayerStats(email string) ([]models.UserStats, er
 	if err := repo.db.Debug().Where("email = ?", email).Find(userStats).Error; err != nil {
 		return userStats, err
 	}
-	return nil, nil
+	return userStats, nil
 }
 
 func (repo *UserStatsRepo) UpdatePlayerStats() ([]models.UserStats, error) {
