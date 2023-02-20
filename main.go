@@ -34,6 +34,7 @@ func main() {
 	// fmt.Println("Match: ", match)
 
 	controllers.RegisterUserController(db, api)
+	controllers.RegisterUserStatsController(db, api)
 
 	app.Get("/test", func(c *fiber.Ctx) error {
 		return c.JSON(fiber.Map{

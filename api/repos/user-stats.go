@@ -18,12 +18,17 @@ func (repo *UserStatsRepo) FindAllPlayerStats() ([]models.UserStats, error) {
 	return userStats, nil
 }
 
-func (repo *UserStatsRepo) FindPlayerStats(email string) ([]models.UserStats, error) {
+func (repo *UserStatsRepo) FindPlayerStats(id int) ([]models.UserStats, error) {
 	var userStats []models.UserStats
+	// var userinfo []models.UserInfo
 
-	if err := repo.db.Debug().Where("email = ?", email).Find(userStats).Error; err != nil {
+	if err := repo.db.Debug().Where("id = ?", id).Find(&userStats).Error; err != nil {
 		return userStats, err
 	}
+
+	// if err := repo.db.Debug().Where("id = ?", userinfo[0].UserStatsID).Find(userStats).Error; err != nil {
+	// 	return userStats, err
+	// }
 	return userStats, nil
 }
 
