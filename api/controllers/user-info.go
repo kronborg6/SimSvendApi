@@ -21,10 +21,13 @@ func (controller *UserController) GetUser(c *fiber.Ctx) error {
 	data, err := controller.repo.FindUser(user)
 
 	if err != nil {
-		return c.JSON(fiber.Map{
-			"message": "username or password do not match",
-			"error":   err,
-		})
+		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+
+		// panic("This panic is caught by fiber")
+		// return c.JSON(fiber.Map{
+		// 	"message": "username or password do not match",
+		// 	"error":   err,
+		// })
 	}
 	// if test, err = controller.repo.FindUser(user); err != nil {
 	// 	return fiber.NewError(fiber.StatusInternalServerError, err.Error())
