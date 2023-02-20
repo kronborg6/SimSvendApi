@@ -36,7 +36,7 @@ func (repo *UserRepo) FindUser(data models.UserInfo) (*[]models.UserInfo, error)
 	// fmt.Println(user[0].Password)
 	if !middleware.CheckPasswordHash(data.Password, user[0].Password) {
 		fmt.Println("password no match")
-		return nil, nil
+		return nil, errors.New("Password not matchs")
 	}
 	fmt.Println("dsfgdfgdgfdgfdfg dfg dfg dfg df")
 
