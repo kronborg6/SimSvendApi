@@ -22,7 +22,7 @@ func (repo *UserRepo) FindUser(data models.UserInfo) (*[]models.UserInfo, error)
 	// 	fmt.Println("Hej med dig")
 	// 	return nil, err
 	// }
-	err := repo.db.Where("email = ?", data.Email).Find(&user)
+	err := repo.db.Where("email = ?", data.Email).Preload("UserStats").Find(&user)
 	fmt.Println("dsfgdfgdgfdgfdfg dfg dfg dfg df")
 	if err.Error != nil {
 		return nil, err.Error
