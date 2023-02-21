@@ -24,11 +24,11 @@ import (
 func Init() *gorm.DB {
 	dsn := fmt.Sprintf(
 		"%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
-		config.Config("DB_USER"),
-		config.Config("DB_PASSWORD"),
-		config.Config("DB_HOST"),
-		config.Config("DB_PORT"),
-		config.Config("DB_NAME"),
+		config.Config("MYSQLUSER"),
+		config.Config("MYSQLPASSWORD"),
+		config.Config("MYSQLHOST"),
+		config.Config("MYSQLPORT"),
+		config.Config("MYSQLDATABASE"),
 	)
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 
