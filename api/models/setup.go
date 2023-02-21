@@ -3,6 +3,7 @@ package models
 import (
 	"time"
 
+	"github.com/kronborg6/SimSvendApi/api/middleware"
 	"gorm.io/gorm"
 )
 
@@ -16,8 +17,8 @@ func Setup(db *gorm.DB) {
 		&Results{},
 		&Roles{},
 		&ZipCode{},
-		&UserInfo{},
 		&UserStats{},
+		&UserInfo{},
 	)
 	db.AutoMigrate(
 		&Clubs{},
@@ -28,8 +29,8 @@ func Setup(db *gorm.DB) {
 		&Results{},
 		&Roles{},
 		&ZipCode{},
-		&UserInfo{},
 		&UserStats{},
+		&UserInfo{},
 	)
 
 	role := []Roles{
@@ -42,67 +43,67 @@ func Setup(db *gorm.DB) {
 	}
 	userinfo := []UserInfo{
 		{
-			FirstName: "Mikkel",
-			LastName:  "Kronborg",
-			Email:     "mkronborg7@gmail.com",
-			Password:  "Test",
-			RoleId:    2,
-			CreateAt:  time.Now(),
+			FirstName:   "Mikkel",
+			LastName:    "Kronborg",
+			Email:       "mkronborg7@gmail.com",
+			Password:    middleware.HashPassword("Test"),
+			RoleId:      2,
+			UserStatsID: 1,
+			CreateAt:    time.Now(),
 		},
 		{
-			FirstName: "August",
-			LastName:  "Schnell",
-			Email:     "augustschnellpedersen@gmail.com",
-			Password:  "Test",
-			RoleId:    1,
-			CreateAt:  time.Now(),
+			FirstName:   "August",
+			LastName:    "Schnell",
+			Email:       "augustschnellpedersen@gmail.com",
+			Password:    middleware.HashPassword("Test"),
+			RoleId:      1,
+			UserStatsID: 2,
+			CreateAt:    time.Now(),
 		},
 		{
-			FirstName: "Tina",
-			LastName:  "Kronborg",
-			Email:     "t.kronborg6@gmail.com",
-			Password:  "Test",
-			RoleId:    1,
-			CreateAt:  time.Now(),
+			FirstName:   "Tina",
+			LastName:    "Kronborg",
+			Email:       "t.kronborg6@gmail.com",
+			Password:    middleware.HashPassword("Test"),
+			RoleId:      1,
+			UserStatsID: 3,
+			CreateAt:    time.Now(),
 		},
 		{
-			FirstName: "Oliver",
-			LastName:  "Mathiesen",
-			Email:     "mathiesenoliver@gmail.com",
-			Password:  "Test",
-			RoleId:    1,
-			CreateAt:  time.Now(),
+			FirstName:   "Oliver",
+			LastName:    "Mathiesen",
+			Email:       "mathiesenoliver@gmail.com",
+			Password:    middleware.HashPassword("Test"),
+			RoleId:      1,
+			UserStatsID: 4,
+			CreateAt:    time.Now(),
 		},
 	}
 
 	userStats := []UserStats{
 		{
-			UserInfoId: 1,
-			Elo:        99999,
-			Points:     142347,
-			Wins:       1000,
-			Losses:     0,
+			Elo:    99999,
+			Points: 142347,
+			Wins:   1000,
+			Losses: 0,
 		},
 		{
-			UserInfoId: 2,
-			Elo:        -4532,
-			Points:     12,
-			Wins:       2,
-			Losses:     2212,
+			Elo:    -4532,
+			Points: 12,
+			Wins:   2,
+			Losses: 2212,
 		},
 		{
-			UserInfoId: 3,
-			Elo:        1206,
-			Points:     13021,
-			Wins:       764,
-			Losses:     453,
+			Elo:    1206,
+			Points: 13021,
+			Wins:   764,
+			Losses: 453,
 		},
 		{
-			UserInfoId: 4,
-			Elo:        5933,
-			Points:     9542,
-			Wins:       765,
-			Losses:     467,
+			Elo:    5933,
+			Points: 9542,
+			Wins:   765,
+			Losses: 467,
 		},
 	}
 	months := []Months{
@@ -253,8 +254,8 @@ func Setup(db *gorm.DB) {
 		},
 	}
 	db.Create(role)
-	db.Create(userinfo)
 	db.Create(userStats)
+	db.Create(userinfo)
 	db.Create(months)
 	db.Create(zip)
 	db.Create(place)

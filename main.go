@@ -6,6 +6,7 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
+	"github.com/kronborg6/SimSvendApi/api/controllers"
 	"github.com/kronborg6/SimSvendApi/api/db"
 	"github.com/kronborg6/SimSvendApi/api/models"
 )
@@ -26,6 +27,14 @@ func main() {
 
 	app.Use(logger.New())
 	// fmt.Println(getPort())
+
+	api := app.Group("/")
+
+	// match := middleware.CheckPasswordHash("test", "test")
+	// fmt.Println("Match: ", match)
+
+	controllers.RegisterUserController(db, api)
+	controllers.RegisterUserStatsController(db, api)
 
 	app.Get("/test", func(c *fiber.Ctx) error {
 		return c.JSON(fiber.Map{
