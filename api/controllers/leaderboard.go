@@ -40,7 +40,7 @@ func RegisterLeaderboardController(db *gorm.DB, router fiber.Router) {
 	repo := repos.NewLeaderbaordRepo(db)
 	controller := NewLeaderbaordController(repo)
 
-	LeaderbaordController := router.Group("/leaderbaord")
+	LeaderbaordController := router.Group("/leaderboard")
 
 	LeaderbaordController.Get("/:id", controller.GetAllLeaderboard)
 }
