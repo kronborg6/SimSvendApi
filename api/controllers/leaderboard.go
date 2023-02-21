@@ -1,6 +1,8 @@
 package controllers
 
 import (
+	"strconv"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/kronborg6/SimSvendApi/api/repos"
 	"gorm.io/gorm"
@@ -11,9 +13,17 @@ type LeaderboardController struct {
 }
 
 func (controller *LeaderboardController) GetAllLeaderboard(c *fiber.Ctx) error {
-	// var err error
+	var err error
+	// if err = c.BodyParser(&mounthNumber); err != nil {
+	// 	return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+	// }
+	id, err := strconv.Atoi(c.Params("id"))
 
-	leaderboard, err := controller.repo.FindAllLeaderboards()
+	if err != nil {
+		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+	}
+
+	leaderboard, err := controller.repo.FindAllLeaderboards(int(id))
 	if err != nil {
 		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
 	}
@@ -30,7 +40,7 @@ func RegisterLeaderboardController(db *gorm.DB, router fiber.Router) {
 	repo := repos.NewLeaderbaordRepo(db)
 	controller := NewLeaderbaordController(repo)
 
-	LeaderbaordController := router.Group("/leaderbaord")
+	LeaderbaordController := router.Group("/leaderboard")
 
-	LeaderbaordController.Get("/all", controller.GetAllLeaderboard)
+	LeaderbaordController.Get("/:id", controller.GetAllLeaderboard)
 }
