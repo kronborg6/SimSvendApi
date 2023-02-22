@@ -130,6 +130,26 @@ func Setup(db *gorm.DB) {
 	}
 
 	user := []User{
+		{
+			UserInfoId:  1,
+			UserStatsId: 1,
+			RoleId:      1,
+		},
+		{
+			UserInfoId:  2,
+			UserStatsId: 2,
+			RoleId:      2,
+		},
+		{
+			UserInfoId:  3,
+			UserStatsId: 3,
+			RoleId:      2,
+		},
+		{
+			UserInfoId:  4,
+			UserStatsId: 4,
+			RoleId:      2,
+		},
 		// {
 		// 	UserInfoId:  1,
 		// 	UserStatsId: 1,
