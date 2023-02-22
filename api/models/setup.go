@@ -19,6 +19,8 @@ func Setup(db *gorm.DB) {
 		&ZipCode{},
 		&UserStats{},
 		&UserInfo{},
+		&Friends{},
+		&User{},
 	)
 	db.AutoMigrate(
 		&Clubs{},
@@ -31,6 +33,8 @@ func Setup(db *gorm.DB) {
 		&ZipCode{},
 		&UserStats{},
 		&UserInfo{},
+		&Friends{},
+		&User{},
 	)
 
 	role := []Roles{
@@ -50,6 +54,7 @@ func Setup(db *gorm.DB) {
 			RoleId:      2,
 			UserStatsID: 1,
 			CreateAt:    time.Now(),
+			// FriendsList: []UserInfo{{Id: 2}, {Id: 3}},
 		},
 		{
 			FirstName:   "August",
@@ -59,6 +64,7 @@ func Setup(db *gorm.DB) {
 			RoleId:      1,
 			UserStatsID: 2,
 			CreateAt:    time.Now(),
+			// FriendsList: []UserInfo{{Id: 1}},
 		},
 		{
 			FirstName:   "Tina",
@@ -68,6 +74,7 @@ func Setup(db *gorm.DB) {
 			RoleId:      1,
 			UserStatsID: 3,
 			CreateAt:    time.Now(),
+			// FriendsList: []UserInfo{{Id: 1}, {Id: 4}},
 		},
 		{
 			FirstName:   "Oliver",
@@ -77,6 +84,21 @@ func Setup(db *gorm.DB) {
 			RoleId:      1,
 			UserStatsID: 4,
 			CreateAt:    time.Now(),
+			// FriendsList: []UserInfo{{Id: 2}, {Id: 3}},
+		},
+	}
+	friends := []Friends{
+		{
+			UserId: 1,
+		},
+		{
+			UserId: 2,
+		},
+		{
+			UserId: 3,
+		},
+		{
+			UserId: 4,
 		},
 	}
 
@@ -105,6 +127,41 @@ func Setup(db *gorm.DB) {
 			Wins:   765,
 			Losses: 467,
 		},
+	}
+
+	user := []User{
+		// {
+		// 	UserInfoId:  1,
+		// 	UserStatsId: 1,
+		// 	// Userinfo:  userinfo[0],
+		// 	// UserStats: userStats[0],
+		// 	// Role:      role[0],
+		// 	// FriendList: []Friends{{Id: 2}},
+		// },
+		// {
+		// 	// Userinfo:  userinfo[1],
+		// 	// UserStats: userStats[1],
+		// 	// Role:      role[1],
+		// 	UserInfoId:  2,
+		// 	UserStatsId: 2,
+		// 	// FriendList: []Friends{{Id: 1}},
+		// },
+		// {
+		// 	// Userinfo:  userinfo[2],
+		// 	// UserStats: userStats[2],
+		// 	// Role:      role[2],
+		// 	UserInfoId:  3,
+		// 	UserStatsId: 3,
+		// 	// FriendList: []Friends{{Id: 4}},
+		// },
+		// {
+		// 	// Userinfo:  userinfo[3],
+		// 	// UserStats: userStats[3],
+		// 	// Role:      role[3],
+		// 	UserInfoId:  3,
+		// 	UserStatsId: 3,
+		// 	// FriendList: []Friends{{Id: 3}},
+		// },
 	}
 	months := []Months{
 		{
@@ -256,6 +313,8 @@ func Setup(db *gorm.DB) {
 	db.Create(role)
 	db.Create(userStats)
 	db.Create(userinfo)
+	db.Create(friends)
+	db.Create(user)
 	db.Create(months)
 	db.Create(zip)
 	db.Create(place)

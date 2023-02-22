@@ -8,8 +8,8 @@ import (
 )
 
 func Init() *gorm.DB {
-	// dsn := "root:Password@tcp(localhost:3306)/simsvend?charset=utf8mb4&parseTime=True&loc=Local" // Home Database
-	dsn := "root:jxgcsTKUUO9OzYYN1Z56@tcp(containers-us-west-191.railway.app:6263)/railway?charset=utf8mb4&parseTime=True&loc=Local" // Home Database
+	dsn := "root:Password@tcp(localhost:3306)/simsvend?charset=utf8mb4&parseTime=True&loc=Local" // Home Database
+	// dsn := "root:jxgcsTKUUO9OzYYN1Z56@tcp(containers-us-west-191.railway.app:6263)/railway?charset=utf8mb4&parseTime=True&loc=Local" // Home Database
 
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 
@@ -20,13 +20,15 @@ func Init() *gorm.DB {
 }
 
 // func Init() *gorm.DB {
+// 	fmt.Println("dfgdfgdgf")
+// 	fmt.Println(os.Getenv("hej"))
 // 	dsn := fmt.Sprintf(
-// 		"%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
-// 		config.Config("MYSQLUSER"),
-// 		config.Config("MYSQLPASSWORD"),
-// 		config.Config("MYSQLHOST"),
-// 		config.Config("MYSQLPORT"),
-// 		config.Config("MYSQLDATABASE"),
+// 		"%s:%s@%s:%s/%s?charset=utf8&parseTime=True&loc=Local",
+// 		os.Getenv("MYSQLUSER"),
+// 		os.Getenv("MYSQLPASSWORD"),
+// 		os.Getenv("MYSQLHOST"),
+// 		os.Getenv("MYSQLPORT"),
+// 		os.Getenv("MYSQLDATABASE"),
 // 	)
 // 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 
