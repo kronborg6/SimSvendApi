@@ -36,7 +36,22 @@ func (controller *UserController) GetUser(c *fiber.Ctx) error {
 	return c.JSON(data)
 }
 func (controller *UserController) GetAllUser(c *fiber.Ctx) error {
-	return nil
+	// var user models.User
+	// var err error
+
+	data, err := controller.repo.FindAllUser()
+
+	if err != nil {
+		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+
+		// panic("This panic is caught by fiber")
+		// return c.JSON(fiber.Map{
+		// 	"message": "username or password do not match",
+		// 	"error":   err,
+		// })
+	}
+
+	return c.JSON(data)
 }
 func (controller *UserController) CreateUser(c *fiber.Ctx) error {
 	var user models.UserInfo
@@ -68,4 +83,5 @@ func RegisterUserController(db *gorm.DB, router fiber.Router) {
 
 	UserRouter.Post("/login", controller.GetUser)
 	UserRouter.Post("/register", controller.CreateUser)
+	UserRouter.Get("/test", controller.GetAllUser)
 }

@@ -87,20 +87,20 @@ func Setup(db *gorm.DB) {
 			// FriendsList: []UserInfo{{Id: 2}, {Id: 3}},
 		},
 	}
-	friends := []Friends{
-		{
-			UserId: 1,
-		},
-		{
-			UserId: 2,
-		},
-		{
-			UserId: 3,
-		},
-		{
-			UserId: 4,
-		},
-	}
+	// friends := []Friends{
+	// 	{
+	// 		UserId: 1,
+	// 	},
+	// 	{
+	// 		UserId: 2,
+	// 	},
+	// 	{
+	// 		UserId: 3,
+	// 	},
+	// 	{
+	// 		UserId: 4,
+	// 	},
+	// }
 
 	userStats := []UserStats{
 		{
@@ -134,21 +134,25 @@ func Setup(db *gorm.DB) {
 			UserInfoId:  1,
 			UserStatsId: 1,
 			RoleId:      1,
+			FriendList:  []Friends{{UserId: 3}, {UserId: 2}},
 		},
 		{
 			UserInfoId:  2,
 			UserStatsId: 2,
 			RoleId:      2,
+			FriendList:  []Friends{{UserId: 1}, {UserId: 4}},
 		},
 		{
 			UserInfoId:  3,
 			UserStatsId: 3,
 			RoleId:      2,
+			FriendList:  []Friends{{UserId: 1}, {UserId: 4}},
 		},
 		{
 			UserInfoId:  4,
 			UserStatsId: 4,
 			RoleId:      2,
+			FriendList:  []Friends{{UserId: 3}, {UserId: 2}},
 		},
 		// {
 		// 	UserInfoId:  1,
@@ -333,7 +337,7 @@ func Setup(db *gorm.DB) {
 	db.Create(role)
 	db.Create(userStats)
 	db.Create(userinfo)
-	db.Create(friends)
+	// db.Create(friends)
 	db.Create(user)
 	db.Create(months)
 	db.Create(zip)

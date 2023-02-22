@@ -44,7 +44,7 @@ type User struct {
 	Userinfo    UserInfo `gorm:"foreignKey:UserInfoId"`
 	UserStatsId int
 	UserStats   UserStats `gorm:"foreignKey:UserStatsId"`
-	// FriendList []Friends
-	RoleId int
-	Role   Roles `gorm:"foreignKey:RoleId"`
+	FriendList  []Friends
+	RoleId      int
+	Role        Roles `gorm:"foreignKey:RoleId"`
 }

@@ -40,8 +40,19 @@ func (repo *UserRepo) FindUser(data models.UserInfo) (*[]models.UserInfo, error)
 	return &user, nil
 }
 
-func (repo *UserRepo) FindAllUser() ([]models.UserInfo, error) {
-	return nil, nil
+func (repo *UserRepo) FindAllUser() ([]models.User, error) {
+	var user []models.User
+
+	err := repo.db.Preload("FriendList").Find(&user)
+
+	if err.Error != nil {
+		return nil, err.Error
+	}
+	if err.RowsAffected <= 0 {
+		return nil, errors.New("can't find user")
+
+	}
+	return user, nil
 }
 func (repo *UserRepo) NewUser(user models.UserInfo) (models.UserInfo, error) {
 
