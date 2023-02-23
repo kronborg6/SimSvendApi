@@ -36,6 +36,7 @@ type UserStats struct {
 	Points int `json:"points" gorm:"default:0"`
 	Wins   int `json:"Wins" gorm:"default:0"`
 	Losses int `json:"losses" gorm:"default:0"`
+	UserID int `json:"userId" gorm:"ForeignKey:ID"`
 }
 
 type Roles struct {
@@ -44,9 +45,10 @@ type Roles struct {
 }
 
 type Friends struct {
-	ID     int
-	UserID int `json:"userID"`
-	// User   UserInfo `gorm:"foreignKey:UserId"`
+	ID int
+	// UserInfoID int      `json:"UserInfoID"`
+	// User       UserInfo `gorm:"foreignKey:UserInfoID"`
+	UserInfoID int `json:"userId" gorm:"ForeignKey:ID"`
 }
 
 // type User struct {
@@ -65,7 +67,7 @@ type User struct {
 	// UserInfoId  int
 	Userinfo UserInfo `gorm:"NOT NULL" json:"userInfo"`
 	// UserStatsId int
-	// UserStats  UserStats
+	UserStats UserStats
 	// FriendList []Friends
 	// RoleId      int
 	// Role Roles

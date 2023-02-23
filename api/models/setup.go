@@ -1,6 +1,7 @@
 package models
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/kronborg6/SimSvendApi/api/middleware"
@@ -129,107 +130,147 @@ func Setup(db *gorm.DB) {
 	// 	},
 	// }
 
-	user := []User{
-		{
+	// user := []User{
+	// 	{
 
-			Userinfo: UserInfo{
-				FirstName: "Mikkel",
-				LastName:  "Kronborg",
-				Email:     "mkronborg7@gmail.com",
-				Password:  middleware.HashPassword("Test"),
-				CreateAt:  time.Now(),
-			},
+	// 		Userinfo: UserInfo{
+	// 			FirstName: "Mikkel",
+	// 			LastName:  "Kronborg",
+	// 			Email:     "mkronborg7@gmail.com",
+	// 			Password:  middleware.HashPassword("Test"),
+	// 			CreateAt:  time.Now(),
+	// 		},
+	// 	},
+
+	// {
+
+	// 	Userinfo: UserInfo{
+	// 		FirstName: "Tina",
+	// 		LastName:  "Kronborg",
+	// 		Email:     "t.kronborg6@gmail.com",
+	// 		Password:  middleware.HashPassword("Test"),
+	// 		CreateAt:  time.Now(),
+	// 	},
+	// },
+	// {
+	// 	Userinfo: UserInfo{
+	// 		FirstName: "Mikkel",
+	// 		LastName:  "Kronborg",
+	// 		Password:  middleware.HashPassword("Test"),
+	// 		Email:     "mkronborg7@gmail.com",
+	// 		CreateAt:  time.Now(),
+	// 	},
+	// 	// UserStats: UserStats{},
+	// 	// Role:      Roles{Name: "Admin"},
+	// 	// UserInfoId:  1,
+	// 	// UserStatsId: 1,
+	// 	// RoleId:      1,
+	// 	// FriendList: []Friends{{UserID: 2}},
+	// },
+	/* 		{
+		Userinfo: UserInfo{
+			FirstName: "Tina",
+			LastName:  "Kronborg",
+			Password:  middleware.HashPassword("Test"),
+			Email:     "t.kronborg6@gmail.com",
+			CreateAt:  time.Now(),
 		},
-		// {
-
-		// 	Userinfo: UserInfo{
-		// 		FirstName: "Tina",
-		// 		LastName:  "Kronborg",
-		// 		Email:     "t.kronborg6@gmail.com",
-		// 		Password:  middleware.HashPassword("Test"),
-		// 		CreateAt:  time.Now(),
-		// 	},
-		// },
-		// {
-		// 	Userinfo: UserInfo{
-		// 		FirstName: "Mikkel",
-		// 		LastName:  "Kronborg",
-		// 		Password:  middleware.HashPassword("Test"),
-		// 		Email:     "mkronborg7@gmail.com",
-		// 		CreateAt:  time.Now(),
-		// 	},
 		// 	// UserStats: UserStats{},
-		// 	// Role:      Roles{Name: "Admin"},
+		// 	// Role:      Roles{Name: "Bruger"},
 		// 	// UserInfoId:  1,
 		// 	// UserStatsId: 1,
 		// 	// RoleId:      1,
-		// 	// FriendList: []Friends{{UserID: 2}},
-		// },
-		/* 		{
+		// 	// FriendList: []Friends{{UserID: 1}},
+	}, */
+	// {
+	// 	UserInfoId:  2,
+	// 	UserStatsId: 2,
+	// 	RoleId:      2,
+	// 	FriendList:  []Friends{{UserId: 1}, {UserId: 4}},
+	// },
+	// {
+	// 	UserInfoId:  3,
+	// 	UserStatsId: 3,
+	// 	RoleId:      2,
+	// 	FriendList:  []Friends{{UserId: 1}, {UserId: 4}},
+	// },
+	// {
+	// 	UserInfoId:  4,
+	// 	UserStatsId: 4,
+	// 	RoleId:      2,
+	// 	FriendList:  []Friends{{UserId: 3}, {UserId: 2}},
+	// },
+	// {
+	// 	UserInfoId:  1,
+	// 	UserStatsId: 1,
+	// 	// Userinfo:  userinfo[0],
+	// 	// UserStats: userStats[0],
+	// 	// Role:      role[0],
+	// 	// FriendList: []Friends{{Id: 2}},
+	// },
+	// {
+	// 	// Userinfo:  userinfo[1],
+	// 	// UserStats: userStats[1],
+	// 	// Role:      role[1],
+	// 	UserInfoId:  2,
+	// 	UserStatsId: 2,
+	// 	// FriendList: []Friends{{Id: 1}},
+	// },
+	// {
+	// 	// Userinfo:  userinfo[2],
+	// 	// UserStats: userStats[2],
+	// 	// Role:      role[2],
+	// 	UserInfoId:  3,
+	// 	UserStatsId: 3,
+	// 	// FriendList: []Friends{{Id: 4}},
+	// },
+	// {
+	// 	// Userinfo:  userinfo[3],
+	// 	// UserStats: userStats[3],
+	// 	// Role:      role[3],
+	// 	UserInfoId:  3,
+	// 	UserStatsId: 3,
+	// 	// FriendList: []Friends{{Id: 3}},
+	// },
+	// }
+	user2 := []User{
+		{
+			Userinfo: UserInfo{
+				FirstName: "Mikkel",
+				LastName:  "Kronborg",
+				Password:  middleware.HashPassword("Test"),
+				Email:     "mkronborg7@gmail.com",
+				CreateAt:  time.Now(),
+			},
+			// FriendList: &[]Friends{},
+			UserStats: UserStats{Elo: 100, Points: 0, Wins: 0, Losses: 0},
+		},
+		{
+
 			Userinfo: UserInfo{
 				FirstName: "Tina",
 				LastName:  "Kronborg",
-				Password:  middleware.HashPassword("Test"),
 				Email:     "t.kronborg6@gmail.com",
+				Password:  middleware.HashPassword("Test"),
 				CreateAt:  time.Now(),
 			},
-			// 	// UserStats: UserStats{},
-			// 	// Role:      Roles{Name: "Bruger"},
-			// 	// UserInfoId:  1,
-			// 	// UserStatsId: 1,
-			// 	// RoleId:      1,
-			// 	// FriendList: []Friends{{UserID: 1}},
-		}, */
-		// {
-		// 	UserInfoId:  2,
-		// 	UserStatsId: 2,
-		// 	RoleId:      2,
-		// 	FriendList:  []Friends{{UserId: 1}, {UserId: 4}},
-		// },
-		// {
-		// 	UserInfoId:  3,
-		// 	UserStatsId: 3,
-		// 	RoleId:      2,
-		// 	FriendList:  []Friends{{UserId: 1}, {UserId: 4}},
-		// },
-		// {
-		// 	UserInfoId:  4,
-		// 	UserStatsId: 4,
-		// 	RoleId:      2,
-		// 	FriendList:  []Friends{{UserId: 3}, {UserId: 2}},
-		// },
-		// {
-		// 	UserInfoId:  1,
-		// 	UserStatsId: 1,
-		// 	// Userinfo:  userinfo[0],
-		// 	// UserStats: userStats[0],
-		// 	// Role:      role[0],
-		// 	// FriendList: []Friends{{Id: 2}},
-		// },
-		// {
-		// 	// Userinfo:  userinfo[1],
-		// 	// UserStats: userStats[1],
-		// 	// Role:      role[1],
-		// 	UserInfoId:  2,
-		// 	UserStatsId: 2,
-		// 	// FriendList: []Friends{{Id: 1}},
-		// },
-		// {
-		// 	// Userinfo:  userinfo[2],
-		// 	// UserStats: userStats[2],
-		// 	// Role:      role[2],
-		// 	UserInfoId:  3,
-		// 	UserStatsId: 3,
-		// 	// FriendList: []Friends{{Id: 4}},
-		// },
-		// {
-		// 	// Userinfo:  userinfo[3],
-		// 	// UserStats: userStats[3],
-		// 	// Role:      role[3],
-		// 	UserInfoId:  3,
-		// 	UserStatsId: 3,
-		// 	// FriendList: []Friends{{Id: 3}},
-		// },
+			UserStats: UserStats{Elo: 100, Points: 0, Wins: 0, Losses: 0},
+
+			// FriendList: &[]Friends{{UserInfoID: 2}},
+		},
+		{
+
+			Userinfo: UserInfo{
+				FirstName: "Allan",
+				LastName:  "Andersen",
+				Email:     "allanandersen6996@gmail.com",
+				Password:  middleware.HashPassword("Test"),
+				CreateAt:  time.Now(),
+			},
+			UserStats: UserStats{Elo: 100, Points: 0, Wins: 0, Losses: 0},
+
+			// FriendList: &[]Friends{},
+		},
 	}
 	months := []Months{
 		{
@@ -384,7 +425,13 @@ func Setup(db *gorm.DB) {
 	// 	fmt.Println(result.Error)
 	// 	// Håndter fejl
 	// }
-	db.Create(&user)
+	// db.Create(&user)
+	// db.Create(&user2)
+	for i := range user2 {
+		if err := db.Create(&user2[i]).Error; err != nil {
+			fmt.Println("fuck nej")
+		}
+	}
 	db.Create(&role)
 	// db.Create(userStats)
 	// db.Create(userinfo)
