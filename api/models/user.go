@@ -45,10 +45,16 @@ type Roles struct {
 }
 
 type Friends struct {
+	/* 	ID         int
+	   	UserInfoID int      `json:"UserInfoID"`
+	   	User       UserInfo `gorm:"foreignKey:UserInfoID"` */
+
 	ID int
 	// UserInfoID int      `json:"UserInfoID"`
 	// User       UserInfo `gorm:"foreignKey:UserInfoID"`
 	UserInfoID int `json:"userId" gorm:"ForeignKey:ID"`
+	// UserID int `json:"userId" gorm:"ForeignKey:ID"`
+	// UserInfoID int `json:"userId" gorm:"ForeignKey:ID"`
 }
 
 // type User struct {

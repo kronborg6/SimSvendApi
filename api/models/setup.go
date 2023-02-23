@@ -242,8 +242,8 @@ func Setup(db *gorm.DB) {
 				Email:     "mkronborg7@gmail.com",
 				CreateAt:  time.Now(),
 			},
-			// FriendList: &[]Friends{},
 			UserStats: UserStats{Elo: 100, Points: 0, Wins: 0, Losses: 0},
+			// FriendList: []Friends{{UserInfoID: 2}, {UserInfoID: 3}},
 		},
 		{
 
@@ -255,8 +255,7 @@ func Setup(db *gorm.DB) {
 				CreateAt:  time.Now(),
 			},
 			UserStats: UserStats{Elo: 100, Points: 0, Wins: 0, Losses: 0},
-
-			// FriendList: &[]Friends{{UserInfoID: 2}},
+			// FriendList: []Friends{{UserInfoID: 1}},
 		},
 		{
 
@@ -268,8 +267,7 @@ func Setup(db *gorm.DB) {
 				CreateAt:  time.Now(),
 			},
 			UserStats: UserStats{Elo: 100, Points: 0, Wins: 0, Losses: 0},
-
-			// FriendList: &[]Friends{},
+			// FriendList: []Friends{{UserInfoID: 1}},
 		},
 	}
 	months := []Months{
@@ -432,6 +430,7 @@ func Setup(db *gorm.DB) {
 			fmt.Println("fuck nej")
 		}
 	}
+
 	db.Create(&role)
 	// db.Create(userStats)
 	// db.Create(userinfo)
