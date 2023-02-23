@@ -3,7 +3,7 @@ package models
 import "time"
 
 type Matchs struct {
-	Id           int       `json:"id" gorm:"primaryKey"`
+	ID           int
 	PlayTime     time.Time `json:"play_time" gorm:"not null"`
 	PlaceId      int
 	Place        Clubs `gorm:"foreignKey:PlaceId"`
@@ -22,7 +22,7 @@ type Matchs struct {
 }
 
 type Results struct {
-	Id      int    `json:"id" gorm:"primaryKey"`
+	ID      int
 	MatchId int    `json:"match_id"`
 	Game    Matchs `gorm:"foreignKey:MatchId"`
 	AOne    int32  `gorm:"not null;default:0"`

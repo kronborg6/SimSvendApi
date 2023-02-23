@@ -1,7 +1,7 @@
 package models
 
 type Leaderboards struct {
-	Id       int    `json:"id" gorm:"primaryKey"`
+	ID       int
 	MonthID  int    `json:"month_id"`
 	Month    Months `gorm:"foreignKey:MonthID"`
 	Year     int32
@@ -11,6 +11,6 @@ type Leaderboards struct {
 }
 
 type Months struct {
-	Id   int    `json:"id" gorm:"primaryKey"`
+	ID   int
 	Name string `json:"name"`
 }

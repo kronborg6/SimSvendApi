@@ -31,7 +31,7 @@ func (controller *UserStatsController) GetUserStats(c *fiber.Ctx) error {
 		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
 	}
 
-	data, err := controller.repo.FindPlayerStats(int(user.UserStatsID))
+	data, err := controller.repo.FindPlayerStats(1)
 	if err != nil {
 		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
 	}

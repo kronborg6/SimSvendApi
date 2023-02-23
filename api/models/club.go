@@ -1,7 +1,7 @@
 package models
 
 type Clubs struct {
-	Id         int     `json:"id" gorm:"primaryKey"`
+	ID         int
 	Name       string  `json:"name"`
 	StreetName string  `json:"street_name"`
 	Zipcode    int     `json:"ZipCode"`
@@ -9,7 +9,7 @@ type Clubs struct {
 }
 
 type ClubCourts struct {
-	Id     int    `json:"id" gorm:"primaryKey"`
+	ID     int
 	Name   string `json:"name"`
 	Double bool   `json:"single_court" gorm:"not null; default:true"`
 	ClubId int    `json:"club_id"`

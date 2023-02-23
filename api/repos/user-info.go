@@ -14,15 +14,15 @@ type UserRepo struct {
 	db *gorm.DB
 }
 
-func (repo *UserRepo) FindUser(data models.UserInfo) (*[]models.UserInfo, error) {
-	var user []models.UserInfo
+func (repo *UserRepo) FindUser(data models.UserInfo) (*[]models.User, error) {
+	var user []models.User
 	fmt.Println("lol")
 
 	// if err := repo.db.Find(&user).Error; err != nil {
 	// 	fmt.Println("Hej med dig")
 	// 	return nil, err
 	// }
-	err := repo.db.Where("email = ?", data.Email).Preload("UserStats").Find(&user)
+	err := repo.db.Where("email = ?", data.Email).Joins("UserInfo").Preload("UserInfo").Preload("UserStats").Find(&user)
 	if err.Error != nil {
 		return nil, err.Error
 	}
@@ -30,13 +30,13 @@ func (repo *UserRepo) FindUser(data models.UserInfo) (*[]models.UserInfo, error)
 		return nil, errors.New("can't find user")
 
 	}
-	fmt.Println(user[0].Password)
+	fmt.Println(user[0])
 
 	// fmt.Println(user[0].Password)
-	if !middleware.CheckPasswordHash(data.Password, user[0].Password) {
-		return nil, errors.New("Password not matchs")
+	if !middleware.CheckPasswordHash(data.Password, user[0].Userinfo.Password) {
+		return nil, errors.New("password not matchs")
 	}
-	user[0].Password = ""
+	user[0].Userinfo.Password = ""
 	return &user, nil
 }
 
@@ -61,7 +61,7 @@ func (repo *UserRepo) NewUser(user models.UserInfo) (models.UserInfo, error) {
 	if err := repo.db.Create(&userStats).Error; err != nil {
 		return user, err
 	}
-	user.UserStatsID = userStats.Id
+	// user.UserStatsID = userStats.Id
 	if err := repo.db.Create(&user).Error; err != nil {
 		return user, err
 	}

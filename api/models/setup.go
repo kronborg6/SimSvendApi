@@ -17,10 +17,10 @@ func Setup(db *gorm.DB) {
 		&Results{},
 		&Roles{},
 		&ZipCode{},
+		&User{},
 		&UserStats{},
 		&UserInfo{},
 		&Friends{},
-		&User{},
 	)
 	db.AutoMigrate(
 		&Clubs{},
@@ -31,10 +31,10 @@ func Setup(db *gorm.DB) {
 		&Results{},
 		&Roles{},
 		&ZipCode{},
+		&User{},
 		&UserStats{},
 		&UserInfo{},
 		&Friends{},
-		&User{},
 	)
 
 	role := []Roles{
@@ -45,48 +45,48 @@ func Setup(db *gorm.DB) {
 			Name: "Admin",
 		},
 	}
-	userinfo := []UserInfo{
-		{
-			FirstName: "Mikkel",
-			LastName:  "Kronborg",
-			Email:     "mkronborg7@gmail.com",
-			Password:  middleware.HashPassword("Test"),
-			RoleId:    2,
-			// UserStatsID: 1,
-			CreateAt: time.Now(),
-			// FriendsList: []UserInfo{{Id: 2}, {Id: 3}},
-		},
-		{
-			FirstName: "August",
-			LastName:  "Schnell",
-			Email:     "augustschnellpedersen@gmail.com",
-			Password:  middleware.HashPassword("Test"),
-			RoleId:    1,
-			// UserStatsID: 2,
-			CreateAt: time.Now(),
-			// FriendsList: []UserInfo{{Id: 1}},
-		},
-		{
-			FirstName: "Tina",
-			LastName:  "Kronborg",
-			Email:     "t.kronborg6@gmail.com",
-			Password:  middleware.HashPassword("Test"),
-			RoleId:    1,
-			// UserStatsID: 3,
-			CreateAt: time.Now(),
-			// FriendsList: []UserInfo{{Id: 1}, {Id: 4}},
-		},
-		{
-			FirstName: "Oliver",
-			LastName:  "Mathiesen",
-			Email:     "mathiesenoliver@gmail.com",
-			Password:  middleware.HashPassword("Test"),
-			RoleId:    1,
-			// UserStatsID: 4,
-			CreateAt: time.Now(),
-			// FriendsList: []UserInfo{{Id: 2}, {Id: 3}},
-		},
-	}
+	// userinfo := []UserInfo{
+	// 	{
+	// 		FirstName: "Mikkel",
+	// 		LastName:  "Kronborg",
+	// 		Email:     "mkronborg7@gmail.com",
+	// 		Password:  middleware.HashPassword("Test"),
+	// 		// RoleId:    2,
+	// 		// UserStatsID: 1,
+	// 		CreateAt: time.Now(),
+	// 		// FriendsList: []UserInfo{{Id: 2}, {Id: 3}},
+	// 	},
+	// 	{
+	// 		FirstName: "August",
+	// 		LastName:  "Schnell",
+	// 		Email:     "augustschnellpedersen@gmail.com",
+	// 		Password:  middleware.HashPassword("Test"),
+	// 		// RoleId:    1,
+	// 		// UserStatsID: 2,
+	// 		CreateAt: time.Now(),
+	// 		// FriendsList: []UserInfo{{Id: 1}},
+	// 	},
+	// 	{
+	// 		FirstName: "Tina",
+	// 		LastName:  "Kronborg",
+	// 		Email:     "t.kronborg6@gmail.com",
+	// 		Password:  middleware.HashPassword("Test"),
+	// 		// RoleId:    1,
+	// 		// UserStatsID: 3,
+	// 		CreateAt: time.Now(),
+	// 		// FriendsList: []UserInfo{{Id: 1}, {Id: 4}},
+	// 	},
+	// 	{
+	// 		FirstName: "Oliver",
+	// 		LastName:  "Mathiesen",
+	// 		Email:     "mathiesenoliver@gmail.com",
+	// 		Password:  middleware.HashPassword("Test"),
+	// 		// RoleId:    1,
+	// 		// UserStatsID: 4,
+	// 		CreateAt: time.Now(),
+	// 		// FriendsList: []UserInfo{{Id: 2}, {Id: 3}},
+	// 	},
+	// }
 	// friends := []Friends{
 	// 	{
 	// 		UserId: 1,
@@ -102,58 +102,102 @@ func Setup(db *gorm.DB) {
 	// 	},
 	// }
 
-	userStats := []UserStats{
-		{
-			Elo:    99999,
-			Points: 142347,
-			Wins:   1000,
-			Losses: 0,
-		},
-		{
-			Elo:    -4532,
-			Points: 12,
-			Wins:   2,
-			Losses: 2212,
-		},
-		{
-			Elo:    1206,
-			Points: 13021,
-			Wins:   764,
-			Losses: 453,
-		},
-		{
-			Elo:    5933,
-			Points: 9542,
-			Wins:   765,
-			Losses: 467,
-		},
-	}
+	// userStats := []UserStats{
+	// 	{
+	// 		Elo:    99999,
+	// 		Points: 142347,
+	// 		Wins:   1000,
+	// 		Losses: 0,
+	// 	},
+	// 	{
+	// 		Elo:    -4532,
+	// 		Points: 12,
+	// 		Wins:   2,
+	// 		Losses: 2212,
+	// 	},
+	// 	{
+	// 		Elo:    1206,
+	// 		Points: 13021,
+	// 		Wins:   764,
+	// 		Losses: 453,
+	// 	},
+	// 	{
+	// 		Elo:    5933,
+	// 		Points: 9542,
+	// 		Wins:   765,
+	// 		Losses: 467,
+	// 	},
+	// }
 
 	user := []User{
 		{
-			UserInfoId:  1,
-			UserStatsId: 1,
-			RoleId:      1,
-			FriendList:  []Friends{{UserId: 3}, {UserId: 2}},
+
+			Userinfo: UserInfo{
+				FirstName: "Mikkel",
+				LastName:  "Kronborg",
+				Email:     "mkronborg7@gmail.com",
+				Password:  middleware.HashPassword("Test"),
+				CreateAt:  time.Now(),
+			},
 		},
-		{
-			UserInfoId:  2,
-			UserStatsId: 2,
-			RoleId:      2,
-			FriendList:  []Friends{{UserId: 1}, {UserId: 4}},
-		},
-		{
-			UserInfoId:  3,
-			UserStatsId: 3,
-			RoleId:      2,
-			FriendList:  []Friends{{UserId: 1}, {UserId: 4}},
-		},
-		{
-			UserInfoId:  4,
-			UserStatsId: 4,
-			RoleId:      2,
-			FriendList:  []Friends{{UserId: 3}, {UserId: 2}},
-		},
+		// {
+
+		// 	Userinfo: UserInfo{
+		// 		FirstName: "Tina",
+		// 		LastName:  "Kronborg",
+		// 		Email:     "t.kronborg6@gmail.com",
+		// 		Password:  middleware.HashPassword("Test"),
+		// 		CreateAt:  time.Now(),
+		// 	},
+		// },
+		// {
+		// 	Userinfo: UserInfo{
+		// 		FirstName: "Mikkel",
+		// 		LastName:  "Kronborg",
+		// 		Password:  middleware.HashPassword("Test"),
+		// 		Email:     "mkronborg7@gmail.com",
+		// 		CreateAt:  time.Now(),
+		// 	},
+		// 	// UserStats: UserStats{},
+		// 	// Role:      Roles{Name: "Admin"},
+		// 	// UserInfoId:  1,
+		// 	// UserStatsId: 1,
+		// 	// RoleId:      1,
+		// 	// FriendList: []Friends{{UserID: 2}},
+		// },
+		/* 		{
+			Userinfo: UserInfo{
+				FirstName: "Tina",
+				LastName:  "Kronborg",
+				Password:  middleware.HashPassword("Test"),
+				Email:     "t.kronborg6@gmail.com",
+				CreateAt:  time.Now(),
+			},
+			// 	// UserStats: UserStats{},
+			// 	// Role:      Roles{Name: "Bruger"},
+			// 	// UserInfoId:  1,
+			// 	// UserStatsId: 1,
+			// 	// RoleId:      1,
+			// 	// FriendList: []Friends{{UserID: 1}},
+		}, */
+		// {
+		// 	UserInfoId:  2,
+		// 	UserStatsId: 2,
+		// 	RoleId:      2,
+		// 	FriendList:  []Friends{{UserId: 1}, {UserId: 4}},
+		// },
+		// {
+		// 	UserInfoId:  3,
+		// 	UserStatsId: 3,
+		// 	RoleId:      2,
+		// 	FriendList:  []Friends{{UserId: 1}, {UserId: 4}},
+		// },
+		// {
+		// 	UserInfoId:  4,
+		// 	UserStatsId: 4,
+		// 	RoleId:      2,
+		// 	FriendList:  []Friends{{UserId: 3}, {UserId: 2}},
+		// },
 		// {
 		// 	UserInfoId:  1,
 		// 	UserStatsId: 1,
@@ -225,7 +269,7 @@ func Setup(db *gorm.DB) {
 			Name: "December",
 		},
 	}
-	leaderboards := []Leaderboards{
+	/* 	leaderboards := []Leaderboards{
 		{
 			MonthID:  1,
 			Year:     2023,
@@ -270,18 +314,18 @@ func Setup(db *gorm.DB) {
 			Year:     2023,
 			PlayerID: 4,
 		},
-	}
+	} */
 	zip := []ZipCode{
 		{
-			Id:   5690,
+			ID:   5690,
 			Name: "Tommerup",
 		},
 		{
-			Id:   5000,
+			ID:   5000,
 			Name: "Odense",
 		},
 		{
-			Id:   5220,
+			ID:   5220,
 			Name: "Odense",
 		},
 	}
@@ -334,14 +378,20 @@ func Setup(db *gorm.DB) {
 			ClubId: 2,
 		},
 	}
-	db.Create(role)
-	db.Create(userStats)
-	db.Create(userinfo)
+
+	// Tjek om der er nogen fejl under oprettelse
+	// if result.Error != nil {
+	// 	fmt.Println(result.Error)
+	// 	// Håndter fejl
+	// }
+	db.Create(&user)
+	db.Create(&role)
+	// db.Create(userStats)
+	// db.Create(userinfo)
 	// db.Create(friends)
-	db.Create(user)
-	db.Create(months)
-	db.Create(zip)
-	db.Create(place)
-	db.Create(courts)
-	db.Create(leaderboards)
+	db.Create(&months)
+	db.Create(&zip)
+	db.Create(&place)
+	db.Create(&courts)
+	// db.Create(&leaderboards)
 }
