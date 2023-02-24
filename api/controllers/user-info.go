@@ -1,6 +1,8 @@
 package controllers
 
 import (
+	"strconv"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/kronborg6/SimSvendApi/api/models"
 	"github.com/kronborg6/SimSvendApi/api/repos"
@@ -71,6 +73,26 @@ func (controller *UserController) CreateUser(c *fiber.Ctx) error {
 	return c.JSON(data)
 }
 
+func (controller *UserController) TestFriends(c *fiber.Ctx) error {
+	var err error
+
+	id, err := strconv.Atoi(c.Params("userID"))
+	if err != nil {
+		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+	}
+
+	data, err := controller.repo.FriendList(id)
+	if err != nil {
+		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+	}
+	// if data == nil {
+	// 	return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+
+	// }
+
+	return c.JSON(data)
+}
+
 func NewUserController(repo *repos.UserRepo) *UserController {
 	return &UserController{repo}
 }
@@ -84,4 +106,6 @@ func RegisterUserController(db *gorm.DB, router fiber.Router) {
 	UserRouter.Post("/login", controller.GetUser)
 	UserRouter.Post("/register", controller.CreateUser)
 	UserRouter.Get("/test", controller.GetAllUser)
+
+	UserRouter.Get("/friends/:userID", controller.TestFriends)
 }

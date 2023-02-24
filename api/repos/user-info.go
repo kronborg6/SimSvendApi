@@ -69,8 +69,43 @@ func (repo *UserRepo) NewUser(user models.UserInfo) (models.UserInfo, error) {
 	return user, nil
 }
 
-func (repo *UserRepo) FriendList() ([]models.UserInfo, error) {
-	return nil, nil
+func (repo *UserRepo) FriendList(id int) ([]models.UserInfo, error) {
+	var allFriends []models.UserInfo
+	var friendslist []models.Friends
+
+	/* 	if err := repo.db.Debug().Where("user_id = ?", id).Find(&friendslist).Error; err != nil {
+		return allFriends, err
+	} */
+	err := repo.db.Debug().Where("user_id = ?", id).Find(&friendslist)
+	if err.Error != nil {
+		return nil, errors.New("user don't have friends LOL")
+
+	}
+	if err.RowsAffected <= 0 {
+		return nil, errors.New("user don't have friends LOL")
+
+	}
+	// if friendslist[0].RowsAffected <= 0 {
+	// 	return nil, errors.New("can't find user")
+
+	// }
+	/* 	for i := range friendslist {
+		fmt.Println("Hej med dig jeg heder Kaj")
+		if err := repo.db.Where("email = ?", friendslist[i].Email).Find(&friends).Error; err != nil {
+			return nil, err
+		}
+	} */
+
+	for i := range friendslist {
+		var friends []models.UserInfo
+		if err := repo.db.Where("email = ?", friendslist[i].Email).Find(&friends).Error; err != nil {
+			return allFriends, err
+		}
+		friends[0].Password = ""
+		allFriends = append(allFriends, friends...)
+	}
+	fmt.Println(id)
+	return allFriends, nil
 }
 
 func NewUserRepo(db *gorm.DB) *UserRepo {
