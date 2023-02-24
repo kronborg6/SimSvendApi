@@ -43,7 +43,7 @@ func (repo *UserRepo) FindUser(data models.UserInfo) (*[]models.User, error) {
 func (repo *UserRepo) FindAllUser() ([]models.User, error) {
 	var user []models.User
 
-	err := repo.db.Preload("Userinfo").Preload("UserStats").Where("id = 1").Find(&user)
+	err := repo.db.Preload("FriendList").Where("id = 3").Find(&user)
 
 	if err.Error != nil {
 		return nil, err.Error
@@ -67,6 +67,10 @@ func (repo *UserRepo) NewUser(user models.UserInfo) (models.UserInfo, error) {
 	}
 
 	return user, nil
+}
+
+func (repo *UserRepo) FriendList() ([]models.UserInfo, error) {
+	return nil, nil
 }
 
 func NewUserRepo(db *gorm.DB) *UserRepo {

@@ -1,6 +1,10 @@
 package models
 
-import "time"
+import (
+	"database/sql/driver"
+	"encoding/json"
+	"time"
+)
 
 // type UserInfo struct {
 // 	ID        int
@@ -52,7 +56,9 @@ type Friends struct {
 	ID int
 	// UserInfoID int      `json:"UserInfoID"`
 	// User       UserInfo `gorm:"foreignKey:UserInfoID"`
-	UserInfoID int `json:"userId" gorm:"ForeignKey:ID"`
+	UserID int    `gorm:"not null"`
+	Email  string `json:"email" gorm:"NOT NULL"`
+	// UserInfoID int `json:"userId" gorm:"ForeignKey:ID"`
 	// UserID int `json:"userId" gorm:"ForeignKey:ID"`
 	// UserInfoID int `json:"userId" gorm:"ForeignKey:ID"`
 }
@@ -74,7 +80,18 @@ type User struct {
 	Userinfo UserInfo `gorm:"NOT NULL" json:"userInfo"`
 	// UserStatsId int
 	UserStats UserStats
-	// FriendList []Friends
+	// FriendList []Friends `gorm:"many2many:friends;foreignkey:FriendID"`
+	// FriendList []*Friends `gorm:"many2many:FriendList_user;"`
+	FriendList []Friends `gorm:"foreignkey:UserID" sql:"DEFAULT:null"`
+
 	// RoleId      int
 	// Role Roles
+}
+
+func (f *Friends) Value() (driver.Value, error) {
+	return json.Marshal(f)
+}
+
+func (f *Friends) Scan(data interface{}) error {
+	return json.Unmarshal(data.([]byte), f)
 }
