@@ -9,7 +9,8 @@ type Matchs struct {
 	Place        Clubs `gorm:"foreignKey:PlaceId"`
 	CourtId      int
 	Court        ClubCourts `gorm:"foreignKey:CourtId"`
-	TeamAPlayerA int        `json:"team_a_player_a"`
+	Don          bool       `json:"don" gorm:"NOT NULL; default:false"`
+	TeamAPlayerA int        `json:"team_a_player_a" gorm:"NOT NULL"`
 	TeamAPlayerB int        `json:"team_a_player_b"`
 	TeamBPlayerA int        `json:"team_b_player_a"`
 	TeamBPlayerB int        `json:"team_b_player_b"`
