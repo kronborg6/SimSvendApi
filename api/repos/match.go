@@ -50,21 +50,24 @@ func (repo *MatchRepo) GameHistory(userID int) ([]models.Matchs, error) {
 	}
 	return games, nil
 }
-func (repo *MatchRepo) NewCasualGame(game models.Matchs) (models.Matchs, error) {
-	// var game models.Matchs
-	if err := repo.db.Create(&game).Error; err != nil {
-		return game, err
-	}
-	return game, nil
-}
-func (repo *MatchRepo) AddResualtCasualGame(game models.Matchs) (models.Matchs, error) {
-	if err := repo.db.Model(&game).Where("id = ?", game.ID).Updates(&game).Error; err != nil {
+
+/*
+	 func (repo *MatchRepo) NewCasualGame(game models.Matchs) (models.Matchs, error) {
+		// var game models.Matchs
+		if err := repo.db.Create(&game).Error; err != nil {
+			return game, err
+		}
 		return game, nil
 	}
-	return game, nil
+
+	func (repo *MatchRepo) AddResualtCasualGame(game models.Matchs) (models.Matchs, error) {
+		if err := repo.db.Model(&game).Where("id = ?", game.ID).Updates(&game).Error; err != nil {
+			return game, nil
+		}
+		return game, nil
 
 }
-
+*/
 func NewMatchRepo(db *gorm.DB) *MatchRepo {
 	return &MatchRepo{db}
 }
