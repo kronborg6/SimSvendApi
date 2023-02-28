@@ -1,10 +1,9 @@
 package controllers
 
 import (
-	"fmt"
+	"strconv"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/kronborg6/SimSvendApi/api/models"
 	"github.com/kronborg6/SimSvendApi/api/repos"
 	"gorm.io/gorm"
 )
@@ -25,13 +24,12 @@ func (controller *UserStatsController) GetAllUserStats(c *fiber.Ctx) error {
 func (controller *UserStatsController) GetUserStats(c *fiber.Ctx) error {
 	var err error
 	// var email string
-	var user models.UserInfo
-	if err = c.BodyParser(&user); err != nil {
-		fmt.Println("Hej med dig")
+	id, err := strconv.Atoi(c.Params("id"))
+	if err != nil {
 		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
 	}
 
-	data, err := controller.repo.FindPlayerStats(1)
+	data, err := controller.repo.FindPlayerStats(id)
 	if err != nil {
 		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
 	}
@@ -50,6 +48,6 @@ func RegisterUserStatsController(db *gorm.DB, router fiber.Router) {
 	UserStatsRouter := router.Group("/stats")
 
 	UserStatsRouter.Get("/All", controller.GetAllUserStats)
-	UserStatsRouter.Post("/", controller.GetUserStats)
+	UserStatsRouter.Get("/:id", controller.GetUserStats)
 
 }

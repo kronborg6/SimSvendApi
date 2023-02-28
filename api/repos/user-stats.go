@@ -1,6 +1,8 @@
 package repos
 
 import (
+	"errors"
+
 	"github.com/kronborg6/SimSvendApi/api/models"
 	"gorm.io/gorm"
 )
@@ -18,18 +20,24 @@ func (repo *UserStatsRepo) FindAllPlayerStats() ([]models.UserStats, error) {
 	return userStats, nil
 }
 
-func (repo *UserStatsRepo) FindPlayerStats(id int) ([]models.UserStats, error) {
-	var userStats []models.UserStats
+func (repo *UserStatsRepo) FindPlayerStats(id int) ([]models.User, error) {
+	var user []models.User
 	// var userinfo []models.UserInfo
 
-	if err := repo.db.Debug().Where("id = ?", id).Find(&userStats).Error; err != nil {
-		return userStats, err
+	err := repo.db.Debug().Joins("UserStats").Find(&user, "UserStats.id = ?", 1)
+	if err.Error != nil {
+		return nil, err.Error
 	}
+	if err.RowsAffected <= 0 {
+		return nil, errors.New("can't find user")
+
+	}
+	// user[0].Userinfo =
 
 	// if err := repo.db.Debug().Where("id = ?", userinfo[0].UserStatsID).Find(userStats).Error; err != nil {
 	// 	return userStats, err
 	// }
-	return userStats, nil
+	return user, nil
 }
 
 func (repo *UserStatsRepo) UpdatePlayerStats() ([]models.UserStats, error) {
