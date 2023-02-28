@@ -313,7 +313,7 @@ func Setup(db *gorm.DB) {
 			Name: "December",
 		},
 	}
-	/* 	leaderboards := []Leaderboards{
+	leaderboards := []Leaderboards{
 		{
 			MonthID:  1,
 			Year:     2023,
@@ -332,7 +332,7 @@ func Setup(db *gorm.DB) {
 			PlayerID: 3,
 			Points:   221,
 		},
-		{
+		/* {
 			MonthID:  1,
 			Year:     2023,
 			PlayerID: 4,
@@ -357,8 +357,8 @@ func Setup(db *gorm.DB) {
 			MonthID:  1,
 			Year:     2023,
 			PlayerID: 4,
-		},
-	} */
+		}, */
+	}
 	zip := []ZipCode{
 		{
 			ID:   5690,
@@ -444,5 +444,5 @@ func Setup(db *gorm.DB) {
 	db.Create(&zip)
 	db.Create(&place)
 	db.Create(&courts)
-	// db.Create(&leaderboards)
+	db.Create(&leaderboards)
 }

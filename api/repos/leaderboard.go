@@ -22,7 +22,7 @@ func (repo *LeaderboardRepo) FindAllLeaderboards(mounthId int) ([]models.Leaderb
 		return nil, errors.New("can't a Leaderboard")
 	}
 
-	leaderboard[0].Player.Password = ""
+	leaderboard[0].Player.Userinfo.Password = ""
 	fmt.Println(len(leaderboard))
 	return leaderboard, nil
 }
