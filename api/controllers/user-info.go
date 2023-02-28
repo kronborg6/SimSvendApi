@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"strconv"
 
 	"github.com/gofiber/fiber/v2"
@@ -13,14 +14,14 @@ type UserController struct {
 	repo *repos.UserRepo
 }
 
-func (controller *UserController) GetUser(c *fiber.Ctx) error {
+func (controller *UserController) Login(c *fiber.Ctx) error {
 	var user models.UserInfo
 	var err error
 
 	if err = c.BodyParser(&user); err != nil {
 		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
 	}
-	data, err := controller.repo.FindUser(user)
+	data, err := controller.repo.Login(user)
 
 	if err != nil {
 		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
@@ -35,6 +36,21 @@ func (controller *UserController) GetUser(c *fiber.Ctx) error {
 	// 	return fiber.NewError(fiber.StatusInternalServerError, err.Error())
 	// }
 	// fmt.Print(data)
+	return c.JSON(data)
+}
+func (controller *UserController) GetUser(c *fiber.Ctx) error {
+	var user models.UserInfo
+	var err error
+
+	if err = c.BodyParser(&user); err != nil {
+		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+	}
+	fmt.Println(user)
+	data, err := controller.repo.FindUser(user)
+	if err != nil {
+		fmt.Println("hej")
+		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+	}
 	return c.JSON(data)
 }
 func (controller *UserController) GetAllUser(c *fiber.Ctx) error {
@@ -103,9 +119,10 @@ func RegisterUserController(db *gorm.DB, router fiber.Router) {
 
 	UserRouter := router.Group("/user")
 
-	UserRouter.Post("/login", controller.GetUser)
+	UserRouter.Post("/login", controller.Login)
 	UserRouter.Post("/register", controller.CreateUser)
 	UserRouter.Get("/test", controller.GetAllUser)
+	UserRouter.Post("/find", controller.GetUser)
 
 	UserRouter.Get("/friends/:userID", controller.TestFriends)
 }

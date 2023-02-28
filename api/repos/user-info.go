@@ -14,7 +14,7 @@ type UserRepo struct {
 	db *gorm.DB
 }
 
-func (repo *UserRepo) FindUser(data models.UserInfo) (*[]models.User, error) {
+func (repo *UserRepo) Login(data models.UserInfo) (*[]models.User, error) {
 	var user []models.User
 	fmt.Println("lol")
 
@@ -30,16 +30,30 @@ func (repo *UserRepo) FindUser(data models.UserInfo) (*[]models.User, error) {
 		return nil, errors.New("can't find user")
 
 	}
-	fmt.Println(user[0])
+	// fmt.Println(user[0])
 
-	fmt.Println(user[0].Userinfo.Password)
+	// fmt.Println(user[0].Userinfo.Password)
 	if !middleware.CheckPasswordHash(data.Password, user[0].Userinfo.Password) {
 		return nil, errors.New("password not matchs")
 	}
 	user[0].Userinfo.Password = ""
 	return &user, nil
 }
+func (repo *UserRepo) FindUser(data models.UserInfo) ([]models.User, error) {
+	var user []models.User
+	err := repo.db.Joins("Userinfo").Preload("UserStats").Find(&user, "email = ?", data.Email)
+	if err.Error != nil {
+		return nil, err.Error
+	}
+	if err.RowsAffected <= 0 {
+		return nil, errors.New("can't find user")
 
+	}
+	user[0].Userinfo.Password = ""
+	user[0].FriendList = nil
+
+	return user, nil
+}
 func (repo *UserRepo) FindAllUser() ([]models.User, error) {
 	var user []models.User
 
