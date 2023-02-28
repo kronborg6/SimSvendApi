@@ -47,7 +47,6 @@ func (repo *UserRepo) FindUser(data models.UserInfo) ([]models.User, error) {
 	}
 	if err.RowsAffected <= 0 {
 		return nil, errors.New("can't find user")
-
 	}
 	user[0].Userinfo.Password = ""
 	user[0].FriendList = nil
