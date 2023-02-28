@@ -22,7 +22,7 @@ func (repo *UserRepo) FindUser(data models.UserInfo) (*[]models.User, error) {
 	// 	fmt.Println("Hej med dig")
 	// 	return nil, err
 	// }
-	err := repo.db.Where("email = ?", data.Email).Joins("UserInfo").Preload("UserInfo").Preload("UserStats").Find(&user)
+	err := repo.db.Joins("Userinfo").Preload("UserStats").Preload("FriendList").Find(&user, "email = ?", data.Email)
 	if err.Error != nil {
 		return nil, err.Error
 	}
@@ -32,7 +32,7 @@ func (repo *UserRepo) FindUser(data models.UserInfo) (*[]models.User, error) {
 	}
 	fmt.Println(user[0])
 
-	// fmt.Println(user[0].Password)
+	fmt.Println(user[0].Userinfo.Password)
 	if !middleware.CheckPasswordHash(data.Password, user[0].Userinfo.Password) {
 		return nil, errors.New("password not matchs")
 	}

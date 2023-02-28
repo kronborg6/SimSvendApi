@@ -9,7 +9,14 @@ type ClubsRepo struct {
 	db *gorm.DB
 }
 
-func (repo *ClubsRepo) FindAllClubs() ([]models.Clubs, error) { return nil, nil }
+func (repo *ClubsRepo) FindAllClubs() ([]models.Clubs, error) {
+	var clubs []models.Clubs
+
+	if err := repo.db.Find(&clubs).Error; err != nil {
+		return clubs, err
+	}
+	return clubs, nil
+}
 
 func (repo *ClubsRepo) FindClub(id int) (models.Clubs, error) {
 	var clubs models.Clubs
