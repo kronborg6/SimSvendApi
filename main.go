@@ -35,6 +35,8 @@ func main() {
 
 	controllers.RegisterUserController(db, api)
 	controllers.RegisterLeaderboardController(db, api)
+	controllers.RegisterTournamentController(db, api)
+	// controllers.
 	// controllers.RegisterUserStatsController(db, api)
 
 	app.Get("/test", func(c *fiber.Ctx) error {
