@@ -341,6 +341,8 @@ func Setup(db *gorm.DB) {
 				Email:     "mkronborg7@gmail.com",
 				CreateAt:  time.Now(),
 			},
+			// Role: Roles{Name: "Admin"},
+			RoleID:     1,
 			UserStats:  UserStats{Elo: 100, Points: 0, Wins: 0, Losses: 0},
 			FriendList: []Friends{{Email: "t.kronborg6@gmail.com"}, {Email: "allanandersen6996@gmail.com"}},
 		},
@@ -353,6 +355,9 @@ func Setup(db *gorm.DB) {
 				Password:  middleware.HashPassword("Test"),
 				CreateAt:  time.Now(),
 			},
+			// Role: Roles{Name: "Bruger"},
+
+			RoleID:     2,
 			UserStats:  UserStats{Elo: 100, Points: 0, Wins: 0, Losses: 0},
 			FriendList: []Friends{{Email: "mkronborg7@gmail.com"}, {Email: "allanandersen6996@gmail.com"}},
 		},
@@ -365,6 +370,8 @@ func Setup(db *gorm.DB) {
 				Password:  middleware.HashPassword("Test"),
 				CreateAt:  time.Now(),
 			},
+			// Role:       Roles{Name: "Admin"},
+			RoleID:     2,
 			UserStats:  UserStats{Elo: 100, Points: 0, Wins: 0, Losses: 0},
 			FriendList: []Friends{{Email: "mkronborg7@gmail.com"}, {Email: "t.kronborg6@gmail.com"}},
 		},
@@ -428,6 +435,8 @@ func Setup(db *gorm.DB) {
 	// }
 	// db.Create(&user)
 	// db.Create(&user2)
+	db.Create(&role)
+
 	for i := range user2 {
 		if err := db.Create(&user2[i]).Error; err != nil {
 			fmt.Println("fuck nej")
@@ -438,7 +447,6 @@ func Setup(db *gorm.DB) {
 			fmt.Println("fuck nej")
 		}
 	}
-	db.Create(&role)
 	// db.Create(userStats)
 	// db.Create(userinfo)
 	// db.Create(friends)

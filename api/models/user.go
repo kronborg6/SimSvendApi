@@ -26,6 +26,7 @@ type UserStats struct {
 type Roles struct {
 	ID   int
 	Name string `json:"name" gorm:"not null"`
+	// UserID int    `json:"userId" gorm:"ForeignKey:ID"`
 }
 
 type Friends struct {
@@ -38,6 +39,8 @@ type User struct {
 	ID         int
 	Userinfo   UserInfo `gorm:"NOT NULL" json:"userInfo"`
 	UserStats  UserStats
+	RoleID     int
+	Role       Roles     `gorm:"foreignkey:RoleID" `
 	FriendList []Friends `gorm:"foreignkey:UserID" sql:"DEFAULT:null"`
 }
 

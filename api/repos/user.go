@@ -17,7 +17,7 @@ type UserRepo struct {
 func (repo *UserRepo) Login(data models.UserInfo) (*[]models.User, error) {
 	var user []models.User
 
-	err := repo.db.Joins("Userinfo").Preload("UserStats").Preload("FriendList").Find(&user, "email = ?", data.Email)
+	err := repo.db.Joins("Userinfo").Preload("UserStats").Preload("FriendList").Preload("Role").Find(&user, "email = ?", data.Email)
 	if err.Error != nil {
 		return nil, err.Error
 	}
@@ -37,7 +37,7 @@ func (repo *UserRepo) Login(data models.UserInfo) (*[]models.User, error) {
 func (repo *UserRepo) CheckToken(id int) (*[]models.User, error) {
 	var user []models.User
 
-	err := repo.db.Joins("Userinfo").Preload("UserStats").Preload("FriendList").Find(&user, "Userinfo.id = ?", id)
+	err := repo.db.Joins("Userinfo").Preload("UserStats").Preload("FriendList").Preload("Role").Find(&user, "Userinfo.id = ?", id)
 	if err.Error != nil {
 		return nil, err.Error
 	}
@@ -76,7 +76,7 @@ func (repo *UserRepo) FindAllUser() ([]models.User, error) {
 	user[0].Userinfo.Password = ""
 	return user, nil
 }
-func (repo *UserRepo) NewUser(user models.UserInfo) (models.UserInfo, error) {
+func (repo *UserRepo) NewUser2(user models.UserInfo) (models.UserInfo, error) {
 
 	user.CreateAt = time.Now()
 	var userStats models.UserStats
@@ -88,6 +88,10 @@ func (repo *UserRepo) NewUser(user models.UserInfo) (models.UserInfo, error) {
 	}
 
 	return user, nil
+}
+func (repo *UserRepo) NewUser(user models.UserInfo) (models.User, error) {
+	var newUser models.User
+	return newUser, nil
 }
 
 func (repo *UserRepo) FriendList(id int) ([]models.UserInfo, error) {

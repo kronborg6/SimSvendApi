@@ -93,7 +93,7 @@ func (controller *UserController) CreateUser(c *fiber.Ctx) error {
 
 	}
 
-	data, err := controller.repo.NewUser(user)
+	data, err := controller.repo.NewUser2(user)
 
 	if err != nil {
 		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
