@@ -22,6 +22,7 @@ func Setup(db *gorm.DB) {
 		&UserInfo{},
 		&Friends{},
 		&Leaderboards{},
+		&Tournament{},
 	)
 	db.AutoMigrate(
 		&ClubCourts{},
@@ -36,6 +37,7 @@ func Setup(db *gorm.DB) {
 		&UserInfo{},
 		&Friends{},
 		&Leaderboards{},
+		&Tournament{},
 	)
 
 	role := []Roles{
@@ -344,7 +346,7 @@ func Setup(db *gorm.DB) {
 			// Role: Roles{Name: "Admin"},
 			RoleID:     1,
 			UserStats:  UserStats{Elo: 100, Points: 0, Wins: 0, Losses: 0},
-			FriendList: []Friends{{Email: "t.kronborg6@gmail.com"}, {Email: "allanandersen6996@gmail.com"}},
+			FriendList: []Friends{{Email: "t.kronborg6@gmail.com"}, {Email: "allanandersen6996@gmail.com"}, {Email: "augustschnellpedersen@gmail.com"}},
 		},
 		{
 
@@ -367,6 +369,20 @@ func Setup(db *gorm.DB) {
 				FirstName: "Allan",
 				LastName:  "Andersen",
 				Email:     "allanandersen6996@gmail.com",
+				Password:  middleware.HashPassword("Test"),
+				CreateAt:  time.Now(),
+			},
+			// Role:       Roles{Name: "Admin"},
+			RoleID:     2,
+			UserStats:  UserStats{Elo: 100, Points: 0, Wins: 0, Losses: 0},
+			FriendList: []Friends{{Email: "mkronborg7@gmail.com"}, {Email: "t.kronborg6@gmail.com"}},
+		},
+		{
+
+			Userinfo: UserInfo{
+				FirstName: "August",
+				LastName:  "Schnell",
+				Email:     "augustschnellpedersen@gmail.com",
 				Password:  middleware.HashPassword("Test"),
 				CreateAt:  time.Now(),
 			},
@@ -435,6 +451,24 @@ func Setup(db *gorm.DB) {
 	// }
 	// db.Create(&user)
 	// db.Create(&user2)
+	tour := []Tournament{
+		{
+			Name:    "King of Padel",
+			HowMany: 12,
+			PlaceID: 1,
+			Date:    time.Now(),
+			Gender:  "Men",
+			Players: []User{{ID: 1}, {ID: 3}},
+		},
+		{
+			Name:    "Quen of Padel",
+			HowMany: 12,
+			PlaceID: 1,
+			Date:    time.Now(),
+			Gender:  "Women",
+			Players: []User{{ID: 2}, {ID: 4}},
+		},
+	}
 	db.Create(&role)
 
 	for i := range user2 {
@@ -455,4 +489,5 @@ func Setup(db *gorm.DB) {
 	// db.Create(&courts)
 	// db.Create(&place)
 	db.Create(&leaderboards)
+	db.Create(&tour)
 }
