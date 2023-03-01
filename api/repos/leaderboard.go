@@ -14,7 +14,7 @@ type LeaderboardRepo struct {
 
 func (repo *LeaderboardRepo) FindAllLeaderboards(mounthId int) ([]models.Leaderboards, error) {
 	var leaderboard []models.Leaderboards
-	err := repo.db.Debug().Where("month_id = ?", mounthId).Preload("Player").Preload("userInfo").Preload("Month").Find(&leaderboard)
+	err := repo.db.Debug().Where("month_id = ?", mounthId).Preload("Player").Preload("Month").Find(&leaderboard)
 	if err.Error != nil {
 		return nil, err.Error
 	}
