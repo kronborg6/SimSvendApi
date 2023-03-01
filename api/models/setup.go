@@ -10,10 +10,9 @@ import (
 
 func Setup(db *gorm.DB) {
 	db.Migrator().DropTable(
-		&Clubs{},
-		&Months{},
 		&ClubCourts{},
-		&Leaderboards{},
+		&Club{},
+		&Months{},
 		&Matchs{},
 		&Results{},
 		&Roles{},
@@ -22,12 +21,12 @@ func Setup(db *gorm.DB) {
 		&UserStats{},
 		&UserInfo{},
 		&Friends{},
+		&Leaderboards{},
 	)
 	db.AutoMigrate(
-		&Clubs{},
-		&Months{},
 		&ClubCourts{},
-		&Leaderboards{},
+		&Club{},
+		&Months{},
 		&Matchs{},
 		&Results{},
 		&Roles{},
@@ -36,6 +35,7 @@ func Setup(db *gorm.DB) {
 		&UserStats{},
 		&UserInfo{},
 		&Friends{},
+		&Leaderboards{},
 	)
 
 	role := []Roles{
@@ -233,48 +233,7 @@ func Setup(db *gorm.DB) {
 	// 	// FriendList: []Friends{{Id: 3}},
 	// },
 	// }
-	user2 := []User{
-		{
-			Userinfo: UserInfo{
-				FirstName: "Mikkel",
-				LastName:  "Kronborg",
-				Password:  middleware.HashPassword("Test"),
-				Email:     "mkronborg7@gmail.com",
-				CreateAt:  time.Now(),
-			},
-			UserStats: UserStats{Elo: 100, Points: 0, Wins: 0, Losses: 0},
-			// FriendList: []Friends{{UserInfoID: 2}, {UserInfoID: 3}},
-			// FriendList: []Friends{{FriendID: 3}},
-			FriendList: []Friends{{Email: "t.kronborg6@gmail.com"}, {Email: "allanandersen6996@gmail.com"}},
-		},
-		{
 
-			Userinfo: UserInfo{
-				FirstName: "Tina",
-				LastName:  "Kronborg",
-				Email:     "t.kronborg6@gmail.com",
-				Password:  middleware.HashPassword("Test"),
-				CreateAt:  time.Now(),
-			},
-			UserStats: UserStats{Elo: 100, Points: 0, Wins: 0, Losses: 0},
-			// FriendList: []Friends{{FriendID: 3}},
-			// FriendList: []Friends{{UserInfoID: 1}},
-			FriendList: []Friends{{Email: "mkronborg7@gmail.com"}, {Email: "allanandersen6996@gmail.com"}},
-		},
-		{
-
-			Userinfo: UserInfo{
-				FirstName: "Allan",
-				LastName:  "Andersen",
-				Email:     "allanandersen6996@gmail.com",
-				Password:  middleware.HashPassword("Test"),
-				CreateAt:  time.Now(),
-			},
-			UserStats: UserStats{Elo: 100, Points: 0, Wins: 0, Losses: 0},
-			// FriendList: []Friends{{FriendID: 1}, {FriendID: 2}},
-			FriendList: []Friends{{Email: "mkronborg7@gmail.com"}, {Email: "t.kronborg6@gmail.com"}},
-		},
-	}
 	months := []Months{
 		{
 			Name: "Januar",
@@ -373,55 +332,94 @@ func Setup(db *gorm.DB) {
 			Name: "Odense",
 		},
 	}
-	place := []Clubs{
+	user2 := []User{
 		{
-			Name:       "Padelboxen",
-			Zipcode:    5000,
+			Userinfo: UserInfo{
+				FirstName: "Mikkel",
+				LastName:  "Kronborg",
+				Password:  middleware.HashPassword("Test"),
+				Email:     "mkronborg7@gmail.com",
+				CreateAt:  time.Now(),
+			},
+			UserStats:  UserStats{Elo: 100, Points: 0, Wins: 0, Losses: 0},
+			FriendList: []Friends{{Email: "t.kronborg6@gmail.com"}, {Email: "allanandersen6996@gmail.com"}},
+		},
+		{
+
+			Userinfo: UserInfo{
+				FirstName: "Tina",
+				LastName:  "Kronborg",
+				Email:     "t.kronborg6@gmail.com",
+				Password:  middleware.HashPassword("Test"),
+				CreateAt:  time.Now(),
+			},
+			UserStats:  UserStats{Elo: 100, Points: 0, Wins: 0, Losses: 0},
+			FriendList: []Friends{{Email: "mkronborg7@gmail.com"}, {Email: "allanandersen6996@gmail.com"}},
+		},
+		{
+
+			Userinfo: UserInfo{
+				FirstName: "Allan",
+				LastName:  "Andersen",
+				Email:     "allanandersen6996@gmail.com",
+				Password:  middleware.HashPassword("Test"),
+				CreateAt:  time.Now(),
+			},
+			UserStats:  UserStats{Elo: 100, Points: 0, Wins: 0, Losses: 0},
+			FriendList: []Friends{{Email: "mkronborg7@gmail.com"}, {Email: "t.kronborg6@gmail.com"}},
+		},
+	}
+	place := []Club{
+		{
+			Name: "Padelboxen",
+			// Zipcode:    5000,
 			StreetName: "Tolderlundsvej 92",
+			Courts:     []ClubCourts{{Name: "CC", Double: true}, {Name: "D1", Double: true}},
 		},
 		{
-			Name:       "PadelPadel",
-			Zipcode:    5220,
+			Name: "PadelPadel",
+			// Zipcode:    5220,
 			StreetName: "C. F. Tietgens Blvd. 24K",
+			Courts:     []ClubCourts{{Name: "S1", Double: false}, {Name: "S2", Double: false}},
 		},
 	}
-	courts := []ClubCourts{
-		{
-			Name:   "CC",
-			Double: true,
-			ClubId: 1,
-		},
-		{
-			Name:   "D1",
-			Double: true,
-			ClubId: 1,
-		},
-		{
-			Name:   "D2",
-			Double: true,
-			ClubId: 1,
-		},
-		{
-			Name:   "D3",
-			Double: true,
-			ClubId: 1,
-		},
-		{
-			Name:   "S1",
-			Double: false,
-			ClubId: 1,
-		},
-		{
-			Name:   "S2",
-			Double: false,
-			ClubId: 2,
-		},
-		{
-			Name:   "S1",
-			Double: false,
-			ClubId: 2,
-		},
-	}
+	// courts := []ClubCourts{
+	// 	{
+	// 		Name:   "CC",
+	// 		Double: true,
+	// 		// ClubId: 1,
+	// 	},
+	// 	{
+	// 		Name:   "D1",
+	// 		Double: true,
+	// 		// ClubId: 1,
+	// 	},
+	// 	{
+	// 		Name:   "D2",
+	// 		Double: true,
+	// 		// ClubId: 1,
+	// 	},
+	// 	{
+	// 		Name:   "D3",
+	// 		Double: true,
+	// 		// ClubId: 1,
+	// 	},
+	// 	{
+	// 		Name:   "S1",
+	// 		Double: false,
+	// 		// ClubId: 1,
+	// 	},
+	// 	{
+	// 		Name:   "S2",
+	// 		Double: false,
+	// 		// ClubId: 2,
+	// 	},
+	// 	{
+	// 		Name:   "S1",
+	// 		Double: false,
+	// 		// ClubId: 2,
+	// 	},
+	// }
 
 	// Tjek om der er nogen fejl under oprettelse
 	// if result.Error != nil {
@@ -435,14 +433,18 @@ func Setup(db *gorm.DB) {
 			fmt.Println("fuck nej")
 		}
 	}
-
+	for i := range place {
+		if err := db.Create(&place[i]).Error; err != nil {
+			fmt.Println("fuck nej")
+		}
+	}
 	db.Create(&role)
 	// db.Create(userStats)
 	// db.Create(userinfo)
 	// db.Create(friends)
 	db.Create(&months)
 	db.Create(&zip)
-	db.Create(&place)
-	db.Create(&courts)
+	// db.Create(&courts)
+	// db.Create(&place)
 	db.Create(&leaderboards)
 }

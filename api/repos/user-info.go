@@ -16,8 +16,6 @@ type UserRepo struct {
 
 func (repo *UserRepo) Login(data models.UserInfo) (*[]models.User, error) {
 	var user []models.User
-	fmt.Println("lol")
-
 	// if err := repo.db.Find(&user).Error; err != nil {
 	// 	fmt.Println("Hej med dig")
 	// 	return nil, err
@@ -35,6 +33,22 @@ func (repo *UserRepo) Login(data models.UserInfo) (*[]models.User, error) {
 	// fmt.Println(user[0].Userinfo.Password)
 	if !middleware.CheckPasswordHash(data.Password, user[0].Userinfo.Password) {
 		return nil, errors.New("password not matchs")
+	}
+	user[0].Userinfo.Password = ""
+	return &user, nil
+}
+
+// this is gona be check token endpoint pt just id
+func (repo *UserRepo) CheckToken(id int) (*[]models.User, error) {
+	var user []models.User
+
+	err := repo.db.Joins("Userinfo").Preload("UserStats").Preload("FriendList").Find(&user, "Userinfo.id = ?", id)
+	if err.Error != nil {
+		return nil, err.Error
+	}
+	if err.RowsAffected <= 0 {
+		return nil, errors.New("can't find user")
+
 	}
 	user[0].Userinfo.Password = ""
 	return &user, nil

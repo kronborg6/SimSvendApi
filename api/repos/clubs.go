@@ -9,8 +9,8 @@ type ClubsRepo struct {
 	db *gorm.DB
 }
 
-func (repo *ClubsRepo) FindAllClubs() ([]models.Clubs, error) {
-	var clubs []models.Clubs
+func (repo *ClubsRepo) FindAllClubs() ([]models.Club, error) {
+	var clubs []models.Club
 
 	if err := repo.db.Find(&clubs).Error; err != nil {
 		return clubs, err
@@ -18,9 +18,9 @@ func (repo *ClubsRepo) FindAllClubs() ([]models.Clubs, error) {
 	return clubs, nil
 }
 
-func (repo *ClubsRepo) FindClub(id int) (models.Clubs, error) {
-	var clubs models.Clubs
-	if err := repo.db.Where("id = ?", id).Find(&clubs).Error; err != nil {
+func (repo *ClubsRepo) FindClub(id int) (models.Club, error) {
+	var clubs models.Club
+	if err := repo.db.Where("id = ?", id).Preload("").Find(&clubs).Error; err != nil {
 		return clubs, err
 	}
 	return clubs, nil

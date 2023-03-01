@@ -6,7 +6,7 @@ type Matchs struct {
 	ID           int
 	PlayTime     time.Time `json:"play_time" gorm:"not null"`
 	PlaceId      int
-	Place        Clubs `gorm:"foreignKey:PlaceId"`
+	Place        Club `gorm:"foreignKey:PlaceId"`
 	CourtId      int
 	Court        ClubCourts `gorm:"foreignKey:CourtId"`
 	Don          bool       `json:"don" gorm:"NOT NULL; default:false"`

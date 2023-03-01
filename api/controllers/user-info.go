@@ -38,6 +38,19 @@ func (controller *UserController) Login(c *fiber.Ctx) error {
 	// fmt.Print(data)
 	return c.JSON(data)
 }
+func (controller *UserController) CheckToken(c *fiber.Ctx) error {
+	id, err := strconv.Atoi(c.Params("id"))
+
+	if err != nil {
+		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+	}
+	data, err := controller.repo.CheckToken(id)
+
+	if err != nil {
+		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+	}
+	return c.JSON(data)
+}
 func (controller *UserController) GetUser(c *fiber.Ctx) error {
 	var user models.UserInfo
 	var err error
@@ -123,6 +136,7 @@ func RegisterUserController(db *gorm.DB, router fiber.Router) {
 	UserRouter.Post("/register", controller.CreateUser)
 	UserRouter.Get("/test", controller.GetAllUser)
 	UserRouter.Post("/find", controller.GetUser)
+	UserRouter.Get("/token/:id", controller.CheckToken)
 
 	UserRouter.Get("/friends/:userID", controller.TestFriends)
 }
