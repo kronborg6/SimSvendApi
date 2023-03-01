@@ -22,7 +22,7 @@ func (repo *TournamentRepo) FindAllTour() ([]models.Tournament, error) {
 
 func (repo *TournamentRepo) FindTour(id int) ([]models.Tournament, error) {
 	var tour []models.Tournament
-	err := repo.db.Where("").Preload("").Find(&tour)
+	err := repo.db.Where("id = ?", id).Preload("").Find(&tour)
 	if err.Error != nil {
 		return nil, errors.New("can't find tournamnet")
 	}
