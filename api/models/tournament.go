@@ -11,7 +11,8 @@ type Tournament struct {
 	Date    time.Time `json:"date"`
 	Elo     int       `json:"elo"`
 	Gender  string    `json:"gender"`
-	Players []User    `gorm:"many2many:tournament_players;"`
+	// Tour    TournamentInfo
+	Players []User `gorm:"many2many:tournament_players;"`
 }
 
 type TournamentInfo struct {

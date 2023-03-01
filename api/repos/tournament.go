@@ -1,6 +1,8 @@
 package repos
 
 import (
+	"errors"
+
 	"github.com/kronborg6/SimSvendApi/api/models"
 	"gorm.io/gorm"
 )
@@ -18,8 +20,16 @@ func (repo *TournamentRepo) FindAllTour() ([]models.Tournament, error) {
 	return tour, nil
 }
 
-func (repo *TournamentRepo) FindTour() ([]models.Tournament, error) {
-	return nil, nil
+func (repo *TournamentRepo) FindTour(id int) ([]models.Tournament, error) {
+	var tour []models.Tournament
+	err := repo.db.Where("").Preload("").Find(&tour)
+	if err.Error != nil {
+		return nil, errors.New("can't find tournamnet")
+	}
+	if err.RowsAffected <= 0 {
+		return nil, errors.New("can't find tournamnet")
+	}
+	return tour, nil
 }
 
 func NewTournamentRepo(db *gorm.DB) *TournamentRepo {
