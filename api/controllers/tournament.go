@@ -19,6 +19,8 @@ func (controller *TournamentController) GetAllTour(c *fiber.Ctx) error {
 	return c.JSON(tour)
 }
 
+// func (controller )
+
 func NewTournamentController(repo *repos.TournamentRepo) *TournamentController {
 	return &TournamentController{repo}
 }

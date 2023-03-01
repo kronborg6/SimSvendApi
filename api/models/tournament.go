@@ -13,3 +13,7 @@ type Tournament struct {
 	Gender  string    `json:"gender"`
 	Players []User    `gorm:"many2many:tournament_players;"`
 }
+
+type TournamentInfo struct {
+	ID int
+}

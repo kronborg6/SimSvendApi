@@ -18,6 +18,10 @@ func (repo *TournamentRepo) FindAllTour() ([]models.Tournament, error) {
 	return tour, nil
 }
 
+func (repo *TournamentRepo) FindTour() ([]models.Tournament, error) {
+	return nil, nil
+}
+
 func NewTournamentRepo(db *gorm.DB) *TournamentRepo {
 	return &TournamentRepo{db}
 }
