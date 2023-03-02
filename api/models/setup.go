@@ -285,7 +285,7 @@ func Setup(db *gorm.DB) {
 			MonthID:  1,
 			Year:     2023,
 			PlayerID: 2,
-			Points:   4223,
+			Points:   1,
 		},
 		{
 			MonthID:  1,
