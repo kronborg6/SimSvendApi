@@ -17,7 +17,7 @@ type Tournament struct {
 
 type TournamentInfo struct {
 	ID           int
-	PricePull    int
+	PricePool    int
 	Dec          string
 	TournamentID int
 }

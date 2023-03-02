@@ -461,7 +461,7 @@ func Setup(db *gorm.DB) {
 			Date:    time.Now(),
 			Gender:  "Men",
 			Players: []User{{ID: 1}, {ID: 3}},
-			Tour:    TournamentInfo{PricePull: 1000, Dec: "Vis i tro i er de best padel par så find ud af det her"},
+			Tour:    TournamentInfo{PricePool: 1000, Dec: "Vis i tro i er de best padel par så find ud af det her"},
 		},
 		{
 			Name:    "Queen of Padel",
@@ -470,7 +470,7 @@ func Setup(db *gorm.DB) {
 			Date:    time.Now(),
 			Gender:  "Women",
 			Players: []User{{ID: 2}, {ID: 4}},
-			Tour:    TournamentInfo{PricePull: 1000, Dec: "Vis i tro i er de best padel par så find ud af det her"},
+			Tour:    TournamentInfo{PricePool: 1000, Dec: "Vis i tro i er de best padel par så find ud af det her"},
 		},
 	}
 	db.Create(&role)
