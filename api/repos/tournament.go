@@ -2,6 +2,7 @@ package repos
 
 import (
 	"errors"
+	"time"
 
 	"github.com/kronborg6/SimSvendApi/api/models"
 	"gorm.io/gorm"
@@ -39,6 +40,14 @@ func (repo *TournamentRepo) FindTour(id int) ([]models.Tournament, error) {
 			tour[i].Players[x].RoleID = 0
 			tour[i].Players[x].FriendList = nil
 		}
+	}
+	return tour, nil
+}
+func (repo *TournamentRepo) NewTour(model models.Tournament) (models.Tournament, error) {
+	var tour models.Tournament
+	model.Date = time.Now()
+	if err := repo.db.Debug().Create(&model).Error; err != nil {
+		return tour, err
 	}
 	return tour, nil
 }

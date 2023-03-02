@@ -464,7 +464,7 @@ func Setup(db *gorm.DB) {
 			Tour:    TournamentInfo{PricePull: 1000, Dec: "Vis i tro i er de best padel par så find ud af det her"},
 		},
 		{
-			Name:    "Quen of Padel",
+			Name:    "Queen of Padel",
 			HowMany: 12,
 			PlaceID: 1,
 			Date:    time.Now(),
