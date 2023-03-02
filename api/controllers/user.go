@@ -147,6 +147,15 @@ func (controller *UserController) GetUserStats(c *fiber.Ctx) error {
 	return c.JSON(data)
 }
 
+func (controller *UserController) GetTopPlayers(c *fiber.Ctx) error {
+	data, err := controller.repo.TopPlayers()
+
+	if err != nil {
+		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+	}
+	return c.JSON(data)
+}
+
 func NewUserController(repo *repos.UserRepo) *UserController {
 	return &UserController{repo}
 }
@@ -161,9 +170,12 @@ func RegisterUserController(db *gorm.DB, router fiber.Router) {
 	UserRouter.Post("/register", controller.CreateUser)
 	UserRouter.Get("/test", controller.GetAllUser)
 	UserRouter.Post("/find", controller.GetUser)
+
 	UserRouter.Get("/token/:id", controller.CheckToken)
 
 	UserRouter.Get("/friends/:userID", controller.TestFriends)
+
+	UserRouter.Get("/leaderboard", controller.GetTopPlayers)
 
 	UserStatsRouter := router.Group("/stats")
 

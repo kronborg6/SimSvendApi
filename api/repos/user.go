@@ -8,6 +8,7 @@ import (
 	"github.com/kronborg6/SimSvendApi/api/middleware"
 	"github.com/kronborg6/SimSvendApi/api/models"
 	"gorm.io/gorm"
+	"gorm.io/gorm/clause"
 )
 
 type UserRepo struct {
@@ -139,6 +140,23 @@ func (repo *UserRepo) FindPlayerStats(id int) ([]models.User, error) {
 	if err.RowsAffected <= 0 {
 		return nil, errors.New("can't find user")
 
+	}
+	return user, nil
+}
+
+func (repo *UserRepo) TopPlayers() ([]models.User, error) {
+
+	var user []models.User
+
+	if err := repo.db.Debug().Preload(clause.Associations).Find(&user).Error; err != nil {
+		return nil, err
+	}
+	for i := range user {
+		user[i].FriendList = nil
+		user[i].Role.ID = 0
+		user[i].Role.Name = ""
+		user[i].Userinfo.Password = ""
+		user[i].RoleID = 0
 	}
 	return user, nil
 }

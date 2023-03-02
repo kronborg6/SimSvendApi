@@ -345,7 +345,7 @@ func Setup(db *gorm.DB) {
 			},
 			// Role: Roles{Name: "Admin"},
 			RoleID:     1,
-			UserStats:  UserStats{Elo: 100, Points: 0, Wins: 0, Losses: 0},
+			UserStats:  UserStats{Elo: 99999, Points: 1241241, Wins: 999, Losses: -999},
 			FriendList: []Friends{{Email: "t.kronborg6@gmail.com"}, {Email: "allanandersen6996@gmail.com"}, {Email: "augustschnellpedersen@gmail.com"}},
 		},
 		{
@@ -360,7 +360,7 @@ func Setup(db *gorm.DB) {
 			// Role: Roles{Name: "Bruger"},
 
 			RoleID:     2,
-			UserStats:  UserStats{Elo: 100, Points: 0, Wins: 0, Losses: 0},
+			UserStats:  UserStats{Elo: 150, Points: 250, Wins: 0, Losses: 0},
 			FriendList: []Friends{{Email: "mkronborg7@gmail.com"}, {Email: "allanandersen6996@gmail.com"}},
 		},
 		{
@@ -374,7 +374,7 @@ func Setup(db *gorm.DB) {
 			},
 			// Role:       Roles{Name: "Admin"},
 			RoleID:     2,
-			UserStats:  UserStats{Elo: 100, Points: 0, Wins: 0, Losses: 0},
+			UserStats:  UserStats{Elo: 423, Points: 5555, Wins: 10, Losses: 0},
 			FriendList: []Friends{{Email: "mkronborg7@gmail.com"}, {Email: "t.kronborg6@gmail.com"}},
 		},
 		{
