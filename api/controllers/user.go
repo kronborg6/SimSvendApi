@@ -66,6 +66,18 @@ func (controller *UserController) GetUser(c *fiber.Ctx) error {
 	}
 	return c.JSON(data)
 }
+func (controller *UserController) CreateNewUser(c *fiber.Ctx) error {
+	var model models.UserInfo
+	var err error
+	if err = c.BodyParser(&model); err != nil {
+		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+	}
+	data, err := controller.repo.NewUser(model)
+	if err != nil {
+		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+	}
+	return c.JSON(data)
+}
 func (controller *UserController) GetAllUser(c *fiber.Ctx) error {
 	// var user models.User
 	// var err error
@@ -170,6 +182,8 @@ func RegisterUserController(db *gorm.DB, router fiber.Router) {
 	UserRouter.Post("/register", controller.CreateUser)
 	UserRouter.Get("/test", controller.GetAllUser)
 	UserRouter.Post("/find", controller.GetUser)
+
+	UserRouter.Post("/", controller.CreateNewUser)
 
 	UserRouter.Get("/token/:id", controller.CheckToken)
 

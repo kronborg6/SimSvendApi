@@ -92,6 +92,19 @@ func (repo *UserRepo) NewUser2(user models.UserInfo) (models.UserInfo, error) {
 }
 func (repo *UserRepo) NewUser(user models.UserInfo) (models.User, error) {
 	var newUser models.User
+	var stats models.UserStats
+
+	user.Password = middleware.HashPassword(user.Password)
+
+	stats.Elo = 100
+	newUser.UserStats = stats
+	newUser.Userinfo = user
+	newUser.RoleID = 2
+	newUser.FriendList = nil
+
+	if err := repo.db.Debug().Create(&newUser).Error; err != nil {
+		return newUser, err
+	}
 	return newUser, nil
 }
 
