@@ -36,6 +36,7 @@ func main() {
 	controllers.RegisterUserController(db, api)
 	controllers.RegisterLeaderboardController(db, api)
 	controllers.RegisterTournamentController(db, api)
+	controllers.RegisterMatchController(db, api)
 	// controllers.
 	// controllers.RegisterUserStatsController(db, api)
 
