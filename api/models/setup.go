@@ -453,6 +453,18 @@ func Setup(db *gorm.DB) {
 	// }
 	// db.Create(&user)
 	// db.Create(&user2)
+	matchs := []Matchs{
+		{
+			PlayTime:     time.Now(),
+			PlaceId:      1,
+			CourtId:      1,
+			TeamAPlayerA: 1,
+			TeamAPlayerB: 2,
+			TeamBPlayerA: 3,
+			TeamBPlayerB: 4,
+			Don:          false,
+		},
+	}
 	tour := []Tournament{
 		{
 			Name:    "King of Padel",
@@ -492,6 +504,7 @@ func Setup(db *gorm.DB) {
 	db.Create(&zip)
 	// db.Create(&courts)
 	// db.Create(&place)
+	db.Create(&matchs)
 	db.Create(&leaderboards)
 	db.Create(&tour)
 }

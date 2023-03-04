@@ -100,7 +100,7 @@ func (repo *UserRepo) NewUser(user models.UserInfo) (models.User, error) {
 	newUser.UserStats = stats
 	newUser.Userinfo = user
 	newUser.RoleID = 2
-	newUser.FriendList = nil
+	// newUser.FriendList = nil
 
 	if err := repo.db.Debug().Create(&newUser).Error; err != nil {
 		return newUser, err
@@ -115,11 +115,9 @@ func (repo *UserRepo) FriendList(id int) ([]models.UserInfo, error) {
 	err := repo.db.Debug().Where("user_id = ?", id).Find(&friendslist)
 	if err.Error != nil {
 		return nil, errors.New("user don't have friends LOL")
-
 	}
 	if err.RowsAffected <= 0 {
 		return nil, errors.New("user don't have friends LOL")
-
 	}
 
 	for i := range friendslist {
