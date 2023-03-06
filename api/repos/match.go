@@ -40,13 +40,19 @@ func (repo *MatchRepo) FindMyGames(userID int) ([]models.Matchs, error) {
 func (repo *MatchRepo) GameHistory(userID int) ([]models.Matchs, error) {
 	var games []models.Matchs
 
-	err := repo.db.Where("team_a_player_a = ?", userID).Or("team_a_player_b = ?", userID).Or("team_b_player_a = ?", userID).Or("team_b_player_b = ?", userID).Find(&games)
+	err := repo.db.Where("team_a_player_a = ?", userID).Or("team_a_player_b = ?", userID).Or("team_b_player_a = ?", userID).Or("team_b_player_b = ?", userID).Preload("Result").Preload("User1").Preload("User2").Preload("User3").Preload("User4").Find(&games)
 	if err.Error != nil {
 		return nil, errors.New("can't find games")
 	}
 
 	if err.RowsAffected <= 0 {
 		return nil, errors.New("can't find games")
+	}
+	for i := range games {
+		games[i].User1.Password = ""
+		games[i].User2.Password = ""
+		games[i].User3.Password = ""
+		games[i].User4.Password = ""
 	}
 	return games, nil
 }

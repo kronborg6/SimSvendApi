@@ -464,6 +464,36 @@ func Setup(db *gorm.DB) {
 			TeamBPlayerB: 4,
 			Don:          false,
 		},
+		{
+			PlayTime:     time.Now(),
+			PlaceId:      1,
+			CourtId:      1,
+			TeamAPlayerA: 1,
+			TeamAPlayerB: 2,
+			TeamBPlayerA: 3,
+			TeamBPlayerB: 4,
+			Don:          false,
+		},
+		{
+			PlayTime:     time.Now(),
+			PlaceId:      1,
+			CourtId:      1,
+			TeamAPlayerA: 1,
+			TeamAPlayerB: 2,
+			TeamBPlayerA: 3,
+			TeamBPlayerB: 4,
+			Don:          false,
+		},
+		{
+			PlayTime:     time.Now(),
+			PlaceId:      1,
+			CourtId:      1,
+			TeamAPlayerA: 1,
+			TeamAPlayerB: 2,
+			TeamBPlayerA: 3,
+			TeamBPlayerB: 4,
+			Don:          false,
+		},
 	}
 	tour := []Tournament{
 		{

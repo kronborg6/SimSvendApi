@@ -18,20 +18,20 @@ type Matchs struct {
 	User2        UserInfo   `gorm:"foreignKey:TeamAPlayerB"`
 	User3        UserInfo   `gorm:"foreignKey:TeamBPlayerA"`
 	User4        UserInfo   `gorm:"foreignKey:TeamBPlayerB"`
-	// ResultsId    int64
-	// Result       Results `gorm:"foreignKey:ResultsId"`
+	ResultsId    int64      `gorm:"default:null"`
+	Result       Results    `gorm:"foreignKey:ResultsId"`
 }
 
 type Results struct {
-	ID      int
-	MatchId int    `json:"match_id"`
-	Game    Matchs `gorm:"foreignKey:MatchId"`
-	AOne    int32  `gorm:"not null;default:0"`
-	BOne    int32  `gorm:"not null;default:0"`
-	ATwo    int32  `gorm:"not null;default:0"`
-	BTwo    int32  `gorm:"not null;default:0"`
-	AThree  int32  `gorm:"default:null"`
-	BThree  int32  `gorm:"default:null"`
+	ID int
+	// MatchId int    `json:"match_id"`
+	// Game    Matchs `gorm:"foreignKey:MatchId"`
+	AOne   int32 `gorm:"not null;default:0"`
+	BOne   int32 `gorm:"not null;default:0"`
+	ATwo   int32 `gorm:"not null;default:0"`
+	BTwo   int32 `gorm:"not null;default:0"`
+	AThree int32 `gorm:"default:null"`
+	BThree int32 `gorm:"default:null"`
 }
 
 /*
