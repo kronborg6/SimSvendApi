@@ -99,7 +99,8 @@ func (repo *UserRepo) NewUser(user models.UserInfo) (models.User, error) {
 	stats.Elo = 100
 	newUser.UserStats = stats
 	newUser.Userinfo = user
-	newUser.RoleID = 2
+	newUser.Userinfo.CreateAt = time.Now()
+	newUser.RoleID = 1
 	// newUser.FriendList = nil
 
 	if err := repo.db.Debug().Create(&newUser).Error; err != nil {
