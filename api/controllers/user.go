@@ -172,6 +172,21 @@ func (controller *UserController) PutUserStats(c *fiber.Ctx) error {
 	}
 	return c.JSON(data)
 }
+func (controller *UserController) PutUserRole(c *fiber.Ctx) error {
+	var user models.User
+	var err error
+
+	if err = c.BodyParser(&user); err != nil {
+		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+	}
+	data, err := controller.repo.UpdateUserRole(user)
+
+	if err != nil {
+		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+	}
+
+	return c.JSON(data)
+}
 
 func (controller *UserController) GetTopPlayers(c *fiber.Ctx) error {
 	data, err := controller.repo.TopPlayers()
@@ -207,6 +222,7 @@ func RegisterUserController(db *gorm.DB, router fiber.Router) {
 
 	//admin side endpoint
 	UserRouter.Post("/stats", controller.PutUserStats)
+	UserRouter.Post("/role", controller.PutUserRole)
 
 	UserStatsRouter := router.Group("/stats")
 

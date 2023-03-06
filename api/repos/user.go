@@ -96,12 +96,21 @@ func (repo *UserRepo) UpdateStats(data models.UserStats) (models.UserStats, erro
 	// if err := repo.db.Debug().Save(&data).Error; err != nil {
 	// 	return stats, nil
 	// }
-	err := repo.db.Model(&data).Where("user_id = ?", data.UserID).Updates(&data).Error
+	err := repo.db.Debug().Model(&data).Where("user_id = ?", data.UserID).Updates(&data).Error
 	if err != nil {
 		return data, err
 	}
 
 	return data, nil
+}
+func (repo *UserRepo) UpdateUserRole(user models.User) (models.User, error) {
+
+	err := repo.db.Debug().Model(&user).Where("id = ?", user.ID).Updates(&user).Error
+
+	if err != nil {
+		return user, err
+	}
+	return user, nil
 }
 func (repo *UserRepo) NewUser(user models.UserInfo) (models.User, error) {
 	var newUser models.User
