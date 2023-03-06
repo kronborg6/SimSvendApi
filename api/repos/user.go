@@ -90,6 +90,19 @@ func (repo *UserRepo) NewUser2(user models.UserInfo) (models.UserInfo, error) {
 
 	return user, nil
 }
+func (repo *UserRepo) UpdateStats(data models.UserStats) (models.UserStats, error) {
+	// var stats models.UserStats
+
+	// if err := repo.db.Debug().Save(&data).Error; err != nil {
+	// 	return stats, nil
+	// }
+	err := repo.db.Model(&data).Where("user_id = ?", data.UserID).Updates(&data).Error
+	if err != nil {
+		return data, err
+	}
+
+	return data, nil
+}
 func (repo *UserRepo) NewUser(user models.UserInfo) (models.User, error) {
 	var newUser models.User
 	var stats models.UserStats
