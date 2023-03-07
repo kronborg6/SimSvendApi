@@ -48,6 +48,19 @@ func (controller *TournamentController) CreateNewTour(c *fiber.Ctx) error {
 	return c.JSON(data)
 }
 
+func (controller *TournamentController) PostJoinTour(c *fiber.Ctx) error {
+	var user models.JoinTourModel
+	var err error
+	if err = c.BodyParser(&user); err != nil {
+		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+	}
+	data, err := controller.repo.JoinTour(user)
+	if err != nil {
+		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+	}
+	return c.JSON(data)
+}
+
 func NewTournamentController(repo *repos.TournamentRepo) *TournamentController {
 	return &TournamentController{repo}
 }
@@ -61,5 +74,6 @@ func RegisterTournamentController(db *gorm.DB, router fiber.Router) {
 	TourController.Get("/", controller.GetAllTour)
 	TourController.Get("/:id", controller.GetTour)
 	TourController.Post("/", controller.CreateNewTour)
+	TourController.Post("/join", controller.PostJoinTour)
 
 }

@@ -43,8 +43,25 @@ func (repo *TournamentRepo) FindTour(id int) ([]models.Tournament, error) {
 	}
 	return tour, nil
 }
-func (repo *TournamentRepo) JoinTour() (models.Tournament, error) {
+
+func (repo *TournamentRepo) JoinTour(user models.JoinTourModel) (models.Tournament, error) {
 	var tour models.Tournament
+	var player []models.User
+	if err := repo.db.Preload("Players").First(&tour, user.TourID).Error; err != nil {
+		return tour, err
+	}
+	if err := repo.db.First(&player, user.UserID).Error; err != nil {
+		return tour, err
+	}
+	for i := range tour.Players {
+		if tour.Players[i].ID == user.UserID {
+			return tour, errors.New("user is allready on the tour")
+		}
+	}
+	tour.Players = append(tour.Players, player...)
+	if err := repo.db.Debug().Save(&tour).Error; err != nil {
+		return tour, err
+	}
 
 	return tour, nil
 }

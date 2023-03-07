@@ -21,3 +21,8 @@ type TournamentInfo struct {
 	Dec          string
 	TournamentID int
 }
+
+type JoinTourModel struct {
+	UserID int `json:"user_id"`
+	TourID int `json:"tour_id"`
+}
