@@ -56,6 +56,28 @@ func (repo *MatchRepo) GameHistory(userID int) ([]models.Match, error) {
 	}
 	return games, nil
 }
+func (repo *MatchRepo) FindGame(gameID int) ([]models.Match, error) {
+	var game []models.Match
+
+	if err := repo.db.Debug().Where("id = ?", gameID).Preload("Result").Preload("User1").Preload("User2").Preload("User3").Preload("User4").Preload("Place").Preload("Court").Find(&game).Error; err != nil {
+		return nil, err
+	}
+	if game == nil {
+		return nil, errors.New("can't find the game")
+	}
+	game[0].User1.Password = ""
+	game[0].User2.Password = ""
+	game[0].User3.Password = ""
+	game[0].User4.Password = ""
+	// for i := range game {
+	// 	game[i].User1.Password = ""
+	// 	game[i].User2.Password = ""
+	// 	game[i].User3.Password = ""
+	// 	game[i].User4.Password = ""
+	// }
+
+	return game, nil
+}
 
 /*
 	 func (repo *MatchRepo) NewCasualGame(game models.Matchs) (models.Matchs, error) {

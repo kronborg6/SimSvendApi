@@ -43,6 +43,11 @@ func (repo *TournamentRepo) FindTour(id int) ([]models.Tournament, error) {
 	}
 	return tour, nil
 }
+func (repo *TournamentRepo) JoinTour() (models.Tournament, error) {
+	var tour models.Tournament
+
+	return tour, nil
+}
 func (repo *TournamentRepo) NewTour(model models.Tournament) (models.Tournament, error) {
 	var tour models.Tournament
 	model.Date = time.Now()

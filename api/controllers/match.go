@@ -24,6 +24,22 @@ func (controller *MatchController) FindAllUserMatchs(c *fiber.Ctx) error {
 	return c.JSON(data)
 }
 
+func (controller *MatchController) FindGame(c *fiber.Ctx) error {
+
+	id, err := strconv.Atoi(c.Params("id"))
+
+	if err != nil {
+		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+	}
+
+	data, err := controller.repo.FindGame(id)
+
+	if err != nil {
+		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+	}
+	return c.JSON(data)
+}
+
 func NewMatchController(repo *repos.MatchRepo) *MatchController {
 	return &MatchController{repo}
 }
@@ -35,4 +51,5 @@ func RegisterMatchController(db *gorm.DB, router fiber.Router) {
 	MatchController := router.Group("/match")
 
 	MatchController.Get("/:id", controller.FindAllUserMatchs)
+	MatchController.Get("/game/:id", controller.FindGame)
 }
