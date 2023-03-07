@@ -13,8 +13,8 @@ func Setup(db *gorm.DB) {
 		&ClubCourts{},
 		&Club{},
 		&Months{},
-		&Matchs{},
 		&Results{},
+		&Match{},
 		&Roles{},
 		&ZipCode{},
 		&User{},
@@ -29,8 +29,8 @@ func Setup(db *gorm.DB) {
 		&ClubCourts{},
 		&Club{},
 		&Months{},
-		&Matchs{},
 		&Results{},
+		&Match{},
 		&Roles{},
 		&ZipCode{},
 		&User{},
@@ -453,7 +453,7 @@ func Setup(db *gorm.DB) {
 	// }
 	// db.Create(&user)
 	// db.Create(&user2)
-	matchs := []Matchs{
+	matchs := []Match{
 		{
 			PlayTime:     time.Now(),
 			PlaceId:      1,
@@ -463,37 +463,67 @@ func Setup(db *gorm.DB) {
 			TeamBPlayerA: 3,
 			TeamBPlayerB: 4,
 			Don:          false,
+			// Result:       Results{},
+			Result: &Results{},
 		},
 		{
 			PlayTime:     time.Now(),
 			PlaceId:      1,
 			CourtId:      1,
-			TeamAPlayerA: 1,
-			TeamAPlayerB: 2,
-			TeamBPlayerA: 3,
+			TeamAPlayerA: 3,
+			TeamAPlayerB: 1,
+			TeamBPlayerA: 2,
 			TeamBPlayerB: 4,
-			Don:          false,
+			Don:          true,
+			// Result:       Results{},
+			Result: &Results{AOne: 6, BOne: 0, ATwo: 6, BTwo: 2},
 		},
+
 		{
 			PlayTime:     time.Now(),
 			PlaceId:      1,
 			CourtId:      1,
-			TeamAPlayerA: 1,
-			TeamAPlayerB: 2,
-			TeamBPlayerA: 3,
-			TeamBPlayerB: 4,
-			Don:          false,
+			TeamAPlayerA: 2,
+			TeamAPlayerB: 3,
+			TeamBPlayerA: 4,
+			TeamBPlayerB: 1,
+			Don:          true,
+			// Result:       Results{},
+			Result: &Results{AOne: 6, BOne: 4, ATwo: 3, BTwo: 6, AThree: 4, BThree: 6},
 		},
-		{
-			PlayTime:     time.Now(),
-			PlaceId:      1,
-			CourtId:      1,
-			TeamAPlayerA: 1,
-			TeamAPlayerB: 2,
-			TeamBPlayerA: 3,
-			TeamBPlayerB: 4,
-			Don:          false,
-		},
+		// {
+		// 	PlayTime:     time.Now(),
+		// 	PlaceId:      1,
+		// 	CourtId:      1,
+		// 	TeamAPlayerA: 1,
+		// 	TeamAPlayerB: 2,
+		// 	TeamBPlayerA: 3,
+		// 	TeamBPlayerB: 4,
+		// 	Don:          false,
+		// 	Result:       Results{},
+		// },
+		// {
+		// 	PlayTime:     time.Now(),
+		// 	PlaceId:      1,
+		// 	CourtId:      1,
+		// 	TeamAPlayerA: 1,
+		// 	TeamAPlayerB: 2,
+		// 	TeamBPlayerA: 3,
+		// 	TeamBPlayerB: 4,
+		// 	Don:          false,
+		// 	Result:       Results{},
+		// },
+		// {
+		// 	PlayTime:     time.Now(),
+		// 	PlaceId:      1,
+		// 	CourtId:      1,
+		// 	TeamAPlayerA: 1,
+		// 	TeamAPlayerB: 2,
+		// 	TeamBPlayerA: 3,
+		// 	TeamBPlayerB: 4,
+		// 	Don:          false,
+		// 	Result:       Results{},
+		// },
 	}
 	tour := []Tournament{
 		{
@@ -527,6 +557,11 @@ func Setup(db *gorm.DB) {
 			fmt.Println("fuck nej")
 		}
 	}
+	// for i := range matchs {
+	// 	if err := db.Create(&matchs[i]).Error; err != nil {
+	// 		fmt.Println("hej med dig")
+	// 	}
+	// }
 	// db.Create(userStats)
 	// db.Create(userinfo)
 	// db.Create(friends)

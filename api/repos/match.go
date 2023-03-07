@@ -11,8 +11,8 @@ type MatchRepo struct {
 	db *gorm.DB
 }
 
-func (repo *MatchRepo) FindMyGame(gameID int) ([]models.Matchs, error) {
-	var game []models.Matchs
+func (repo *MatchRepo) FindMyGame(gameID int) ([]models.Match, error) {
+	var game []models.Match
 
 	err := repo.db.Where("id = ?", gameID).Find(&game)
 	if err.Error != nil {
@@ -24,8 +24,8 @@ func (repo *MatchRepo) FindMyGame(gameID int) ([]models.Matchs, error) {
 
 	return game, nil
 }
-func (repo *MatchRepo) FindMyGames(userID int) ([]models.Matchs, error) {
-	var games []models.Matchs
+func (repo *MatchRepo) FindMyGames(userID int) ([]models.Match, error) {
+	var games []models.Match
 
 	err := repo.db.Where("team_a_player_a = ?", userID).Or("team_a_player_b = ?", userID).Or("team_b_player_a = ?", userID).Or("team_b_player_b = ?", userID).Find(&games)
 	if err.Error != nil {
@@ -37,10 +37,10 @@ func (repo *MatchRepo) FindMyGames(userID int) ([]models.Matchs, error) {
 	}
 	return games, nil
 }
-func (repo *MatchRepo) GameHistory(userID int) ([]models.Matchs, error) {
-	var games []models.Matchs
+func (repo *MatchRepo) GameHistory(userID int) ([]models.Match, error) {
+	var games []models.Match
 
-	err := repo.db.Where("team_a_player_a = ?", userID).Or("team_a_player_b = ?", userID).Or("team_b_player_a = ?", userID).Or("team_b_player_b = ?", userID).Preload("Result").Preload("User1").Preload("User2").Preload("User3").Preload("User4").Find(&games)
+	err := repo.db.Where("team_a_player_a = ? AND don = true", userID).Or("team_a_player_b = ?", userID).Or("team_b_player_a = ?", userID).Or("team_b_player_b = ?", userID).Preload("Result").Preload("User1").Preload("User2").Preload("User3").Preload("User4").Preload("Place").Preload("Court").Find(&games)
 	if err.Error != nil {
 		return nil, errors.New("can't find games")
 	}

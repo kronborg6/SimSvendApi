@@ -9,14 +9,14 @@ type CasualRepo struct {
 	db *gorm.DB
 }
 
-func (repo *MatchRepo) NewCasualGame(game models.Matchs) (models.Matchs, error) {
+func (repo *MatchRepo) NewCasualGame(game models.Match) (models.Match, error) {
 	// var game models.Matchs
 	if err := repo.db.Create(&game).Error; err != nil {
 		return game, err
 	}
 	return game, nil
 }
-func (repo *MatchRepo) AddResualtCasualGame(game models.Matchs) (models.Matchs, error) {
+func (repo *MatchRepo) AddResualtCasualGame(game models.Match) (models.Match, error) {
 	if err := repo.db.Model(&game).Where("id = ?", game.ID).Updates(&game).Error; err != nil {
 		return game, nil
 	}

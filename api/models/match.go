@@ -2,7 +2,7 @@ package models
 
 import "time"
 
-type Matchs struct {
+type Match struct {
 	ID           int
 	PlayTime     time.Time `json:"play_time" gorm:"not null"`
 	PlaceId      int
@@ -18,20 +18,20 @@ type Matchs struct {
 	User2        UserInfo   `gorm:"foreignKey:TeamAPlayerB"`
 	User3        UserInfo   `gorm:"foreignKey:TeamBPlayerA"`
 	User4        UserInfo   `gorm:"foreignKey:TeamBPlayerB"`
-	ResultsId    int64      `gorm:"default:null"`
-	Result       Results    `gorm:"foreignKey:ResultsId"`
+	Result       *Results   `gorm:"foreignKey:MatchID" sql:"DEFAULT:null"`
 }
 
 type Results struct {
 	ID int
 	// MatchId int    `json:"match_id"`
 	// Game    Matchs `gorm:"foreignKey:MatchId"`
-	AOne   int32 `gorm:"not null;default:0"`
-	BOne   int32 `gorm:"not null;default:0"`
-	ATwo   int32 `gorm:"not null;default:0"`
-	BTwo   int32 `gorm:"not null;default:0"`
-	AThree int32 `gorm:"default:null"`
-	BThree int32 `gorm:"default:null"`
+	AOne    int32 `gorm:"not null;default:0"`
+	BOne    int32 `gorm:"not null;default:0"`
+	ATwo    int32 `gorm:"not null;default:0"`
+	BTwo    int32 `gorm:"not null;default:0"`
+	AThree  int32 `gorm:"default:null"`
+	BThree  int32 `gorm:"default:null"`
+	MatchID int
 }
 
 /*
