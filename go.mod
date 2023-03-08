@@ -28,8 +28,8 @@ require (
 )
 
 require (
-	github.com/gofiber/jwt/v3 v3.3.6 // indirect
-	github.com/golang-jwt/jwt/v4 v4.5.0 // indirect
+	github.com/gofiber/jwt/v3 v3.3.6 // direct
+	github.com/golang-jwt/jwt/v4 v4.5.0 // direct
 	github.com/joho/godotenv v1.5.1 // direct
 	golang.org/x/crypto v0.6.0 // direct
 )
