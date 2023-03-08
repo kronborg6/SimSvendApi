@@ -528,7 +528,7 @@ func Setup(db *gorm.DB) {
 	tour := []Tournament{
 		{
 			Name:    "King of Padel",
-			HowMany: 12,
+			HowMany: 3,
 			PlaceID: 1,
 			Date:    time.Now(),
 			Gender:  "Men",
@@ -537,7 +537,7 @@ func Setup(db *gorm.DB) {
 		},
 		{
 			Name:    "Queen of Padel",
-			HowMany: 12,
+			HowMany: 2,
 			PlaceID: 1,
 			Date:    time.Now(),
 			Gender:  "Women",

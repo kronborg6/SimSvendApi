@@ -53,6 +53,9 @@ func (repo *TournamentRepo) JoinTour(user models.JoinTourModel) (models.Tourname
 	if err := repo.db.First(&player, user.UserID).Error; err != nil {
 		return tour, err
 	}
+	if len(tour.Players) >= tour.HowMany {
+		return tour, errors.New("max number off players")
+	}
 	for i := range tour.Players {
 		if tour.Players[i].ID == user.UserID {
 			return tour, errors.New("user is allready on the tour")
