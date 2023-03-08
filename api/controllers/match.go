@@ -67,12 +67,11 @@ func RegisterMatchController(db *gorm.DB, router fiber.Router) {
 	controller := NewMatchController(repo)
 
 	MatchController := router.Group("/match")
-	MatchController.Post("/setresult", controller.PutMatchResult)
 
 	MatchController.Use(jwtware.New(jwtware.Config{
 		SigningKey: []byte(os.Getenv("PUBLIC")),
 	}))
-
+	MatchController.Post("/setresult", controller.PutMatchResult)
 	MatchController.Get("/:id", controller.FindAllUserMatchs)
 	MatchController.Get("/game/:id", controller.FindGame)
 }
