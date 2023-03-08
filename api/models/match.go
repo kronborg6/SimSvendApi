@@ -2,14 +2,15 @@ package models
 
 import "time"
 
-type Matchs struct {
+type Match struct {
 	ID           int
 	PlayTime     time.Time `json:"play_time" gorm:"not null"`
 	PlaceId      int
-	Place        Clubs `gorm:"foreignKey:PlaceId"`
+	Place        Club `gorm:"foreignKey:PlaceId"`
 	CourtId      int
 	Court        ClubCourts `gorm:"foreignKey:CourtId"`
-	TeamAPlayerA int        `json:"team_a_player_a"`
+	Don          bool       `json:"don" gorm:"NOT NULL; default:false"`
+	TeamAPlayerA int        `json:"team_a_player_a" gorm:"NOT NULL"`
 	TeamAPlayerB int        `json:"team_a_player_b"`
 	TeamBPlayerA int        `json:"team_b_player_a"`
 	TeamBPlayerB int        `json:"team_b_player_b"`
@@ -17,20 +18,20 @@ type Matchs struct {
 	User2        UserInfo   `gorm:"foreignKey:TeamAPlayerB"`
 	User3        UserInfo   `gorm:"foreignKey:TeamBPlayerA"`
 	User4        UserInfo   `gorm:"foreignKey:TeamBPlayerB"`
-	// ResultsId    int64
-	// Result       Results `gorm:"foreignKey:ResultsId"`
+	Result       *Results   `gorm:"foreignKey:MatchID" sql:"DEFAULT:null"`
 }
 
 type Results struct {
-	ID      int
-	MatchId int    `json:"match_id"`
-	Game    Matchs `gorm:"foreignKey:MatchId"`
-	AOne    int32  `gorm:"not null;default:0"`
-	BOne    int32  `gorm:"not null;default:0"`
-	ATwo    int32  `gorm:"not null;default:0"`
-	BTwo    int32  `gorm:"not null;default:0"`
-	AThree  int32  `gorm:"default:null"`
-	BThree  int32  `gorm:"default:null"`
+	ID int
+	// MatchId int    `json:"match_id"`
+	// Game    Matchs `gorm:"foreignKey:MatchId"`
+	AOne    int32 `gorm:"not null;default:0"`
+	BOne    int32 `gorm:"not null;default:0"`
+	ATwo    int32 `gorm:"not null;default:0"`
+	BTwo    int32 `gorm:"not null;default:0"`
+	AThree  int32 `gorm:"default:null"`
+	BThree  int32 `gorm:"default:null"`
+	MatchID int
 }
 
 /*

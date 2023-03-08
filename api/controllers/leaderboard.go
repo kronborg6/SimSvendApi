@@ -1,11 +1,14 @@
 package controllers
 
 import (
+	"os"
 	"strconv"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/kronborg6/SimSvendApi/api/repos"
 	"gorm.io/gorm"
+
+	jwtware "github.com/gofiber/jwt/v3"
 )
 
 type LeaderboardController struct {
@@ -41,6 +44,8 @@ func RegisterLeaderboardController(db *gorm.DB, router fiber.Router) {
 	controller := NewLeaderbaordController(repo)
 
 	LeaderbaordController := router.Group("/leaderboard")
-
+	LeaderbaordController.Use(jwtware.New(jwtware.Config{
+		SigningKey: []byte(os.Getenv("PUBLIC")),
+	}))
 	LeaderbaordController.Get("/:id", controller.GetAllLeaderboard)
 }
