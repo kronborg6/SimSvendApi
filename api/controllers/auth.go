@@ -45,6 +45,35 @@ func (controller *AuthController) Login(c *fiber.Ctx) error {
 
 	return c.JSON(fiber.Map{"token": t, "user": data})
 }
+func (controller *AuthController) AdminLogin(c *fiber.Ctx) error {
+	var user models.UserInfo
+	var err error
+
+	if err = c.BodyParser(&user); err != nil {
+		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+	}
+	data, err := controller.repo.Login(user)
+
+	if err != nil {
+		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+	}
+
+	claims := jwt.MapClaims{
+		"user": data,
+		"exp":  time.Now().Add(time.Hour * 72).Unix(),
+	}
+
+	// Create token
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+
+	// Generate encoded token and send it as response.
+	t, err := token.SignedString([]byte(os.Getenv("PRIVATE")))
+	if err != nil {
+		return c.SendStatus(fiber.StatusInternalServerError)
+	}
+
+	return c.JSON(fiber.Map{"token": t, "user": data})
+}
 func (controller *AuthController) CheckToken(c *fiber.Ctx) error {
 	id, err := strconv.Atoi(c.Params("id"))
 
@@ -95,6 +124,7 @@ func RegisterAuthController(db *gorm.DB, router fiber.Router) {
 	AuthRouter := router.Group("/auth")
 
 	AuthRouter.Post("/login", controller.Login)
+	AuthRouter.Post("/adminlogin", controller.AdminLogin)
 	AuthRouter.Post("/register", controller.CreateNewUser)
 	AuthRouter.Get("/:id", controller.CheckToken)
 }
