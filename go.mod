@@ -24,12 +24,12 @@ require (
 	github.com/valyala/fasthttp v1.44.0 // indirect
 	github.com/valyala/tcplisten v1.0.0 // indirect
 	golang.org/x/sys v0.6.0 // indirect
-	gorm.io/driver/mysql v1.4.5 // indirect
+	gorm.io/driver/mysql v1.4.5 // direct
 )
 
 require (
 	github.com/gofiber/jwt/v3 v3.3.6 // indirect
 	github.com/golang-jwt/jwt/v4 v4.5.0 // indirect
-	github.com/joho/godotenv v1.5.1 // indirect
-	golang.org/x/crypto v0.6.0 // indirect
+	github.com/joho/godotenv v1.5.1 // direct
+	golang.org/x/crypto v0.6.0 // direct
 )
