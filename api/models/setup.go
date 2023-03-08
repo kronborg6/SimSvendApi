@@ -572,4 +572,12 @@ func Setup(db *gorm.DB) {
 	db.Create(&matchs)
 	db.Create(&leaderboards)
 	db.Create(&tour)
+
+	/*
+		 	err := db.SetupJoinTable(&Tournament{}, "test", &User{})
+
+			if err != nil {
+				fmt.Println(err)
+			}
+	*/
 }
