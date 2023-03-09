@@ -26,11 +26,11 @@ func (controller *AuthController) Login(c *fiber.Ctx) error {
 	data, err := controller.repo.Login(user)
 
 	if err != nil {
-		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+		return fiber.NewError(fiber.StatusNotFound, err.Error())
 	}
 
 	claims := jwt.MapClaims{
-		"user": data,
+		"user": (*data)[0].Userinfo,
 		"exp":  time.Now().Add(time.Hour * 72).Unix(),
 	}
 
@@ -55,11 +55,13 @@ func (controller *AuthController) AdminLogin(c *fiber.Ctx) error {
 	data, err := controller.repo.Login(user)
 
 	if err != nil {
-		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+		return fiber.NewError(fiber.StatusNotFound, err.Error())
 	}
-
+	if data != nil {
+		return c.SendStatus(404)
+	}
 	claims := jwt.MapClaims{
-		"user": data,
+		"user": (*data)[0].Userinfo,
 		"exp":  time.Now().Add(time.Hour * 72).Unix(),
 	}
 
@@ -98,7 +100,7 @@ func (controller *AuthController) CreateNewUser(c *fiber.Ctx) error {
 		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
 	}
 	claims := jwt.MapClaims{
-		"user": data,
+		"user": data.Userinfo,
 		"exp":  time.Now().Add(time.Hour * 72).Unix(),
 	}
 

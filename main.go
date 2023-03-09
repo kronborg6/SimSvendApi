@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cache"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/kronborg6/SimSvendApi/api/controllers"
 	"github.com/kronborg6/SimSvendApi/api/db"
@@ -26,6 +27,7 @@ func main() {
 	models.Setup(db)
 
 	app.Use(logger.New())
+	app.Use(cache.New())
 	// middleware.EncryptoKey()
 	// fmt.Println(getPort())
 

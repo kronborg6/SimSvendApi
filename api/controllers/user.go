@@ -2,9 +2,11 @@ package controllers
 
 import (
 	"fmt"
+	"os"
 	"strconv"
 
 	"github.com/gofiber/fiber/v2"
+	jwtware "github.com/gofiber/jwt/v3"
 	"github.com/kronborg6/SimSvendApi/api/models"
 	"github.com/kronborg6/SimSvendApi/api/repos"
 	"gorm.io/gorm"
@@ -207,8 +209,12 @@ func RegisterUserController(db *gorm.DB, router fiber.Router) {
 
 	UserRouter := router.Group("/user")
 
-	UserRouter.Post("/login", controller.Login)
-	UserRouter.Post("/register", controller.CreateUser)
+	UserRouter.Use(jwtware.New(jwtware.Config{
+		SigningKey: []byte(os.Getenv("PUBLIC")),
+	}))
+
+	// UserRouter.Post("/login", controller.Login)
+	// UserRouter.Post("/register", controller.CreateUser)
 	UserRouter.Get("/test", controller.GetAllUser)
 	UserRouter.Post("/find", controller.GetUser)
 
