@@ -10,6 +10,7 @@ type Match struct {
 	CourtId      int
 	Court        ClubCourts `gorm:"foreignKey:CourtId"`
 	Don          bool       `json:"don" gorm:"NOT NULL; default:false"`
+	Comp         bool       `json:"comp" gorm:"NOT NULL; default:false"`
 	TeamAPlayerA int        `json:"team_a_player_a" gorm:"NOT NULL"`
 	TeamAPlayerB int        `json:"team_a_player_b"`
 	TeamBPlayerA int        `json:"team_b_player_a"`
