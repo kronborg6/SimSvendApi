@@ -4,10 +4,10 @@ import "time"
 
 type Match struct {
 	ID           int
-	PlayTime     time.Time `json:"play_time" gorm:"not null"`
-	PlaceId      int
-	Place        Club `gorm:"foreignKey:PlaceId"`
-	CourtId      int
+	PlayTime     time.Time  `json:"play_time" gorm:"not null"`
+	PlaceId      int        `json:"place_id"`
+	Place        Club       `gorm:"foreignKey:PlaceId"`
+	CourtId      int        `json:"court_id"`
 	Court        ClubCourts `gorm:"foreignKey:CourtId"`
 	Don          bool       `json:"don" gorm:"NOT NULL; default:false"`
 	Comp         bool       `json:"comp" gorm:"NOT NULL; default:false"`
@@ -19,7 +19,7 @@ type Match struct {
 	User2        UserInfo   `gorm:"foreignKey:TeamAPlayerB"`
 	User3        UserInfo   `gorm:"foreignKey:TeamBPlayerA"`
 	User4        UserInfo   `gorm:"foreignKey:TeamBPlayerB"`
-	Result       *Results   `gorm:"foreignKey:MatchID" sql:"DEFAULT:null"`
+	Result       *Results   `gorm:"foreignKey:MatchID" `
 }
 
 type Results struct {
