@@ -13,7 +13,6 @@ type CasualRepo struct {
 }
 
 func (repo *CasualRepo) NewCasualGame(game models.Match) (models.Match, error) {
-	// var results models.Results
 	game.Result = &models.Results{}
 	game.PlayTime = time.Now()
 	if err := repo.db.Create(&game).Error; err != nil {
