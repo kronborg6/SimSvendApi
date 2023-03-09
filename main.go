@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"os"
+	"time"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cache"
@@ -27,7 +28,12 @@ func main() {
 	models.Setup(db)
 
 	app.Use(logger.New())
-	app.Use(cache.New())
+	// app.Use(cache.New())
+	app.Use(cache.New(cache.Config{
+
+		Expiration:   5 * time.Second,
+		CacheControl: true,
+	}))
 	// middleware.EncryptoKey()
 	// fmt.Println(getPort())
 
