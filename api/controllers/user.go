@@ -227,19 +227,24 @@ func RegisterUserController(db *gorm.DB, router fiber.Router) {
 
 	UserRouter.Get("/leaderboard", controller.GetTopPlayers)
 
-	UserRouter.Use(jwtware.New(jwtware.Config{
+	/* 	UserRouter.Use(jwtware.New(jwtware.Config{
+		SigningKey: []byte(os.Getenv("PRIVATE")),
+	})) */
+	AdminRouter := router.Group("/admin")
+	//admin side endpoint
+	AdminRouter.Use(jwtware.New(jwtware.Config{
 		SigningKey: []byte(os.Getenv("PRIVATE")),
 	}))
-
-	//admin side endpoint
-	UserRouter.Post("/stats", controller.PutUserStats)
-	UserRouter.Post("/role", controller.PutUserRole)
-	UserRouter.Get("/all", controller.GetTopPlayers)
+	AdminRouter.Post("/stats", controller.PutUserStats)
+	AdminRouter.Post("/role", controller.PutUserRole)
+	AdminRouter.Get("/all", controller.GetTopPlayers)
 
 	UserStatsRouter := router.Group("/stats")
 	UserStatsRouter.Use(jwtware.New(jwtware.Config{
 		SigningKey: []byte(os.Getenv("PUBLIC")),
 	}))
+	fmt.Println(os.Getenv("PUBLIC"))
+	fmt.Println(os.Getenv("PRIVATE"))
 
 	UserStatsRouter.Get("/All", controller.GetAllUserStats)
 	UserStatsRouter.Get("/:id", controller.GetUserStats)
