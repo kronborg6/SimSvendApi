@@ -2,9 +2,11 @@ package controllers
 
 import (
 	"fmt"
+	"os"
 	"strconv"
 
 	"github.com/gofiber/fiber/v2"
+	jwtware "github.com/gofiber/jwt/v3"
 	"github.com/kronborg6/SimSvendApi/api/models"
 	"github.com/kronborg6/SimSvendApi/api/repos"
 	"gorm.io/gorm"
@@ -207,24 +209,35 @@ func RegisterUserController(db *gorm.DB, router fiber.Router) {
 
 	UserRouter := router.Group("/user")
 
-	UserRouter.Post("/login", controller.Login)
-	UserRouter.Post("/register", controller.CreateUser)
+	UserRouter.Use(jwtware.New(jwtware.Config{
+		SigningKey: []byte(os.Getenv("PUBLIC")),
+	}))
+
+	// UserRouter.Post("/login", controller.Login)
+	// UserRouter.Post("/register", controller.CreateUser)
 	UserRouter.Get("/test", controller.GetAllUser)
 	UserRouter.Post("/find", controller.GetUser)
 
-	UserRouter.Post("/", controller.CreateNewUser)
+	// UserRouter.Post("/", controller.CreateNewUser)
 
-	UserRouter.Get("/token/:id", controller.CheckToken)
+	// UserRouter.Get("/token/:id", controller.CheckToken)
 
 	UserRouter.Get("/friends/:userID", controller.TestFriends)
 
 	UserRouter.Get("/leaderboard", controller.GetTopPlayers)
+
+	UserRouter.Use(jwtware.New(jwtware.Config{
+		SigningKey: []byte(os.Getenv("PRIVATE")),
+	}))
 
 	//admin side endpoint
 	UserRouter.Post("/stats", controller.PutUserStats)
 	UserRouter.Post("/role", controller.PutUserRole)
 
 	UserStatsRouter := router.Group("/stats")
+	UserStatsRouter.Use(jwtware.New(jwtware.Config{
+		SigningKey: []byte(os.Getenv("PUBLIC")),
+	}))
 
 	UserStatsRouter.Get("/All", controller.GetAllUserStats)
 	UserStatsRouter.Get("/:id", controller.GetUserStats)
