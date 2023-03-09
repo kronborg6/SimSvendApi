@@ -114,6 +114,7 @@ func (repo *UserRepo) UpdateUserRole(user models.User) (models.User, error) {
 }
 func (repo *UserRepo) NewUser(user models.UserInfo) (models.User, error) {
 	var newUser models.User
+	var checkEmail models.UserInfo
 	var stats models.UserStats
 
 	user.Password = middleware.HashPassword(user.Password)
@@ -125,6 +126,12 @@ func (repo *UserRepo) NewUser(user models.UserInfo) (models.User, error) {
 	newUser.RoleID = 1
 	// newUser.FriendList = nil
 
+	if err := repo.db.Debug().Where("email = ?", user.Email).Find(&checkEmail).Error; err != nil {
+		return newUser, errors.New("email all ready exits")
+	}
+	if checkEmail.Email == user.Email {
+		return newUser, errors.New("email all ready exits")
+	}
 	if err := repo.db.Debug().Create(&newUser).Error; err != nil {
 		return newUser, err
 	}

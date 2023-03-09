@@ -28,7 +28,7 @@ func (controller *LeaderboardController) GetAllLeaderboard(c *fiber.Ctx) error {
 
 	leaderboard, err := controller.repo.FindAllLeaderboards(int(id))
 	if err != nil {
-		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+		return fiber.NewError(fiber.StatusNotFound, err.Error())
 	}
 
 	return c.JSON(leaderboard)

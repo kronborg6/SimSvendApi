@@ -57,9 +57,6 @@ func (controller *AuthController) AdminLogin(c *fiber.Ctx) error {
 	if err != nil {
 		return fiber.NewError(fiber.StatusNotFound, err.Error())
 	}
-	// if data != nil {
-	// 	return c.SendStatus(404)
-	// }
 	claims := jwt.MapClaims{
 		"user": (*data)[0].Userinfo,
 		"exp":  time.Now().Add(time.Hour * 72).Unix(),
@@ -85,7 +82,7 @@ func (controller *AuthController) CheckToken(c *fiber.Ctx) error {
 	data, err := controller.repo.CheckToken(id)
 
 	if err != nil {
-		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+		return fiber.NewError(fiber.StatusNotFound, err.Error())
 	}
 	return c.JSON(data)
 }
