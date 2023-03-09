@@ -220,7 +220,7 @@ func RegisterUserController(db *gorm.DB, router fiber.Router) {
 
 	// UserRouter.Post("/", controller.CreateNewUser)
 
-	// UserRouter.Get("/token/:id", controller.CheckToken)
+	UserRouter.Get("/token/:id", controller.CheckToken)
 
 	UserRouter.Get("/friends/:userID", controller.TestFriends)
 
