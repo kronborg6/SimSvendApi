@@ -244,7 +244,7 @@ func RegisterUserController(db *gorm.DB, router fiber.Router) {
 		SigningKey: []byte(os.Getenv("PUBLIC")),
 	}))
 	fmt.Println(os.Getenv("PUBLIC"))
-	fmt.Println("dfgfdgdfg")
+	fmt.Println(os.Getenv("PRIVATE"))
 
 	UserStatsRouter.Get("/All", controller.GetAllUserStats)
 	UserStatsRouter.Get("/:id", controller.GetUserStats)
