@@ -22,7 +22,7 @@ func (controller *MatchController) FindAllUserMatchs(c *fiber.Ctx) error {
 	}
 	data, err := controller.repo.GameHistory(id)
 	if err != nil {
-		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+		return fiber.NewError(fiber.StatusNotFound, err.Error())
 	}
 	return c.JSON(data)
 }
@@ -38,7 +38,7 @@ func (controller *MatchController) FindGame(c *fiber.Ctx) error {
 	data, err := controller.repo.FindGame(id)
 
 	if err != nil {
-		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+		return fiber.NewError(fiber.StatusNotFound, err.Error())
 	}
 	return c.JSON(data)
 }
@@ -53,7 +53,7 @@ func (controller *MatchController) PutMatchResult(c *fiber.Ctx) error {
 	data, err := controller.repo.SetGameScore(result)
 
 	if err != nil {
-		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+		return fiber.NewError(fiber.StatusNotAcceptable, err.Error())
 	}
 	return c.JSON(data)
 }

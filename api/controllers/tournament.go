@@ -19,7 +19,7 @@ func (controller *TournamentController) GetAllTour(c *fiber.Ctx) error {
 
 	tour, err := controller.repo.FindAllTour()
 	if err != nil {
-		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+		return fiber.NewError(fiber.StatusNotFound, err.Error())
 	}
 	return c.JSON(tour)
 }
@@ -31,7 +31,7 @@ func (controller *TournamentController) GetTour(c *fiber.Ctx) error {
 	}
 	tour, err := controller.repo.FindTour(id)
 	if err != nil {
-		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+		return fiber.NewError(fiber.StatusNotFound, err.Error())
 	}
 	return c.JSON(tour)
 }
@@ -45,7 +45,7 @@ func (controller *TournamentController) CreateNewTour(c *fiber.Ctx) error {
 	data, err := controller.repo.NewTour(tour)
 
 	if err != nil {
-		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+		return fiber.NewError(fiber.StatusNotFound, err.Error())
 	}
 	return c.JSON(data)
 }
@@ -58,7 +58,7 @@ func (controller *TournamentController) PostJoinTour(c *fiber.Ctx) error {
 	}
 	data, err := controller.repo.JoinTour(user)
 	if err != nil {
-		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+		return fiber.NewError(fiber.StatusNotFound, err.Error())
 	}
 	return c.JSON(data)
 }

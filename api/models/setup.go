@@ -462,7 +462,7 @@ func Setup(db *gorm.DB) {
 			TeamAPlayerB: 2,
 			TeamBPlayerA: 3,
 			TeamBPlayerB: 4,
-			Don:          false,
+			// Don:          false,
 			// Result:       Results{},
 			Result: &Results{},
 		},

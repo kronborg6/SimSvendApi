@@ -26,7 +26,7 @@ func (controller *UserController) Login(c *fiber.Ctx) error {
 	data, err := controller.repo.Login(user)
 
 	if err != nil {
-		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+		return fiber.NewError(fiber.StatusNotFound, err.Error())
 
 		// panic("This panic is caught by fiber")
 		// return c.JSON(fiber.Map{
@@ -49,7 +49,7 @@ func (controller *UserController) CheckToken(c *fiber.Ctx) error {
 	data, err := controller.repo.CheckToken(id)
 
 	if err != nil {
-		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+		return fiber.NewError(fiber.StatusNotFound, err.Error())
 	}
 	return c.JSON(data)
 }
@@ -64,7 +64,7 @@ func (controller *UserController) GetUser(c *fiber.Ctx) error {
 	data, err := controller.repo.FindUser(user)
 	if err != nil {
 		fmt.Println("hej")
-		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+		return fiber.NewError(fiber.StatusNotFound, err.Error())
 	}
 	return c.JSON(data)
 }
@@ -76,7 +76,7 @@ func (controller *UserController) CreateNewUser(c *fiber.Ctx) error {
 	}
 	data, err := controller.repo.NewUser(model)
 	if err != nil {
-		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+		return fiber.NewError(fiber.StatusNotFound, err.Error())
 	}
 	return c.JSON(data)
 }
@@ -110,7 +110,7 @@ func (controller *UserController) CreateUser(c *fiber.Ctx) error {
 	data, err := controller.repo.NewUser2(user)
 
 	if err != nil {
-		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+		return fiber.NewError(fiber.StatusNotFound, err.Error())
 	}
 
 	return c.JSON(data)
@@ -126,7 +126,7 @@ func (controller *UserController) TestFriends(c *fiber.Ctx) error {
 
 	data, err := controller.repo.FriendList(id)
 	if err != nil {
-		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+		return fiber.NewError(fiber.StatusNotFound, err.Error())
 	}
 	// if data == nil {
 	// 	return fiber.NewError(fiber.StatusInternalServerError, err.Error())
@@ -155,7 +155,7 @@ func (controller *UserController) GetUserStats(c *fiber.Ctx) error {
 
 	data, err := controller.repo.FindPlayerStats(id)
 	if err != nil {
-		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+		return fiber.NewError(fiber.StatusNotFound, err.Error())
 	}
 
 	return c.JSON(data)
@@ -170,7 +170,7 @@ func (controller *UserController) PutUserStats(c *fiber.Ctx) error {
 	data, err := controller.repo.UpdateStats(stats)
 
 	if err != nil {
-		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+		return fiber.NewError(fiber.StatusNotFound, err.Error())
 	}
 	return c.JSON(data)
 }
@@ -184,7 +184,7 @@ func (controller *UserController) PutUserRole(c *fiber.Ctx) error {
 	data, err := controller.repo.UpdateUserRole(user)
 
 	if err != nil {
-		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+		return fiber.NewError(fiber.StatusNotFound, err.Error())
 	}
 
 	return c.JSON(data)
@@ -238,6 +238,7 @@ func RegisterUserController(db *gorm.DB, router fiber.Router) {
 	UserStatsRouter.Use(jwtware.New(jwtware.Config{
 		SigningKey: []byte(os.Getenv("PUBLIC")),
 	}))
+	UserRouter.Get("/leaderboard", controller.GetTopPlayers)
 
 	UserStatsRouter.Get("/All", controller.GetAllUserStats)
 	UserStatsRouter.Get("/:id", controller.GetUserStats)
