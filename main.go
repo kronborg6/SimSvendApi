@@ -45,6 +45,7 @@ func main() {
 	controllers.RegisterLeaderboardController(db, api)
 	controllers.RegisterTournamentController(db, api)
 	controllers.RegisterMatchController(db, api)
+	controllers.RegisterCasualController(db, api)
 
 	log.Fatal(app.Listen(getPort()))
 }
