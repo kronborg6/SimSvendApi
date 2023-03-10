@@ -89,11 +89,6 @@ func (controller *UserController) GetAllUser(c *fiber.Ctx) error {
 	if err != nil {
 		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
 
-		// panic("This panic is caught by fiber")
-		// return c.JSON(fiber.Map{
-		// 	"message": "username or password do not match",
-		// 	"error":   err,
-		// })
 	}
 
 	return c.JSON(data)
@@ -227,9 +222,6 @@ func RegisterUserController(db *gorm.DB, router fiber.Router) {
 
 	UserRouter.Get("/leaderboard", controller.GetTopPlayers)
 
-	/* 	UserRouter.Use(jwtware.New(jwtware.Config{
-		SigningKey: []byte(os.Getenv("PRIVATE")),
-	})) */
 	AdminRouter := router.Group("/admin")
 	//admin side endpoint
 	AdminRouter.Use(jwtware.New(jwtware.Config{
