@@ -47,5 +47,5 @@ func main() {
 	controllers.RegisterMatchController(db, api)
 	controllers.RegisterCasualController(db, api)
 
-	log.Fatal(app.Listen(getPort()))
+	log.Fatal(app.Listen("0.0.0.0" + getPort()))
 }
