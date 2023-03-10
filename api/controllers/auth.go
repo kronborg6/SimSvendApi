@@ -57,6 +57,9 @@ func (controller *AuthController) AdminLogin(c *fiber.Ctx) error {
 	if err != nil {
 		return fiber.NewError(fiber.StatusNotFound, err.Error())
 	}
+	if (*data)[0].RoleID != 1 {
+		return fiber.NewError(fiber.StatusMethodNotAllowed)
+	}
 	claims := jwt.MapClaims{
 		"user": (*data)[0].Userinfo,
 		"exp":  time.Now().Add(time.Hour * 72).Unix(),
