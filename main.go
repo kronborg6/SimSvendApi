@@ -9,6 +9,7 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/cache"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 
+	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/kronborg6/SimSvendApi/api/controllers"
 	"github.com/kronborg6/SimSvendApi/api/db"
 	"github.com/kronborg6/SimSvendApi/api/models"
@@ -19,7 +20,7 @@ func getPort() string {
 	if port == "" {
 		port = "8000"
 	}
-	return ":" + port
+	return "0.0.0.0:" + port
 
 }
 
@@ -35,6 +36,8 @@ func main() {
 		Expiration:   5 * time.Second,
 		CacheControl: true,
 	}))
+	app.Use(cors.New())
+
 	// middleware.EncryptoKey()
 	// fmt.Println(getPort())
 
@@ -47,5 +50,5 @@ func main() {
 	controllers.RegisterMatchController(db, api)
 	controllers.RegisterCasualController(db, api)
 
-	log.Fatal(app.Listen("0.0.0.0" + getPort()))
+	log.Fatal(app.Listen(getPort()))
 }
