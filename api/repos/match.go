@@ -2,6 +2,7 @@ package repos
 
 import (
 	"errors"
+	"fmt"
 
 	"github.com/kronborg6/SimSvendApi/api/models"
 	"gorm.io/gorm"
@@ -26,16 +27,22 @@ func (repo *MatchRepo) FindMyGame(gameID int) ([]models.Match, error) {
 }
 func (repo *MatchRepo) FindMyGames(userID int) ([]models.Match, error) {
 	var games []models.Match
+	var game []models.Match
 
 	err := repo.db.Where("team_a_player_a = ?", userID).Or("team_a_player_b = ?", userID).Or("team_b_player_a = ?", userID).Or("team_b_player_b = ?", userID).Find(&games)
 	if err.Error != nil {
 		return nil, errors.New("can't find games")
 	}
-
 	if err.RowsAffected <= 0 {
 		return nil, errors.New("can't find games")
 	}
-	return games, nil
+	for i := range games {
+		if !games[i].Don {
+			game = append(games, game...)
+			fmt.Println("gg")
+		}
+	}
+	return game, nil
 }
 func (repo *MatchRepo) GameHistory(userID int) ([]models.Match, error) {
 	var games []models.Match

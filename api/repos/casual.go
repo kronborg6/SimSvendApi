@@ -20,6 +20,13 @@ func (repo *CasualRepo) NewCasualGame(game models.Match) (models.Match, error) {
 	}
 	return game, nil
 }
+func (repo *CasualRepo) FindAllNotPlayedGames(id int) ([]models.Match, error) {
+	var match models.Match
+	if err := repo.db.Debug().Where("").Find(&match).Error; err != nil {
+		return nil, err
+	}
+	return nil, nil
+}
 func (repo *CasualRepo) AddResualtCasualGame(Score models.Results) (models.Results, error) {
 	var game models.Results
 	var match models.Match

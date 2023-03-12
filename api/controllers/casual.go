@@ -32,6 +32,10 @@ func (controller *CasualController) CreateCasualGame(c *fiber.Ctx) error {
 	return c.JSON(data)
 }
 
+func (controller *CasualController) FindAllNotPlayedGames(id int) ([]models.Match, error) {
+	return nil, nil
+}
+
 func NewCasualController(repo *repos.CasualRepo) *CasualController {
 	return &CasualController{repo}
 }
