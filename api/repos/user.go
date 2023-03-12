@@ -206,9 +206,14 @@ func (repo *UserRepo) AcceptFriendRequest(freind models.Friends) (models.Friends
 func (repo *UserRepo) SendFriendRequest(friend models.Friends) error {
 	var checkfriend models.Friends
 	var ortherfriend models.Friends
-	if err := repo.db.Debug().Where("user_id = ? AND friend_id = ?", friend.UserID, friend.FriendID).Find(checkfriend).Error; err != nil {
-		return err
+	err := repo.db.Debug().Where("user_id = ? AND friend_id = ?", friend.UserID, friend.FriendID).Find(checkfriend)
+	if err.Error != nil {
+		return err.Error
 	}
+	if err.RowsAffected < 0 {
+		return errors.New("user don't have friends LOL")
+	}
+
 	ortherfriend.FriendID = friend.UserID
 	ortherfriend.UserID = friend.FriendID
 	if err := repo.db.Debug().Create(&friend).Error; err != nil {
