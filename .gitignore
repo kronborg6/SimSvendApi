@@ -9,3 +9,5 @@ api/db/db.go
 api/db/*
 
 .env
+/bin/*
+bin
