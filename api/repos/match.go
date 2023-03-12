@@ -86,6 +86,7 @@ func (repo *MatchRepo) FindGame(gameID int) ([]models.Match, error) {
 	return game, nil
 }
 
+/*
 func (repo *MatchRepo) SetGameScore(Score models.Results) (models.Results, error) {
 	var game models.Results
 	var match models.Match
@@ -104,7 +105,7 @@ func (repo *MatchRepo) SetGameScore(Score models.Results) (models.Results, error
 	}
 	return game, nil
 }
-
+*/
 /*
 	 func (repo *MatchRepo) NewCasualGame(game models.Matchs) (models.Matchs, error) {
 		// var game models.Matchs

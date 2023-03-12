@@ -32,8 +32,19 @@ func (controller *CasualController) CreateCasualGame(c *fiber.Ctx) error {
 	return c.JSON(data)
 }
 
-func (controller *CasualController) FindAllNotPlayedGames(id int) ([]models.Match, error) {
-	return nil, nil
+func (controller *CasualController) PutMatchResult(c *fiber.Ctx) error {
+	var result models.Results
+	var err error
+
+	if err = c.BodyParser(&result); err != nil {
+		return c.JSON(result)
+	}
+	data, err := controller.repo.AddResualtCasualGame(result)
+
+	if err != nil {
+		return fiber.NewError(fiber.StatusNotAcceptable, err.Error())
+	}
+	return c.JSON(data)
 }
 
 func NewCasualController(repo *repos.CasualRepo) *CasualController {
@@ -47,4 +58,5 @@ func RegisterCasualController(db *gorm.DB, router fiber.Router) {
 	CasualController := router.Group("/casual")
 
 	CasualController.Post("/", controller.CreateCasualGame)
+	CasualController.Post("/result", controller.PutMatchResult)
 }
