@@ -203,6 +203,45 @@ func (repo *UserRepo) AcceptFriendRequest(freind models.Friends) (models.Friends
 	// }
 	return freind, nil
 }
+func (repo *UserRepo) SendFriendRequest(friend models.Friends) error {
+	var checkfriend models.Friends
+	var ortherfriend models.Friends
+	if err := repo.db.Debug().Where("user_id = ? AND friend_id = ?", friend.UserID, friend.FriendID).Find(checkfriend).Error; err != nil {
+		return err
+	}
+	ortherfriend.FriendID = friend.UserID
+	ortherfriend.UserID = friend.FriendID
+	if err := repo.db.Debug().Create(&friend).Error; err != nil {
+		return err
+	}
+	if err := repo.db.Debug().Create(&ortherfriend).Error; err != nil {
+		return err
+	}
+	return nil
+}
+
+func (repo *UserRepo) RemoveFriendAndRequest(freind models.Friends) error {
+
+	err := repo.db.Debug().Where("user_id = ? AND friend_id = ?", freind.UserID, freind.FriendID).Delete(&freind)
+	if err.Error != nil {
+		return err.Error
+	}
+	if err.RowsAffected <= 0 {
+		return errors.New("user don't have friends LOL")
+	}
+	er := repo.db.Debug().Where("user_id = ? AND friend_id = ?", freind.FriendID, freind.UserID).Delete(&freind)
+	if er.Error != nil {
+		return err.Error
+	}
+	if err.RowsAffected <= 0 {
+		return errors.New("user don't have friends LOL")
+	}
+	return nil
+}
+
+func (repo *UserRepo) DenieFriendRequest(friend models.Friends) error {
+	return nil
+}
 
 func (repo *UserRepo) FindAllPlayerStats() ([]models.UserStats, error) {
 	var userStats []models.UserStats

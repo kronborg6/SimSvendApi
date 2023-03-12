@@ -213,7 +213,41 @@ func (controller *UserController) PostAcceptFriend(c *fiber.Ctx) error {
 
 	return c.JSON(data)
 }
+func (controller *UserController) PostRemoveFriend(c *fiber.Ctx) error {
+	var freind models.Friends
+	var err error
 
+	if err = c.BodyParser(&freind); err != nil {
+		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+	}
+	fmt.Println("controller")
+	fmt.Println(freind)
+	// _, err := controller.repo.RemoveFriendAndRequest(freind)
+	err = controller.repo.RemoveFriendAndRequest(freind)
+	if err != nil {
+		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+	}
+
+	return c.JSON(fiber.Map{
+		"delete": "Fuck that friend he is gone",
+	})
+}
+func (controller *UserController) PostFriendRequest(c *fiber.Ctx) error {
+	var freind models.Friends
+	var err error
+
+	if err = c.BodyParser(&freind); err != nil {
+		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+	}
+	err = controller.repo.SendFriendRequest(freind)
+
+	if err != nil {
+		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+	}
+	return c.JSON(fiber.Map{
+		"request": "friend request is send",
+	})
+}
 func NewUserController(repo *repos.UserRepo) *UserController {
 	return &UserController{repo}
 }
@@ -224,9 +258,11 @@ func RegisterUserController(db *gorm.DB, router fiber.Router) {
 
 	FreindsRouter := router.Group("/freinds")
 
-	FreindsRouter.Get("/freinds/:id", controller.GetFreindList)
-	FreindsRouter.Post("/freinds/new", controller.PostAcceptFriend)
-	FreindsRouter.Get("/friends/:userID", controller.TestFriends)
+	FreindsRouter.Get("/:id", controller.GetFreindList)
+	FreindsRouter.Post("/accept", controller.PostAcceptFriend)
+	FreindsRouter.Post("/new", controller.PostFriendRequest)
+	FreindsRouter.Post("/remove", controller.PostRemoveFriend)
+	FreindsRouter.Get("/:userID", controller.TestFriends)
 
 	UserRouter := router.Group("/user")
 

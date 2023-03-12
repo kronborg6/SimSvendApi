@@ -562,16 +562,16 @@ func Setup(db *gorm.DB) {
 			FriendID:  1,
 			IsFriends: true,
 		},
-		{
-			UserID:    1,
-			FriendID:  3,
-			IsFriends: false,
-		},
-		{
-			UserID:    3,
-			FriendID:  1,
-			IsFriends: false,
-		},
+		// {
+		// 	UserID:    1,
+		// 	FriendID:  3,
+		// 	IsFriends: false,
+		// },
+		// {
+		// 	UserID:    3,
+		// 	FriendID:  1,
+		// 	IsFriends: false,
+		// },
 	}
 
 	db.Create(&role)
