@@ -18,7 +18,7 @@ type UserRepo struct {
 func (repo *UserRepo) Login(data models.UserInfo) (*[]models.User, error) {
 	var user []models.User
 
-	err := repo.db.Joins("Userinfo").Preload("UserStats").Preload("FriendList").Preload("Role").Find(&user, "email = ?", data.Email)
+	err := repo.db.Joins("Userinfo").Preload("UserStats").Preload("FriendList", "is_friends = true").Preload("Role").Find(&user, "email = ?", data.Email)
 	if err.Error != nil {
 		return nil, err.Error
 	}
@@ -138,28 +138,70 @@ func (repo *UserRepo) NewUser(user models.UserInfo) (models.User, error) {
 	return newUser, nil
 }
 
-func (repo *UserRepo) FriendList(id int) ([]models.UserInfo, error) {
-	var allFriends []models.UserInfo
+func (repo *UserRepo) FriendList(id int) ([]models.Friends, error) {
+	// var allFriends []models.UserInfo
 	var friendslist []models.Friends
 
-	err := repo.db.Debug().Where("user_id = ?", id).Find(&friendslist)
+	err := repo.db.Debug().Where("user_id = ? AND is_friends = true", id).Preload("Friend." + clause.Associations).Find(&friendslist)
 	if err.Error != nil {
+		return nil, err.Error
+		// return nil, errors.New("user don't have friends LOL")
+	}
+	if err.RowsAffected <= 0 {
 		return nil, errors.New("user don't have friends LOL")
+	}
+	for i := range friendslist {
+		friendslist[i].Friend.FriendList = nil
+		friendslist[i].Friend.RoleID = 0
+		friendslist[i].Friend.Role.ID = 0
+		friendslist[i].Friend.Role.Name = ""
+		friendslist[i].Friend.Userinfo.Password = ""
+	}
+	/* 	for i := range friendslist {
+		var friends []models.UserInfo
+		if err := repo.db.Where("email = ?", friendslist[i].Friend.Userinfo.Email).Find(&friends).Error; err != nil {
+			return allFriends, err
+		}
+		friends[0].Password = ""
+		allFriends = append(allFriends, friends...)
+	} */
+	fmt.Println(id)
+	return friendslist, nil
+}
+func (repo *UserRepo) FriendRequests(id int) ([]models.Friends, error) {
+	var friendslist []models.Friends
+
+	err := repo.db.Debug().Where("user_id = ? AND is_friends = false", id).Preload("Friend").Find(&friendslist)
+	if err.Error != nil {
+		return nil, errors.New("failed to find freinds <3")
 	}
 	if err.RowsAffected <= 0 {
 		return nil, errors.New("user don't have friends LOL")
 	}
 
-	for i := range friendslist {
-		var friends []models.UserInfo
-		if err := repo.db.Where("email = ?", friendslist[i].Email).Find(&friends).Error; err != nil {
-			return allFriends, err
-		}
-		friends[0].Password = ""
-		allFriends = append(allFriends, friends...)
-	}
 	fmt.Println(id)
-	return allFriends, nil
+	return friendslist, nil
+}
+func (repo *UserRepo) AcceptFriendRequest(freind models.Friends) (models.Friends, error) {
+	var freindother models.Friends
+	if err := repo.db.Debug().Where("user_id = ? AND friend_id = ? AND is_friends = false", freind.UserID, freind.FriendID).Preload("Friend").Find(&freind).Error; err != nil {
+		return freind, err
+	}
+	fmt.Println(freind)
+	freind.IsFriends = true
+	freindother.UserID = freind.FriendID
+	freindother.FriendID = freind.UserID
+	freindother.IsFriends = true
+	if err := repo.db.Debug().Model(&freind).Where("user_id = ? AND friend_id = ? AND is_friends = false", freind.UserID, freind.FriendID).Updates(&freind).Error; err != nil {
+		return freind, err
+	}
+	if err := repo.db.Debug().Model(&freindother).Where("user_id = ? AND friend_id = ? AND is_friends = false", freindother.UserID, freindother.FriendID).Updates(&freindother).Error; err != nil {
+		return freind, err
+	}
+	// if err := repo.db.Debug().Create(&freindother).Error; err != nil {
+	// 	return freind, err
+	// }
+	return freind, nil
 }
 
 func (repo *UserRepo) FindAllPlayerStats() ([]models.UserStats, error) {

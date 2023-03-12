@@ -27,17 +27,8 @@ func (controller *UserController) Login(c *fiber.Ctx) error {
 
 	if err != nil {
 		return fiber.NewError(fiber.StatusNotFound, err.Error())
-
-		// panic("This panic is caught by fiber")
-		// return c.JSON(fiber.Map{
-		// 	"message": "username or password do not match",
-		// 	"error":   err,
-		// })
 	}
-	// if test, err = controller.repo.FindUser(user); err != nil {
-	// 	return fiber.NewError(fiber.StatusInternalServerError, err.Error())
-	// }
-	// fmt.Print(data)
+
 	return c.JSON(data)
 }
 func (controller *UserController) CheckToken(c *fiber.Ctx) error {
@@ -47,6 +38,18 @@ func (controller *UserController) CheckToken(c *fiber.Ctx) error {
 		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
 	}
 	data, err := controller.repo.CheckToken(id)
+
+	if err != nil {
+		return fiber.NewError(fiber.StatusNotFound, err.Error())
+	}
+	return c.JSON(data)
+}
+func (controller *UserController) GetFreindList(c *fiber.Ctx) error {
+	id, err := strconv.Atoi(c.Params("id"))
+	if err != nil {
+		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+	}
+	data, err := controller.repo.FriendList(id)
 
 	if err != nil {
 		return fiber.NewError(fiber.StatusNotFound, err.Error())
@@ -194,6 +197,23 @@ func (controller *UserController) GetTopPlayers(c *fiber.Ctx) error {
 	return c.JSON(data)
 }
 
+func (controller *UserController) PostAcceptFriend(c *fiber.Ctx) error {
+	var freind models.Friends
+	var err error
+
+	if err = c.BodyParser(&freind); err != nil {
+		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+	}
+	fmt.Println("controller")
+	fmt.Println(freind)
+	data, err := controller.repo.AcceptFriendRequest(freind)
+	if err != nil {
+		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+	}
+
+	return c.JSON(data)
+}
+
 func NewUserController(repo *repos.UserRepo) *UserController {
 	return &UserController{repo}
 }
@@ -201,6 +221,12 @@ func NewUserController(repo *repos.UserRepo) *UserController {
 func RegisterUserController(db *gorm.DB, router fiber.Router) {
 	repo := repos.NewUserRepo(db)
 	controller := NewUserController(repo)
+
+	FreindsRouter := router.Group("/freinds")
+
+	FreindsRouter.Get("/freinds/:id", controller.GetFreindList)
+	FreindsRouter.Post("/freinds/new", controller.PostAcceptFriend)
+	FreindsRouter.Get("/friends/:userID", controller.TestFriends)
 
 	UserRouter := router.Group("/user")
 
@@ -214,15 +240,13 @@ func RegisterUserController(db *gorm.DB, router fiber.Router) {
 	UserRouter.Post("/find", controller.GetUser)
 
 	// UserRouter.Post("/", controller.CreateNewUser)
-	// UserRouter.Use(cache.New())
 
 	UserRouter.Get("/token/:id", controller.CheckToken)
-
-	UserRouter.Get("/friends/:userID", controller.TestFriends)
 
 	UserRouter.Get("/leaderboard", controller.GetTopPlayers)
 
 	AdminRouter := router.Group("/admin")
+
 	//admin side endpoint
 	AdminRouter.Use(jwtware.New(jwtware.Config{
 		SigningKey: []byte(os.Getenv("PRIVATE")),
