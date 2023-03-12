@@ -346,9 +346,11 @@ func Setup(db *gorm.DB) {
 				CreateAt:  time.Now(),
 			},
 			// Role: Roles{Name: "Admin"},
-			RoleID:     2,
-			UserStats:  UserStats{Elo: 99999, Points: 1241241, Wins: 999, Losses: 0},
-			FriendList: []Friends{{Email: "t.kronborg6@gmail.com"}, {Email: "allanandersen6996@gmail.com"}, {Email: "augustschnellpedersen@gmail.com"}},
+			RoleID:    2,
+			UserStats: UserStats{Elo: 99999, Points: 1241241, Wins: 999, Losses: 0},
+			// FriendList: []Friends{{Email: "t.kronborg6@gmail.com"}, {Email: "allanandersen6996@gmail.com"}, {Email: "augustschnellpedersen@gmail.com"}},
+			// FriendList: []Friends{Friends{Friend: &User{ID: 2}}},
+			// FriendList: []Friends{},
 		},
 		{
 
@@ -361,9 +363,10 @@ func Setup(db *gorm.DB) {
 			},
 			// Role: Roles{Name: "Bruger"},
 
-			RoleID:     1,
-			UserStats:  UserStats{Elo: 150, Points: 250, Wins: 0, Losses: 0},
-			FriendList: []Friends{{Email: "mkronborg7@gmail.com"}, {Email: "allanandersen6996@gmail.com"}},
+			RoleID:    1,
+			UserStats: UserStats{Elo: 150, Points: 250, Wins: 0, Losses: 0},
+			// FriendList: []Friends{{Email: "mkronborg7@gmail.com"}, {Email: "allanandersen6996@gmail.com"}},
+			// FriendList: []Friends{{UserID: 1}, {UserID: 3}},
 		},
 		{
 
@@ -375,9 +378,10 @@ func Setup(db *gorm.DB) {
 				CreateAt:  time.Now(),
 			},
 			// Role:       Roles{Name: "Admin"},
-			RoleID:     1,
-			UserStats:  UserStats{Elo: 423, Points: 5555, Wins: 10, Losses: 0},
-			FriendList: []Friends{{Email: "mkronborg7@gmail.com"}, {Email: "t.kronborg6@gmail.com"}},
+			RoleID:    1,
+			UserStats: UserStats{Elo: 423, Points: 5555, Wins: 10, Losses: 0},
+			// FriendList: []Friends{{Email: "mkronborg7@gmail.com"}, {Email: "t.kronborg6@gmail.com"}},
+			// FriendList: []Friends{{UserID: 1}, {UserID: 2}},
 		},
 		{
 
@@ -389,9 +393,11 @@ func Setup(db *gorm.DB) {
 				CreateAt:  time.Now(),
 			},
 			// Role:       Roles{Name: "Admin"},
-			RoleID:     1,
-			UserStats:  UserStats{Elo: 100, Points: 1, Wins: 0, Losses: 100},
-			FriendList: []Friends{{Email: "mkronborg7@gmail.com"}, {Email: "t.kronborg6@gmail.com"}},
+			RoleID:    1,
+			UserStats: UserStats{Elo: 100, Points: 1, Wins: 0, Losses: 100},
+			// FriendList: []Friends{{UserID: 1}, {UserID: 2}},
+
+			// FriendList: []Friends{{Email: "mkronborg7@gmail.com"}, {Email: "t.kronborg6@gmail.com"}},
 		},
 	}
 	place := []Club{
@@ -545,6 +551,29 @@ func Setup(db *gorm.DB) {
 			Tour:    TournamentInfo{PricePool: 1000, Dec: "Vis i tro i er de best padel par så find ud af det her"},
 		},
 	}
+	friends := []Friends{
+		{
+			UserID:    1,
+			FriendID:  2,
+			IsFriends: true,
+		},
+		{
+			UserID:    2,
+			FriendID:  1,
+			IsFriends: true,
+		},
+		// {
+		// 	UserID:    1,
+		// 	FriendID:  3,
+		// 	IsFriends: false,
+		// },
+		// {
+		// 	UserID:    3,
+		// 	FriendID:  1,
+		// 	IsFriends: false,
+		// },
+	}
+
 	db.Create(&role)
 
 	for i := range user2 {
@@ -572,6 +601,7 @@ func Setup(db *gorm.DB) {
 	db.Create(&matchs)
 	db.Create(&leaderboards)
 	db.Create(&tour)
+	db.Create(&friends)
 
 	/*
 		 	err := db.SetupJoinTable(&Tournament{}, "test", &User{})

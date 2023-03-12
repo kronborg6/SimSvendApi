@@ -27,10 +27,14 @@ type Roles struct {
 	// UserID int    `json:"userId" gorm:"ForeignKey:ID"`
 }
 
+// TODO: make it so Friends have users under or maby a FK
 type Friends struct {
-	ID     int
-	UserID int    `gorm:"not null"`
-	Email  string `json:"email" gorm:"NOT NULL"`
+	ID        int
+	UserID    int  `gorm:"not null"`
+	FriendID  int  `json:"friend_id" gorm:"NOT NULL"`
+	Friend    User `gorm:"foreignkey:FriendID" sql:"DEFAULT:null"`
+	IsFriends bool `json:"is_friends" sql:"DEFAULT:false"`
+	// Email string `json:"email" gorm:"NOT NULL"`
 }
 
 type User struct {
