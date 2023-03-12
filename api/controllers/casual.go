@@ -43,6 +43,7 @@ func (controller *CasualController) PutMatchResult(c *fiber.Ctx) error {
 
 	if err != nil {
 		return fiber.NewError(fiber.StatusNotAcceptable, err.Error())
+
 	}
 	return c.JSON(data)
 }
