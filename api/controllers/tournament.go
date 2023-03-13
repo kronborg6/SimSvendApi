@@ -81,9 +81,13 @@ func RegisterTournamentController(db *gorm.DB, router fiber.Router) {
 
 	TourController.Get("/:id", controller.GetTour)
 	TourController.Post("/join", controller.PostJoinTour)
-	TourController.Use(jwtware.New(jwtware.Config{
+
+	AdminTourController := router.Group("/admin/tour")
+
+	AdminTourController.Use(jwtware.New(jwtware.Config{
 		SigningKey: []byte(os.Getenv("PRIVATE")),
 	}))
-	TourController.Post("/", controller.CreateNewTour)
+	AdminTourController.Get("/all", controller.GetAllTour)
+	AdminTourController.Post("/", controller.CreateNewTour)
 
 }
