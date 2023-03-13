@@ -17,7 +17,7 @@ func (controller *CasualController) CreateCasualGame(c *fiber.Ctx) error {
 	var match models.Match
 	var err error
 	if err = c.BodyParser(&match); err != nil {
-		return c.JSON(match)
+		// return c.JSON(match)
 		return fiber.NewError(fiber.StatusNotAcceptable, err.Error())
 	}
 	match.PlayTime = time.Now()
