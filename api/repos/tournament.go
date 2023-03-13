@@ -71,10 +71,23 @@ func (repo *TournamentRepo) JoinTour(user models.JoinTourModel) (models.Tourname
 func (repo *TournamentRepo) NewTour(model models.Tournament) (models.Tournament, error) {
 	var tour models.Tournament
 	model.Date = time.Now()
-	if err := repo.db.Debug().Create(&model).Error; err != nil {
+	if err := repo.db.Debug().Where("id = ?", model.ID).Create(&model).Error; err != nil {
 		return tour, err
 	}
 	return tour, nil
+}
+func (repo *TournamentRepo) UpdateTourInfo(info models.TournamentInfo) error {
+
+	if err := repo.db.Debug().Model(&info).Where("tournament_id = ?", info.TournamentID).Updates(&info).Error; err != nil {
+		return err
+	}
+	return nil
+}
+func (repo *TournamentRepo) UpdateTour(tour models.Tournament) error {
+	if err := repo.db.Debug().Model(&tour).Updates(&tour).Error; err != nil {
+		return err
+	}
+	return nil
 }
 
 func NewTournamentRepo(db *gorm.DB) *TournamentRepo {

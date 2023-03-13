@@ -67,6 +67,36 @@ func NewTournamentController(repo *repos.TournamentRepo) *TournamentController {
 	return &TournamentController{repo}
 }
 
+func (controller *TournamentController) PutTour(c *fiber.Ctx) error {
+	var tour models.Tournament
+	var err error
+	if err = c.BodyParser(&tour); err != nil {
+		return c.JSON(tour)
+		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+	}
+	if err = controller.repo.UpdateTour(tour); err != nil {
+		return fiber.NewError(fiber.StatusBadRequest, err.Error())
+	}
+	return c.JSON(fiber.Map{
+		"tournament": "updated",
+	})
+}
+
+func (controller *TournamentController) PutTourInfo(c *fiber.Ctx) error {
+	var info models.TournamentInfo
+	var err error
+	if err = c.BodyParser(&info); err != nil {
+		return c.JSON(info)
+		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+	}
+	if err = controller.repo.UpdateTourInfo(info); err != nil {
+		return fiber.NewError(fiber.StatusBadRequest, err.Error())
+	}
+	return c.JSON(fiber.Map{
+		"tournament_info": "updated",
+	})
+}
+
 func RegisterTournamentController(db *gorm.DB, router fiber.Router) {
 	repo := repos.NewTournamentRepo(db)
 	controller := NewTournamentController(repo)
@@ -89,5 +119,7 @@ func RegisterTournamentController(db *gorm.DB, router fiber.Router) {
 	}))
 	AdminTourController.Get("/all", controller.GetAllTour)
 	AdminTourController.Post("/", controller.CreateNewTour)
+	AdminTourController.Post("/update", controller.PutTour)
+	AdminTourController.Post("/:id/info", controller.PutTourInfo)
 
 }
