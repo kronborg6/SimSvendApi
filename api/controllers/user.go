@@ -256,7 +256,7 @@ func RegisterUserController(db *gorm.DB, router fiber.Router) {
 	repo := repos.NewUserRepo(db)
 	controller := NewUserController(repo)
 
-	FreindsRouter := router.Group("/freinds")
+	FreindsRouter := router.Group("/friends")
 
 	FreindsRouter.Use(jwtware.New(jwtware.Config{
 		SigningKey: []byte(os.Getenv("PUBLIC")),

@@ -84,11 +84,37 @@ func (repo *TournamentRepo) UpdateTourInfo(info models.TournamentInfo) error {
 	return nil
 }
 func (repo *TournamentRepo) UpdateTour(tour models.Tournament) error {
+	// if err := repo.db.Debug().Model(&tour).Association("Tour").Append(&tour); err != nil {
+	// 	return err
+	// }
+	// if err := repo.db.Debug().Model(&tour).Where("id = ?", tour.ID).Updates(&tour).Error; err != nil {
+	// 	return err
+	// }
+	// return nil
+	var t models.TournamentInfo
+	var tourinfo = tour.Tour
+	tour.Tour = t
 	if err := repo.db.Debug().Model(&tour).Updates(&tour).Error; err != nil {
 		return err
 	}
+
+	// update the TournamentInfo model
+	if err := repo.db.Debug().Model(&t).Where("tournament_id = ?", tourinfo.TournamentID).Updates(&tourinfo).Error; err != nil {
+		return err
+	}
+	// if err := repo.db.Debug().Model(&tour).Association("Tour").Replace(&tourinfo); err != nil {
+	// 	return err
+	// }
+
 	return nil
 }
+
+// func (repo *TournamentRepo) UpdateTour(tour models.Tournament) error {
+// 	if err := repo.db.Debug().Model(&tour).Updates(&tour).Error; err != nil {
+// 		return err
+// 	}
+// 	return nil
+// }
 
 func NewTournamentRepo(db *gorm.DB) *TournamentRepo {
 	return &TournamentRepo{db}
