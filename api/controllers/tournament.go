@@ -71,7 +71,7 @@ func (controller *TournamentController) PutTour(c *fiber.Ctx) error {
 	var tour models.Tournament
 	var err error
 	if err = c.BodyParser(&tour); err != nil {
-		// return c.JSON(tour)
+		return c.JSON(tour)
 		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
 	}
 	if err = controller.repo.UpdateTour(tour); err != nil {

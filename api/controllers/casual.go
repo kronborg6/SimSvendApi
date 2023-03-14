@@ -1,9 +1,11 @@
 package controllers
 
 import (
+	"os"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
+	jwtware "github.com/gofiber/jwt/v3"
 	"github.com/kronborg6/SimSvendApi/api/models"
 	"github.com/kronborg6/SimSvendApi/api/repos"
 	"gorm.io/gorm"
@@ -57,6 +59,10 @@ func RegisterCasualController(db *gorm.DB, router fiber.Router) {
 	controller := NewCasualController(repo)
 
 	CasualController := router.Group("/casual")
+
+	CasualController.Use(jwtware.New(jwtware.Config{
+		SigningKey: []byte(os.Getenv("PUBLIC")),
+	}))
 
 	CasualController.Post("/", controller.CreateCasualGame)
 	CasualController.Post("/result", controller.PutMatchResult)
