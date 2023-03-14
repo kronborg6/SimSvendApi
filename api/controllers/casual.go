@@ -19,8 +19,11 @@ func (controller *CasualController) CreateCasualGame(c *fiber.Ctx) error {
 	var match models.Match
 	var err error
 	if err = c.BodyParser(&match); err != nil {
-		// return c.JSON(match)
+		return c.JSON(match)
 		return fiber.NewError(fiber.StatusNotAcceptable, err.Error())
+	}
+	if match.TeamAPlayerA == match.TeamBPlayerA || match.TeamAPlayerA == match.TeamBPlayerB || match.TeamAPlayerB == match.TeamBPlayerA || match.TeamAPlayerB == match.TeamBPlayerB {
+		return fiber.NewError(fiber.StatusNotAcceptable, "a player on team a match a player on team b")
 	}
 	match.PlayTime = time.Now()
 	data, err := controller.repo.NewCasualGame(match)
