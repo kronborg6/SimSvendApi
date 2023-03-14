@@ -187,6 +187,9 @@ func (repo *UserRepo) AcceptFriendRequest(freind models.Friends) (models.Friends
 	if err := repo.db.Debug().Where("user_id = ? AND friend_id = ? AND is_friends = false", freind.UserID, freind.FriendID).Preload("Friend").Find(&freind).Error; err != nil {
 		return freind, err
 	}
+	if freind.Sender {
+		return freindother, errors.New("you can accept a friend request you send")
+	}
 	fmt.Println(freind)
 	freind.IsFriends = true
 	freindother.UserID = freind.FriendID
@@ -198,9 +201,6 @@ func (repo *UserRepo) AcceptFriendRequest(freind models.Friends) (models.Friends
 	if err := repo.db.Debug().Model(&freindother).Where("user_id = ? AND friend_id = ? AND is_friends = false", freindother.UserID, freindother.FriendID).Updates(&freindother).Error; err != nil {
 		return freind, err
 	}
-	// if err := repo.db.Debug().Create(&freindother).Error; err != nil {
-	// 	return freind, err
-	// }
 	return freind, nil
 }
 func (repo *UserRepo) SendFriendRequest(friend models.Friends) error {
@@ -212,6 +212,7 @@ func (repo *UserRepo) SendFriendRequest(friend models.Friends) error {
 
 	ortherfriend.FriendID = friend.UserID
 	ortherfriend.UserID = friend.FriendID
+	friend.Sender = true
 	if err := repo.db.Debug().Create(&friend).Error; err != nil {
 		return err
 	}

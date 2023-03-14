@@ -34,6 +34,7 @@ type Friends struct {
 	FriendID  int  `json:"friend_id" gorm:"NOT NULL"`
 	Friend    User `gorm:"foreignkey:FriendID" sql:"DEFAULT:null"`
 	IsFriends bool `json:"is_friends" sql:"DEFAULT:false"`
+	Sender    bool `json:"-" sql:"DEFUALT:false"`
 	// Email string `json:"email" gorm:"NOT NULL"`
 }
 
