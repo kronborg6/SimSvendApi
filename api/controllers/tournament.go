@@ -119,7 +119,7 @@ func RegisterTournamentController(db *gorm.DB, router fiber.Router) {
 	}))
 	AdminTourController.Get("/all", controller.GetAllTour)
 	AdminTourController.Post("/", controller.CreateNewTour)
-	AdminTourController.Post("/update/tour", controller.PutTour)
+	AdminTourController.Post("/update", controller.PutTour)
 	AdminTourController.Post("/update/info", controller.PutTourInfo)
 
 }
