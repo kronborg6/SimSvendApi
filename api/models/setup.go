@@ -345,12 +345,8 @@ func Setup(db *gorm.DB) {
 				Email:     "mkronborg7@gmail.com",
 				CreateAt:  time.Now(),
 			},
-			// Role: Roles{Name: "Admin"},
 			RoleID:    2,
 			UserStats: UserStats{Elo: 99999, Points: 1241241, Wins: 999, Losses: 0},
-			// FriendList: []Friends{{Email: "t.kronborg6@gmail.com"}, {Email: "allanandersen6996@gmail.com"}, {Email: "augustschnellpedersen@gmail.com"}},
-			// FriendList: []Friends{Friends{Friend: &User{ID: 2}}},
-			// FriendList: []Friends{},
 		},
 		{
 
@@ -361,12 +357,8 @@ func Setup(db *gorm.DB) {
 				Password:  middleware.HashPassword("Test"),
 				CreateAt:  time.Now(),
 			},
-			// Role: Roles{Name: "Bruger"},
-
 			RoleID:    1,
 			UserStats: UserStats{Elo: 150, Points: 250, Wins: 0, Losses: 0},
-			// FriendList: []Friends{{Email: "mkronborg7@gmail.com"}, {Email: "allanandersen6996@gmail.com"}},
-			// FriendList: []Friends{{UserID: 1}, {UserID: 3}},
 		},
 		{
 
@@ -377,11 +369,8 @@ func Setup(db *gorm.DB) {
 				Password:  middleware.HashPassword("Test"),
 				CreateAt:  time.Now(),
 			},
-			// Role:       Roles{Name: "Admin"},
 			RoleID:    1,
 			UserStats: UserStats{Elo: 423, Points: 5555, Wins: 10, Losses: 0},
-			// FriendList: []Friends{{Email: "mkronborg7@gmail.com"}, {Email: "t.kronborg6@gmail.com"}},
-			// FriendList: []Friends{{UserID: 1}, {UserID: 2}},
 		},
 		{
 
@@ -392,12 +381,44 @@ func Setup(db *gorm.DB) {
 				Password:  middleware.HashPassword("Test"),
 				CreateAt:  time.Now(),
 			},
-			// Role:       Roles{Name: "Admin"},
 			RoleID:    1,
 			UserStats: UserStats{Elo: 100, Points: 1, Wins: 0, Losses: 100},
-			// FriendList: []Friends{{UserID: 1}, {UserID: 2}},
+		},
+		{
 
-			// FriendList: []Friends{{Email: "mkronborg7@gmail.com"}, {Email: "t.kronborg6@gmail.com"}},
+			Userinfo: UserInfo{
+				FirstName: "Oliver",
+				LastName:  "Mathiesen",
+				Email:     "Oliver69@gmail.com",
+				Password:  middleware.HashPassword("Test"),
+				CreateAt:  time.Now(),
+			},
+			RoleID:    1,
+			UserStats: UserStats{Elo: 100, Points: 1, Wins: 0, Losses: 100},
+		},
+		{
+
+			Userinfo: UserInfo{
+				FirstName: "Morten",
+				LastName:  "Bindzus",
+				Email:     "Bindzus@gmail.com",
+				Password:  middleware.HashPassword("Test"),
+				CreateAt:  time.Now(),
+			},
+			RoleID:    1,
+			UserStats: UserStats{Elo: 100, Points: 1, Wins: 0, Losses: 100},
+		},
+		{
+
+			Userinfo: UserInfo{
+				FirstName: "Jakob",
+				LastName:  "Johansen",
+				Email:     "JakobJohansen@gmail.com",
+				Password:  middleware.HashPassword("Test"),
+				CreateAt:  time.Now(),
+			},
+			RoleID:    1,
+			UserStats: UserStats{Elo: 100, Points: 1, Wins: 0, Losses: 100},
 		},
 	}
 	place := []Club{
@@ -562,6 +583,50 @@ func Setup(db *gorm.DB) {
 			FriendID:  1,
 			IsFriends: true,
 		},
+		{
+			UserID:    1,
+			FriendID:  6,
+			IsFriends: true,
+		},
+
+		{
+			UserID:    6,
+			FriendID:  1,
+			IsFriends: true,
+		},
+
+		{
+			UserID:    1,
+			FriendID:  7,
+			IsFriends: true,
+		},
+
+		{
+			UserID:    7,
+			FriendID:  1,
+			IsFriends: true,
+		},
+		{
+			UserID:    7,
+			FriendID:  3,
+			IsFriends: true,
+		},
+		{
+			UserID:    3,
+			FriendID:  7,
+			IsFriends: true,
+		},
+		{
+			UserID:    6,
+			FriendID:  3,
+			IsFriends: true,
+		},
+		{
+			UserID:    3,
+			FriendID:  6,
+			IsFriends: true,
+		},
+
 		// {
 		// 	UserID:    1,
 		// 	FriendID:  3,

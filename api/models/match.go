@@ -35,6 +35,14 @@ type Results struct {
 	MatchID int
 }
 
+type EloCaulator struct {
+	ID       int
+	Player   int // mabey forekey to user or just put user uder (Player User)
+	EloBefor int
+	EloAfter *int
+	Game     int // mabey forekey to user or just put user uder (Game Match)
+}
+
 /*
 	 type MatchHistoryTeams struct {
 	}
