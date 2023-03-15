@@ -7,6 +7,7 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v4"
+
 	"github.com/kronborg6/SimSvendApi/api/models"
 	"github.com/kronborg6/SimSvendApi/api/repos"
 	"gorm.io/gorm"
@@ -34,10 +35,8 @@ func (controller *AuthController) Login(c *fiber.Ctx) error {
 		"exp":  time.Now().Add(time.Hour * 72).Unix(),
 	}
 
-	// Create token
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
-	// Generate encoded token and send it as response.
 	t, err := token.SignedString([]byte(os.Getenv("PUBLIC")))
 	if err != nil {
 		return c.SendStatus(fiber.StatusInternalServerError)
@@ -88,6 +87,9 @@ func (controller *AuthController) CheckToken(c *fiber.Ctx) error {
 		return fiber.NewError(fiber.StatusNotFound, err.Error())
 	}
 	return c.JSON(data)
+}
+func (controller *AuthController) TokenChecker(c *fiber.Ctx) error {
+	return nil
 }
 func (controller *AuthController) CreateNewUser(c *fiber.Ctx) error {
 	var model models.UserInfo
