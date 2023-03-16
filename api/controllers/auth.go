@@ -64,10 +64,8 @@ func (controller *AuthController) AdminLogin(c *fiber.Ctx) error {
 		"exp":  time.Now().Add(time.Hour * 72).Unix(),
 	}
 
-	// Create token
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
-	// Generate encoded token and send it as response.
 	t, err := token.SignedString([]byte(os.Getenv("PRIVATE")))
 	if err != nil {
 		return c.SendStatus(fiber.StatusInternalServerError)
@@ -106,10 +104,8 @@ func (controller *AuthController) CreateNewUser(c *fiber.Ctx) error {
 		"exp":  time.Now().Add(time.Hour * 72).Unix(),
 	}
 
-	// Create token
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
-	// Generate encoded token and send it as response.
 	t, err := token.SignedString([]byte(os.Getenv("PUBLIC")))
 	if err != nil {
 		return c.SendStatus(fiber.StatusInternalServerError)
