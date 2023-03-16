@@ -617,6 +617,26 @@ func Setup(db *gorm.DB) {
 			IsFriends: true,
 		},
 		{
+			UserID:    3,
+			FriendID:  4,
+			IsFriends: true,
+		},
+		{
+			UserID:    3,
+			FriendID:  5,
+			IsFriends: true,
+		},
+		{
+			UserID:    5,
+			FriendID:  3,
+			IsFriends: true,
+		},
+		{
+			UserID:    4,
+			FriendID:  3,
+			IsFriends: true,
+		},
+		{
 			UserID:    6,
 			FriendID:  3,
 			IsFriends: true,

@@ -2,7 +2,6 @@ package repos
 
 import (
 	"errors"
-	"fmt"
 
 	"github.com/kronborg6/SimSvendApi/api/models"
 	"gorm.io/gorm"
@@ -39,7 +38,6 @@ func (repo *MatchRepo) FindMyGames(userID int) ([]models.Match, error) {
 	for i := range games {
 		if !games[i].Don {
 			game = append(games, game...)
-			fmt.Println("gg")
 		}
 	}
 	return game, nil

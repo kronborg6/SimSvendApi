@@ -24,10 +24,8 @@ type UserStats struct {
 type Roles struct {
 	ID   int
 	Name string `json:"name" gorm:"not null"`
-	// UserID int    `json:"userId" gorm:"ForeignKey:ID"`
 }
 
-// TODO: make it so Friends have users under or maby a FK
 type Friends struct {
 	ID        int
 	UserID    int  `gorm:"not null"`
@@ -35,7 +33,6 @@ type Friends struct {
 	Friend    User `gorm:"foreignkey:FriendID" sql:"DEFAULT:null"`
 	IsFriends bool `json:"is_friends" sql:"DEFAULT:false"`
 	Sender    bool `json:"-" sql:"DEFUALT:false"`
-	// Email string `json:"email" gorm:"NOT NULL"`
 }
 
 type User struct {
@@ -46,11 +43,3 @@ type User struct {
 	Role       Roles     `gorm:"foreignkey:RoleID" `
 	FriendList []Friends `gorm:"foreignkey:UserID" sql:"DEFAULT:null"`
 }
-
-// func (f *Friends) Value() (driver.Value, error) {
-// 	return json.Marshal(f)
-// }
-
-// func (f *Friends) Scan(data interface{}) error {
-// 	return json.Unmarshal(data.([]byte), f)
-// }
