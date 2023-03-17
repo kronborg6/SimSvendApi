@@ -1,0 +1,204 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "Simsvend",
+    "dateExported": "2023-03-16T21:36:51.160Z",
+    "version": "1.1",
+    "folders": [
+        {
+            "_id": "03ab6c33-6076-4787-bb9d-6ecf80b3c13f",
+            "name": "Auth",
+            "containerId": "",
+            "created": "2023-03-15T23:32:11.632Z",
+            "sortNum": 10000
+        },
+        {
+            "_id": "5701c595-84e1-4008-9ec8-39044e477cc5",
+            "name": "Casual",
+            "containerId": "",
+            "created": "2023-03-15T23:32:56.822Z",
+            "sortNum": 20000
+        },
+        {
+            "_id": "a329c368-5af6-4384-b81a-2bc1a446cab9",
+            "name": "User",
+            "containerId": "",
+            "created": "2023-03-16T08:27:40.083Z",
+            "sortNum": 30000
+        },
+        {
+            "_id": "fe3748c8-d9fa-4abb-9408-d03e776be45a",
+            "name": "Friends",
+            "containerId": "",
+            "created": "2023-03-16T21:25:24.217Z",
+            "sortNum": 40000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "12e0e164-c076-438b-b9c3-878d11642c25",
+            "colId": "e366d1a5-8cb0-4130-8d91-3839b6b4e6e1",
+            "containerId": "03ab6c33-6076-4787-bb9d-6ecf80b3c13f",
+            "name": "Create New User",
+            "url": "localhost:8000/auth/register",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-03-15T23:32:32.653Z",
+            "modified": "2023-03-15T23:32:32.653Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"first_name\": \"Ole\",\n  \"last_name\": \"Ost\",\n  \"email\": \"oleost69@gmail.com\",\n  \"password\": \"Test\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "a91e013f-38d5-4105-86a5-b9e4d29d3811",
+            "colId": "e366d1a5-8cb0-4130-8d91-3839b6b4e6e1",
+            "containerId": "5701c595-84e1-4008-9ec8-39044e477cc5",
+            "name": "Create New Casual Game",
+            "url": "localhost:8000/casual/",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2023-03-15T23:33:10.592Z",
+            "modified": "2023-03-15T23:33:10.592Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"place_id\": 1,\n  \"court_id\": 1,\n  \"team_a_player_a\": 1,\n  \"team_a_player_b\": 2,\n  \"team_b_player_a\": 2,\n  \"team_b_player_b\": 4\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzkwNjY3MjYsInVzZXIiOnsiSUQiOjEsImZpcnN0X25hbWUiOiJNaWtrZWwiLCJsYXN0X25hbWUiOiJLcm9uYm9yZyIsImVtYWlsIjoibWtyb25ib3JnN0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IiIsIkNyZWF0ZUF0IjoiMjAyMy0wMy0xNFQxNjoyNDozMy44MzUrMDE6MDAiLCJ1c2VySWQiOjF9fQ.yQ6QFi_3JGF639NbPZW5PnAxQ4DU205Pr4ifsdLI0Dw"
+            },
+            "tests": []
+        },
+        {
+            "_id": "daa311f2-4f6b-4f37-811d-e838a4f506ac",
+            "colId": "e366d1a5-8cb0-4130-8d91-3839b6b4e6e1",
+            "containerId": "03ab6c33-6076-4787-bb9d-6ecf80b3c13f",
+            "name": "Login",
+            "url": "localhost:8000/auth/login",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2023-03-15T23:41:07.022Z",
+            "modified": "2023-03-16T08:28:19.214Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\": \"mkronborg7@gmail.com\",\n  \"password\": \"Test\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "2a5beac3-be75-479a-a30d-62ab548c53b8",
+            "colId": "e366d1a5-8cb0-4130-8d91-3839b6b4e6e1",
+            "containerId": "a329c368-5af6-4384-b81a-2bc1a446cab9",
+            "name": "Friend list",
+            "url": "localhost:8000/friends/3",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2023-03-16T08:27:48.251Z",
+            "modified": "2023-03-16T08:28:27.525Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzkyMTQ0OTksInVzZXIiOnsiSUQiOjEsImZpcnN0X25hbWUiOiJNaWtrZWwiLCJsYXN0X25hbWUiOiJLcm9uYm9yZyIsImVtYWlsIjoibWtyb25ib3JnN0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IiIsIkNyZWF0ZUF0IjoiMjAyMy0wMy0xNlQwOToyNzoyMS4wODMrMDE6MDAiLCJ1c2VySWQiOjF9fQ.zpBVXbYShQhR_adCNJFu9QNZYgSR3gqR33n2jYR4PkI"
+            },
+            "tests": []
+        },
+        {
+            "_id": "c9d40450-a34a-4421-a1b4-b5c782b25b2b",
+            "colId": "e366d1a5-8cb0-4130-8d91-3839b6b4e6e1",
+            "containerId": "fe3748c8-d9fa-4abb-9408-d03e776be45a",
+            "name": "New",
+            "url": "https://kronborgapi.com/friends/new",
+            "method": "POST",
+            "sortNum": 50000,
+            "created": "2023-03-16T21:26:07.014Z",
+            "modified": "2023-03-16T21:27:31.228Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\r\n    \"UserID\": 1,\r\n    \"friend_id\": 3\r\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzkyNjEyMjksInVzZXIiOnsiSUQiOjEsImZpcnN0X25hbWUiOiJNaWtrZWwiLCJsYXN0X25hbWUiOiJLcm9uYm9yZyIsImVtYWlsIjoibWtyb25ib3JnN0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IiIsIkNyZWF0ZUF0IjoiMjAyMy0wMy0xNlQwODozMTo0My4wNTJaIiwidXNlcklkIjoxfX0.ZkFNDovO__KH2PRLGicbSsH2kLsZAdpuyk-ZBNz88_o"
+            },
+            "tests": []
+        },
+        {
+            "_id": "58395226-e747-4910-b301-4f23b1d52b72",
+            "colId": "e366d1a5-8cb0-4130-8d91-3839b6b4e6e1",
+            "containerId": "fe3748c8-d9fa-4abb-9408-d03e776be45a",
+            "name": "Remove",
+            "url": "https://kronborgapi.com/friends/remove",
+            "method": "POST",
+            "sortNum": 60000,
+            "created": "2023-03-16T21:27:50.693Z",
+            "modified": "2023-03-16T21:34:16.045Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\r\n    \"UserID\": 1,\r\n    \"friend_id\": 3\r\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzkyNjEyMjksInVzZXIiOnsiSUQiOjEsImZpcnN0X25hbWUiOiJNaWtrZWwiLCJsYXN0X25hbWUiOiJLcm9uYm9yZyIsImVtYWlsIjoibWtyb25ib3JnN0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IiIsIkNyZWF0ZUF0IjoiMjAyMy0wMy0xNlQwODozMTo0My4wNTJaIiwidXNlcklkIjoxfX0.ZkFNDovO__KH2PRLGicbSsH2kLsZAdpuyk-ZBNz88_o"
+            },
+            "tests": []
+        },
+        {
+            "_id": "fab3f395-73b4-470b-b2e2-aba8ebe9bcfc",
+            "colId": "e366d1a5-8cb0-4130-8d91-3839b6b4e6e1",
+            "containerId": "fe3748c8-d9fa-4abb-9408-d03e776be45a",
+            "name": "List",
+            "url": "https://kronborgapi.com/friends/1",
+            "method": "GET",
+            "sortNum": 70000,
+            "created": "2023-03-16T21:28:44.828Z",
+            "modified": "2023-03-16T21:30:12.989Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzkyNjEyMjksInVzZXIiOnsiSUQiOjEsImZpcnN0X25hbWUiOiJNaWtrZWwiLCJsYXN0X25hbWUiOiJLcm9uYm9yZyIsImVtYWlsIjoibWtyb25ib3JnN0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IiIsIkNyZWF0ZUF0IjoiMjAyMy0wMy0xNlQwODozMTo0My4wNTJaIiwidXNlcklkIjoxfX0.ZkFNDovO__KH2PRLGicbSsH2kLsZAdpuyk-ZBNz88_o"
+            },
+            "tests": []
+        },
+        {
+            "_id": "22d8dac4-fa5b-4e01-8785-a11fa5bde6fa",
+            "colId": "e366d1a5-8cb0-4130-8d91-3839b6b4e6e1",
+            "containerId": "fe3748c8-d9fa-4abb-9408-d03e776be45a",
+            "name": "Accept",
+            "url": "https://kronborgapi.com/friends/accept",
+            "method": "POST",
+            "sortNum": 80000,
+            "created": "2023-03-16T21:28:53.270Z",
+            "modified": "2023-03-16T21:32:32.100Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\r\n    \"UserID\": 3,\r\n    \"friend_id\": 1\r\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzkyNjEyMjksInVzZXIiOnsiSUQiOjEsImZpcnN0X25hbWUiOiJNaWtrZWwiLCJsYXN0X25hbWUiOiJLcm9uYm9yZyIsImVtYWlsIjoibWtyb25ib3JnN0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IiIsIkNyZWF0ZUF0IjoiMjAyMy0wMy0xNlQwODozMTo0My4wNTJaIiwidXNlcklkIjoxfX0.ZkFNDovO__KH2PRLGicbSsH2kLsZAdpuyk-ZBNz88_o"
+            },
+            "tests": []
+        }
+    ]
+}
