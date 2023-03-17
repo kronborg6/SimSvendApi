@@ -52,9 +52,9 @@ func Setup(db *gorm.DB) {
 	}
 	// userinfo := []UserInfo{
 	// 	{
-	// 		FirstName: "Mikkel",
+	// 		FirstName: "kristian",
 	// 		LastName:  "Kronborg",
-	// 		Email:     "mkronborg7@gmail.com",
+	// 		Email:     "kronborg@gmail.com",
 	// 		Password:  middleware.HashPassword("Test"),
 	// 		// RoleId:    2,
 	// 		// UserStatsID: 1,
@@ -63,8 +63,8 @@ func Setup(db *gorm.DB) {
 	// 	},
 	// 	{
 	// 		FirstName: "August",
-	// 		LastName:  "Schnell",
-	// 		Email:     "augustschnellpedersen@gmail.com",
+	// 		LastName:  "Jensen",
+	// 		Email:     "AugJensen@gmail.com",
 	// 		Password:  middleware.HashPassword("Test"),
 	// 		// RoleId:    1,
 	// 		// UserStatsID: 2,
@@ -72,9 +72,9 @@ func Setup(db *gorm.DB) {
 	// 		// FriendsList: []UserInfo{{Id: 1}},
 	// 	},
 	// 	{
-	// 		FirstName: "Tina",
-	// 		LastName:  "Kronborg",
-	// 		Email:     "t.kronborg6@gmail.com",
+	// 		FirstName: "Ole",
+	// 		LastName:  "Olesen",
+	// 		Email:     "oleole@gmail.com",
 	// 		Password:  middleware.HashPassword("Test"),
 	// 		// RoleId:    1,
 	// 		// UserStatsID: 3,
@@ -82,9 +82,9 @@ func Setup(db *gorm.DB) {
 	// 		// FriendsList: []UserInfo{{Id: 1}, {Id: 4}},
 	// 	},
 	// 	{
-	// 		FirstName: "Oliver",
-	// 		LastName:  "Mathiesen",
-	// 		Email:     "mathiesenoliver@gmail.com",
+	// 		FirstName: "Morten",
+	// 		LastName:  "Iorden",
+	// 		Email:     "morteeen@gmail.com",
 	// 		Password:  middleware.HashPassword("Test"),
 	// 		// RoleId:    1,
 	// 		// UserStatsID: 4,
@@ -138,9 +138,9 @@ func Setup(db *gorm.DB) {
 	// 	{
 
 	// 		Userinfo: UserInfo{
-	// 			FirstName: "Mikkel",
+	// 			FirstName: "kristian",
 	// 			LastName:  "Kronborg",
-	// 			Email:     "mkronborg7@gmail.com",
+	// 			Email:     "Kronborg@gmail.com",
 	// 			Password:  middleware.HashPassword("Test"),
 	// 			CreateAt:  time.Now(),
 	// 		},
@@ -149,19 +149,19 @@ func Setup(db *gorm.DB) {
 	// {
 
 	// 	Userinfo: UserInfo{
-	// 		FirstName: "Tina",
-	// 		LastName:  "Kronborg",
-	// 		Email:     "t.kronborg6@gmail.com",
+	// 		FirstName: "Ole",
+	// 		LastName:  "Ost",
+	// 		Email:     "Osten@gmail.com",
 	// 		Password:  middleware.HashPassword("Test"),
 	// 		CreateAt:  time.Now(),
 	// 	},
 	// },
 	// {
 	// 	Userinfo: UserInfo{
-	// 		FirstName: "Mikkel",
-	// 		LastName:  "Kronborg",
+	// 		FirstName: "Jens",
+	// 		LastName:  "Jensen",
 	// 		Password:  middleware.HashPassword("Test"),
-	// 		Email:     "mkronborg7@gmail.com",
+	// 		Email:     "j.jensen@gmail.com",
 	// 		CreateAt:  time.Now(),
 	// 	},
 	// 	// UserStats: UserStats{},
@@ -173,10 +173,10 @@ func Setup(db *gorm.DB) {
 	// },
 	/* 		{
 		Userinfo: UserInfo{
-			FirstName: "Tina",
-			LastName:  "Kronborg",
+			FirstName: "Morten",
+			LastName:  "Hansen",
 			Password:  middleware.HashPassword("Test"),
-			Email:     "t.kronborg6@gmail.com",
+			Email:     "t.hansen@gmail.com",
 			CreateAt:  time.Now(),
 		},
 		// 	// UserStats: UserStats{},
@@ -324,25 +324,25 @@ func Setup(db *gorm.DB) {
 	}
 	zip := []ZipCode{
 		{
-			ID:   5690,
-			Name: "Tommerup",
+			ID:   6996,
+			Name: "Fucking",
 		},
 		{
 			ID:   5000,
-			Name: "Odense",
+			Name: "Broby",
 		},
 		{
-			ID:   5220,
-			Name: "Odense",
+			ID:   4200,
+			Name: "Snoop",
 		},
 	}
 	user2 := []User{
 		{
 			Userinfo: UserInfo{
-				FirstName: "Mikkel",
+				FirstName: "kristian",
 				LastName:  "Kronborg",
 				Password:  middleware.HashPassword("Test"),
-				Email:     "mkronborg7@gmail.com",
+				Email:     "k.kronborg@gmail.com",
 				CreateAt:  time.Now(),
 			},
 			RoleID:    2,
@@ -352,8 +352,8 @@ func Setup(db *gorm.DB) {
 
 			Userinfo: UserInfo{
 				FirstName: "Tina",
-				LastName:  "Kronborg",
-				Email:     "t.kronborg6@gmail.com",
+				LastName:  "Tomsen",
+				Email:     "t.tomsen@gmail.com",
 				Password:  middleware.HashPassword("Test"),
 				CreateAt:  time.Now(),
 			},
@@ -364,8 +364,8 @@ func Setup(db *gorm.DB) {
 
 			Userinfo: UserInfo{
 				FirstName: "Allan",
-				LastName:  "Andersen",
-				Email:     "allanandersen6996@gmail.com",
+				LastName:  "hansen",
+				Email:     "hansenerbaresej@gmail.com",
 				Password:  middleware.HashPassword("Test"),
 				CreateAt:  time.Now(),
 			},
@@ -375,9 +375,9 @@ func Setup(db *gorm.DB) {
 		{
 
 			Userinfo: UserInfo{
-				FirstName: "August",
-				LastName:  "Schnell",
-				Email:     "augustschnellpedersen@gmail.com",
+				FirstName: "thomans",
+				LastName:  "hansen",
+				Email:     "t.hansen@gmail.com",
 				Password:  middleware.HashPassword("Test"),
 				CreateAt:  time.Now(),
 			},
@@ -388,7 +388,7 @@ func Setup(db *gorm.DB) {
 
 			Userinfo: UserInfo{
 				FirstName: "Oliver",
-				LastName:  "Mathiesen",
+				LastName:  "Mikkelsen",
 				Email:     "Oliver69@gmail.com",
 				Password:  middleware.HashPassword("Test"),
 				CreateAt:  time.Now(),
@@ -400,8 +400,8 @@ func Setup(db *gorm.DB) {
 
 			Userinfo: UserInfo{
 				FirstName: "Morten",
-				LastName:  "Bindzus",
-				Email:     "Bindzus@gmail.com",
+				LastName:  "Iorden",
+				Email:     "deterbareiorden@gmail.com",
 				Password:  middleware.HashPassword("Test"),
 				CreateAt:  time.Now(),
 			},
@@ -412,7 +412,7 @@ func Setup(db *gorm.DB) {
 
 			Userinfo: UserInfo{
 				FirstName: "Jakob",
-				LastName:  "Johansen",
+				LastName:  "Jakobson",
 				Email:     "JakobJohansen@gmail.com",
 				Password:  middleware.HashPassword("Test"),
 				CreateAt:  time.Now(),
