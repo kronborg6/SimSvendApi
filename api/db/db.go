@@ -9,18 +9,6 @@ import (
 	"gorm.io/gorm"
 )
 
-// func Init() *gorm.DB {
-// 	dsn := "root:password@tcp(localhost:3306)/simsvend?charset=utf8mb4&parseTime=True&loc=Local" // Home Database
-// 	// dsn := "root:jxgcsTKUUO9OzYYN1Z56@tcp(containers-us-west-191.railway.app:6263)/railway?charset=utf8mb4&parseTime=True&loc=Local" // Home Database
-
-// 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
-
-// 	if err != nil {
-// 		log.Fatal(err)
-// 	}
-// 	return db
-// }
-
 func Init() *gorm.DB {
 	dsn := fmt.Sprintf(
 		"%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local",
