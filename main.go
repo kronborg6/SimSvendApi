@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"time"
@@ -37,7 +38,7 @@ func main() {
 		CacheControl: true,
 	}))
 	app.Use(cors.New())
-
+	fmt.Println("Kronborgs Test")
 	// middleware.EncryptoKey()
 	// fmt.Println(getPort())
 
